@@ -23,7 +23,8 @@ export default class ConfigService {
       APP_DOMAIN: import.meta.env.VITE_DOMAIN || 'app.balancer.fi',
       APP_HOST: import.meta.env.VITE_HOST || 'balancer.fi',
       API_URL:
-        import.meta.env.VITE_API_URL || 'https://api-v3.balancer.fi/graphql',
+        import.meta.env.VITE_API_URL ||
+        'https://bl5ot3alqvc77hllxgclj72rmm.appsync-api.eu-north-1.amazonaws.com/graphql',
       IPFS_NODE: import.meta.env.VITE_IPFS_NODE || 'cloudflare-ipfs.com',
       BLOCKNATIVE_DAPP_ID:
         import.meta.env.VITE_BLOCKNATIVE_DAPP_ID || 'MISSING_KEY',
