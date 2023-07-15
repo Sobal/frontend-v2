@@ -75,7 +75,7 @@ const fiatTotalExpiredLpTokens = computed(() =>
               <BalStack horizontal justify="between" align="center">
                 <BalStack spacing="sm" horizontal>
                   <div
-                    class="flex items-center p-1 text-white bg-green-500 rounded-full"
+                    class="flex items-center p-1 text-white rounded-full bg-lime-500"
                   >
                     <BalIcon size="sm" name="check" />
                   </div>

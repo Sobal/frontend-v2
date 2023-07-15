@@ -645,7 +645,7 @@ watch(blockNumber, () => {
           </div>
           <div class="summary-item-row">
             <div>{{ $t('swapSummary.gasCosts') }}</div>
-            <div class="text-green-400">-{{ zeroFee }}</div>
+            <div class="text-lime-400">-{{ zeroFee }}</div>
           </div>
           <div class="summary-item-row">
             <div>{{ labels.swapSummary.swapFees }}</div>
@@ -777,6 +777,6 @@ watch(blockNumber, () => {
 }
 
 .step-approved {
-  @apply border-green-500 dark:border-green-500;
+  @apply border-lime-500 dark:border-lime-500;
 }
 </style>

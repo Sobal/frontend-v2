@@ -1,3 +1,4 @@
+<!-- eslint-disable tailwindcss/classnames-order -->
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
@@ -150,7 +151,7 @@ function toggleModal(): void {
 
     <div
       v-else
-      class="token-select-input unselected selectable"
+      class="!text-primary-900 token-select-input unselected selectable"
       @click="toggleModal"
     >
       {{ $t('selectToken') }}
