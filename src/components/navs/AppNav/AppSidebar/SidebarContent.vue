@@ -180,7 +180,7 @@ watch(blockNumber, async () => {
       <div class="flex items-center">
         <div
           ref="blockIcon"
-          class="w-2 h-2 bg-green-500 rounded-full block-icon"
+          class="w-2 h-2 rounded-full bg-lime-500 block-icon"
         />
         <span class="ml-2 text-gray-300">
           {{ networkConfig.name }}: Block {{ blockNumber }}

@@ -418,7 +418,7 @@ const handleAxisMoved = ({ dataIndex, seriesIndex }: AxisMoveEvent) => {
       </h3>
       <span
         :class="{
-          'text-green-400': change >= 0,
+          'text-lime-400': change >= 0,
           'text-red-400': change < 0,
           'font-medium': true,
         }"

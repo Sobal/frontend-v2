@@ -326,7 +326,7 @@ function getVolumeData(
       : Number(periodSnapshots[pariodLastSnapshotIdx].swapVolume));
 
   return {
-    color: [tailwind.theme.colors.green['400']],
+    color: [tailwind.theme.colors.lime['400']],
     chartType: 'bar',
     hoverColor: tailwind.theme.colors.pink['500'],
     data: [

@@ -121,7 +121,7 @@ function handlePreviewClose() {
                     :class="[
                       'flex items-center p-1 text-white rounded-full',
                       {
-                        'bg-green-500': isStakablePool,
+                        'bg-lime-500': isStakablePool,
                         'bg-gray-400': !isStakablePool,
                       },
                     ]"

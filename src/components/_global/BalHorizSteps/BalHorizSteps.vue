@@ -45,7 +45,7 @@ const walletLogo = computed((): string =>
 function stateClasses(state: StepState): string {
   switch (state) {
     case StepState.Success:
-      return 'border-green-500 dark:border-green-500 text-green-500';
+      return 'border-lime-500 dark:border-lime-500 text-lime-500';
     case StepState.Pending:
       return 'border-none dark:border-none text-orange-500';
     case StepState.Active:

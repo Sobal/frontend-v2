@@ -176,7 +176,7 @@ const textColorClasses = computed(() => {
   }
   if (props.outline || props.flat)
     return `${text(props.color)} ${darkText(props.color)}`;
-  return 'text-white';
+  return 'text-primary-900';
 });
 
 const displayClasses = computed(() => {
