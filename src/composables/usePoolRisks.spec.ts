@@ -17,45 +17,16 @@ import {
   tetuBoostedPoolId,
 } from '@/lib/config/goerli/pools';
 
-function withGoerli() {
-  networkId.value = Network.GOERLI;
+function withNeonDevnet() {
+  networkId.value = Network.NEON_DEVNET;
 }
-function withArbitrum() {
-  networkId.value = Network.ARBITRUM;
-}
-
-function withPolygon() {
-  networkId.value = Network.POLYGON;
-}
-
-function withGnosis() {
-  networkId.value = Network.GNOSIS;
+function withNeonMainnet() {
+  networkId.value = Network.NEON_MAINNET;
 }
 
 describe('Generates links for', () => {
-  test('a boosted pool with Aave and Morph boosted protocols', () => {
-    withGoerli();
-    expect(riskLinks(aBoostedPool({ id: poolIdWithTwoBoostedProtocols })))
-      .toMatchInlineSnapshot(`
-      [
-        {
-          "hash": "#boosted-pools",
-          "title": "Boosted pool risks",
-        },
-        {
-          "hash": "#composability-risk",
-          "title": "Third party DeFi composability risks: Aave, Morpho",
-        },
-        {
-          "hash": "#general-risks",
-          "title": "General Balancer protocol risks",
-        },
-      ]
-    `);
-  });
-
-  test('a weighted pool in arbitrum with Delegate Owner (mutable risks)', () => {
-    withArbitrum();
+  test('a weighted pool in Neon Devnet', () => {
+    withNeonDevnet();
     expect(riskLinks(aWeightedPool({ owner: POOLS.DelegateOwner })))
       .toMatchInlineSnapshot(`
       [
@@ -64,8 +35,8 @@ describe('Generates links for', () => {
           "title": "Weighted pool risks",
         },
         {
-          "hash": "#arbitrum",
-          "title": "Layer 2 network risks: Arbitrum",
+          "hash": "#neonevm",
+          "title": "Network risks: Neon EVM",
         },
         {
           "hash": "#mutable-attributes-risk",
@@ -79,18 +50,22 @@ describe('Generates links for', () => {
     `);
   });
 
-  test('an stable pool in Polygon', () => {
-    withPolygon();
-    expect(riskLinks(aPool({ poolType: PoolType.Stable })))
+  test('a boosted pool with Aave and Morph boosted protocols', () => {
+    withNeonDevnet();
+    expect(riskLinks(aBoostedPool({ id: poolIdWithTwoBoostedProtocols })))
       .toMatchInlineSnapshot(`
       [
         {
-          "hash": "#stable-pools",
-          "title": "Stable pool risks",
+          "hash": "#boosted-pools",
+          "title": "Boosted pool risks",
         },
         {
-          "hash": "#polygon",
-          "title": "Layer 2 network risks: Polygon",
+          "hash": "#composability-risk",
+          "title": "Third party DeFi composability risks: Aave, Morpho",
+        },
+        {
+          "hash": "#neonevm",
+          "title": "Network risks: Neon EVM",
         },
         {
           "hash": "#general-risks",
@@ -100,35 +75,85 @@ describe('Generates links for', () => {
     `);
   });
 
-  test('a composable stable pool in Gnosis', () => {
-    withGnosis();
+  test('a stable pool in Neon Devnet', () => {
+    withNeonDevnet();
+    expect(riskLinks(aPool({ poolType: PoolType.Stable })))
+      .toMatchInlineSnapshot(`
+      [
+        {
+          "hash": "#stable-pools",
+          "title": "Stable pool risks",
+        },
+        {
+          "hash": "#neonevm",
+          "title": "Network risks: Neon EVM",
+        },
+        {
+          "hash": "#general-risks",
+          "title": "General Balancer protocol risks",
+        },
+      ]
+    `);
+  });
+
+  test('a weighted pool in Neon Mainnet', () => {
+    withNeonMainnet();
+    expect(riskLinks(aWeightedPool({ owner: POOLS.DelegateOwner })))
+      .toMatchInlineSnapshot(`
+      [
+        {
+          "hash": "#weighted-pools",
+          "title": "Weighted pool risks",
+        },
+        {
+          "hash": "#neonevm",
+          "title": "Network risks: Neon EVM",
+        },
+        {
+          "hash": "#mutable-attributes-risk",
+          "title": "Mutable attributes risks",
+        },
+        {
+          "hash": "#general-risks",
+          "title": "General Balancer protocol risks",
+        },
+      ]
+    `);
+  });
+
+  test('a composable pool in Neon Mainnet', () => {
+    withNeonMainnet();
     expect(riskLinks(aPool({ poolType: PoolType.ComposableStable })))
       .toMatchInlineSnapshot(`
-        [
-          {
-            "hash": "#composable-pools",
-            "title": "Composable Stable pool risks",
-          },
-          {
-            "hash": "#gnosis",
-            "title": "Layer 2 network risks: Gnosis",
-          },
-          {
-            "hash": "#general-risks",
-            "title": "General Balancer protocol risks",
-          },
-        ]
-      `);
+      [
+        {
+          "hash": "#composable-pools",
+          "title": "Composable Stable pool risks",
+        },
+        {
+          "hash": "#neonevm",
+          "title": "Network risks: Neon EVM",
+        },
+        {
+          "hash": "#general-risks",
+          "title": "General Balancer protocol risks",
+        },
+      ]
+    `);
   });
 
   test('a composable stable pool with Delegate Owner', () => {
-    withGoerli();
+    withNeonDevnet();
     expect(riskLinks(aPool({ poolType: PoolType.MetaStable })))
       .toMatchInlineSnapshot(`
         [
           {
             "hash": "#composable-pools",
             "title": "MetaStable pool risks",
+          },
+          {
+            "hash": "#neonevm",
+            "title": "Network risks: Neon EVM",
           },
           {
             "hash": "#general-risks",
