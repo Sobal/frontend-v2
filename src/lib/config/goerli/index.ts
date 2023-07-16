@@ -17,18 +17,18 @@ const config: Config = {
   network: 'goerli',
   trustWalletNetwork: 'goerli',
   unknown: false,
-  visibleInUI: false,
+  visibleInUI: true,
   testNetwork: true,
   rpc: `https://goerli.infura.io/v3/${keys.infura}`,
   ws: `wss://goerli.infura.io/ws/v3/${keys.infura}`,
   explorer: 'https://goerli.etherscan.io',
   explorerName: 'Etherscan',
   subgraph:
-    'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-goerli-v2',
+    'https://api.thegraph.com/subgraphs/name/joehquak/balancer-test-goerli',
   poolsUrlV2: '',
   subgraphs: {
     main: [
-      'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-goerli-v2',
+      'https://api.thegraph.com/subgraphs/name/joehquak/balancer-test-goerli',
     ],
     aave: 'https://api.thegraph.com/subgraphs/name/aave/protocol-v2',
     gauge:

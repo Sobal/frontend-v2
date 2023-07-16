@@ -102,7 +102,7 @@ const isProceedDisabled = computed(() => {
   if (Number(totalAllocatedWeight.value) !== 100) return true;
   if (seedTokens.value.length < 2) return true;
   if (zeroWeightToken.value) return true;
-  if (hasUnlistedToken.value) return true;
+  // if (hasUnlistedToken.value) return true;
   return false;
 });
 

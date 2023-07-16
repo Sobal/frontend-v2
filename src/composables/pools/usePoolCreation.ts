@@ -412,9 +412,9 @@ export default function usePoolCreation() {
   }
 
   async function createPool(): Promise<TransactionResponse> {
-    if (hasUnlistedToken.value) {
-      throw new Error('Invalid pool creation due to unlisted tokens.');
-    }
+    // if (hasUnlistedToken.value) {
+    //   throw new Error('Invalid pool creation due to unlisted tokens.');
+    // }
     const provider = getProvider();
 
     const tx = await balancerService.pools.weighted.create(
