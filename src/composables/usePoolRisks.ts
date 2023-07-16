@@ -1,10 +1,5 @@
 import { BoostedProtocol } from '@/composables/useBoostedPool';
-import {
-  isArbitrum,
-  isGnosis,
-  isOptimism,
-  isPolygon,
-} from '@/composables/useNetwork';
+import { isNeon } from '@/composables/useNetwork';
 import {
   boostedProtocols,
   isBoosted,
@@ -25,10 +20,7 @@ export const riskTitles = {
   [RiskKey.ComposableStable]: 'Composable stable pool risks',
   [RiskKey.MetaStable]: 'MetaStable pool risks',
   [RiskKey.Boosted]: 'Boosted pool risks',
-  [RiskKey.Arbitrum]: 'Layer 2 network risks: Arbitrum',
-  [RiskKey.Polygon]: 'Layer 2 network risks: Polygon',
-  [RiskKey.Optimism]: 'Layer 2 network risks: Optimism',
-  [RiskKey.Gnosis]: 'Layer 2 network risks: Gnosis',
+  [RiskKey.Neonevm]: 'Network risks: Neon EVM',
   [RiskKey.Mutable]: 'Mutable attributes risks',
   [RiskKey.Composability]: 'Composability risks',
   [RiskKey.RateProvider]: 'Rate provider risks',
@@ -58,10 +50,7 @@ const composableRisks = aLink(
 );
 const metaStableRisks = aLink(RiskKey.MetaStable);
 const boostedRisks = aLink(RiskKey.Boosted);
-const arbitrumRisks = aLink(RiskKey.Arbitrum);
-const polygonRisks = aLink(RiskKey.Polygon);
-const optimismRisks = aLink(RiskKey.Optimism);
-const gnosisRisks = aLink(RiskKey.Gnosis);
+const neonevmRisks = aLink(RiskKey.Neonevm);
 const mutableRisks = aLink(RiskKey.Mutable);
 
 export function riskLinks(pool: Pool): Risk[] {
@@ -78,10 +67,7 @@ export function riskLinks(pool: Pool): Risk[] {
     if (thirdPartyRisks) result.push(thirdPartyRisks);
   }
 
-  if (isArbitrum.value) result.push(arbitrumRisks);
-  if (isOptimism.value) result.push(optimismRisks);
-  if (isPolygon.value) result.push(polygonRisks);
-  if (isGnosis.value) result.push(gnosisRisks);
+  if (isNeon.value) result.push(neonevmRisks);
 
   if (hasOwner(pool)) result.push(mutableRisks);
 
