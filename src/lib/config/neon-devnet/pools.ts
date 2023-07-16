@@ -16,17 +16,9 @@ const pools: Pools = {
   BlockList: [''],
   IncludedPoolTypes: [
     'Weighted',
-    'Stable',
-    'MetaStable',
     'LiquidityBootstrapping',
     'Investment',
-    'StablePhantom',
     'ComposableStable',
-    'FX',
-    'EulerLinear',
-    'Gyro2',
-    'Gyro3',
-    'GyroE',
   ],
   Stable: {
     AllowList: [],
@@ -37,13 +29,17 @@ const pools: Pools = {
   Weighted: {
     // Only effective after given timestamp here: usePool.ts#createdAfterTimestamp
     // see useDisabledJoinPool.ts#nonAllowedWeightedPoolAfterTimestamp for logic.
-    AllowList: [],
+    AllowList: [
+      '0xf4f36d9ae3e6849cefe573d105ff76585ab28faa000200000000000000000003', // NEON-USDC
+      '0x4de94e6ead68a4ab1192ae7c0d4ad380a213b38f000200000000000000000004', // NEON-USDT
+    ],
   },
   Factories: {
     '0xc828AbdEbe975d4d6e0345eB48d569A49A194A84': 'weightedPool', // weighted pool v4
     '0x04EF81349F5A2049D2D8261f33b7dC5bc0B33889': 'managedPool', // managed pool v2
     '0x2297E369aa665f1cE2eCB9eBe4Ec0E6D9f02f72D': 'composableStablePool', // composable stable v5
     '0x2818b8F2752F0AAE3938c64943aEA2a1a9258246': 'erc4626Linear', // erc4626 linear pool v4
+    '0x17be1E071fF458708A1C7ee1f1Ff5Ab5830A64F9': 'liquidityBootstrappingPool', // no protocol fee lbp
   },
   Stakable: {
     VotingGaugePools: [],
