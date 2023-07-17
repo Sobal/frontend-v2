@@ -40,11 +40,11 @@ const blockIcon = ref<HTMLDivElement>();
 const navLinks = [
   { label: t('pool'), path: '/', goal: Goals.ClickNavPools },
   { label: t('swap'), path: `/${networkSlug}/swap`, goal: Goals.ClickNavSwap },
-  {
-    label: t('claim'),
-    path: `/${networkSlug}/claim`,
-    goal: Goals.ClickNavClaim,
-  },
+  // {
+  //   label: t('claim'),
+  //   path: `/${networkSlug}/claim`,
+  //   goal: Goals.ClickNavClaim,
+  // },
   {
     label: t('portfolio'),
     path: `/${networkSlug}/portfolio`,
