@@ -93,10 +93,7 @@ export function isDeep(pool: Pool): boolean {
 }
 
 export function isBoosted(pool: Pool) {
-  // TODO: Harcode boosted pools for now
-  return pool.address === '';
-
-  // return !!poolMetadata(pool.id)?.boosted;
+  return !!poolMetadata(pool.id)?.boosted;
 }
 
 export function boostedProtocols(pool: Pool) {
