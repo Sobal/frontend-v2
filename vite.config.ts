@@ -61,7 +61,7 @@ export default defineConfig(({ mode }) => {
     const sentryConfig: ViteSentryPluginOptions = {
       url: 'https://sentry.io',
       authToken: envConfig.VITE_SENTRY_AUTH_TOKEN,
-      org: 'balancer-labs',
+      org: 'sobal',
       project: 'app',
       release: `frontend-v2@${pkgVersion}`,
       deploy: {

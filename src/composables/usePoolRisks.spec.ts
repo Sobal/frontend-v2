@@ -44,7 +44,7 @@ describe('Generates links for', () => {
         },
         {
           "hash": "#general-risks",
-          "title": "General Balancer protocol risks",
+          "title": "General Sobal risks",
         },
       ]
     `);
@@ -69,7 +69,7 @@ describe('Generates links for', () => {
         },
         {
           "hash": "#general-risks",
-          "title": "General Balancer protocol risks",
+          "title": "General Sobal risks",
         },
       ]
     `);
@@ -90,7 +90,7 @@ describe('Generates links for', () => {
         },
         {
           "hash": "#general-risks",
-          "title": "General Balancer protocol risks",
+          "title": "General Sobal risks",
         },
       ]
     `);
@@ -115,7 +115,7 @@ describe('Generates links for', () => {
         },
         {
           "hash": "#general-risks",
-          "title": "General Balancer protocol risks",
+          "title": "General Sobal risks",
         },
       ]
     `);
@@ -136,7 +136,7 @@ describe('Generates links for', () => {
         },
         {
           "hash": "#general-risks",
-          "title": "General Balancer protocol risks",
+          "title": "General Sobal risks",
         },
       ]
     `);
@@ -157,7 +157,7 @@ describe('Generates links for', () => {
           },
           {
             "hash": "#general-risks",
-            "title": "General Balancer protocol risks",
+            "title": "General Sobal risks",
           },
         ]
       `);
