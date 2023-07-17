@@ -23,7 +23,7 @@ const config: Config = {
   testNetwork: true,
   rpc: `https://devnet.neonevm.org`,
   ws: `wss://devnet.neonevm.org`,
-  explorer: 'https://devnet.neonscan.org/',
+  explorer: 'https://devnet.neonscan.org',
   explorerName: 'Neonscan',
   subgraph: 'https://ch2-graph.neontest.xyz/subgraphs/name/sobal/sobal-test',
   balancerApi: 'https://api.sobal.fi',
