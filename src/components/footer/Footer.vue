@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import IconDiscord from '@/components/icons/IconDiscord.vue';
 import IconGithub from '@/components/icons/IconGithub.vue';
-import IconLinkedin from '@/components/icons/IconLinkedin.vue';
+// import IconLinkedin from '@/components/icons/IconLinkedin.vue';
 import IconMail from '@/components/icons/IconMail.vue';
-import IconMedium from '@/components/icons/IconMedium.vue';
+// import IconMedium from '@/components/icons/IconMedium.vue';
 import IconTwitter from '@/components/icons/IconTwitter.vue';
-import IconYoutube from '@/components/icons/IconYoutube.vue';
+// import IconYoutube from '@/components/icons/IconYoutube.vue';
 import { EXTERNAL_LINKS } from '@/constants/links';
 
 import useNetwork from '@/composables/useNetwork';
@@ -97,7 +97,7 @@ const { handleThirdPartyModalToggle } = useThirdPartyServices();
               <BalIcon name="arrow-up-right" size="sm" class="arrow" />
             </BalLink>
 
-            <BalLink
+            <!-- <BalLink
               :href="EXTERNAL_LINKS.Balancer.Forum"
               external
               noStyle
@@ -105,7 +105,7 @@ const { handleThirdPartyModalToggle } = useThirdPartyServices();
             >
               {{ $t('forum') }}
               <BalIcon name="arrow-up-right" size="sm" class="arrow" />
-            </BalLink>
+            </BalLink> -->
 
             <BalLink
               :href="EXTERNAL_LINKS.Balancer.Vote"
@@ -117,7 +117,7 @@ const { handleThirdPartyModalToggle } = useThirdPartyServices();
               <BalIcon name="arrow-up-right" size="sm" class="arrow" />
             </BalLink>
 
-            <BalLink
+            <!-- <BalLink
               :href="EXTERNAL_LINKS.Balancer.Grants"
               external
               noStyle
@@ -125,9 +125,9 @@ const { handleThirdPartyModalToggle } = useThirdPartyServices();
             >
               {{ $t('grants') }}
               <BalIcon name="arrow-up-right" size="sm" class="arrow" />
-            </BalLink>
+            </BalLink> -->
 
-            <BalLink
+            <!-- <BalLink
               :href="EXTERNAL_LINKS.Balancer.BugBounty"
               external
               noStyle
@@ -135,9 +135,9 @@ const { handleThirdPartyModalToggle } = useThirdPartyServices();
             >
               {{ $t('bugBounty') }}
               <BalIcon name="arrow-up-right" size="sm" class="arrow" />
-            </BalLink>
+            </BalLink> -->
 
-            <BalLink
+            <!-- <BalLink
               :href="EXTERNAL_LINKS.Balancer.Analytics"
               external
               noStyle
@@ -145,7 +145,7 @@ const { handleThirdPartyModalToggle } = useThirdPartyServices();
             >
               {{ $t('analytics') }}
               <BalIcon name="arrow-up-right" size="sm" class="arrow" />
-            </BalLink>
+            </BalLink> -->
           </div>
         </div>
         <div class="flex flex-col gap-8">
@@ -166,20 +166,20 @@ const { handleThirdPartyModalToggle } = useThirdPartyServices();
                 >
                   <IconDiscord />
                 </BalLink>
-                <BalLink
+                <!-- <BalLink
                   :href="EXTERNAL_LINKS.Balancer.Social.Medium"
                   external
                   noStyle
                 >
                   <IconMedium />
-                </BalLink>
-                <BalLink
+                </BalLink> -->
+                <!-- <BalLink
                   :href="EXTERNAL_LINKS.Balancer.Social.Youtube"
                   external
                   noStyle
                 >
                   <IconYoutube />
-                </BalLink>
+                </BalLink> -->
                 <BalLink
                   :href="EXTERNAL_LINKS.Balancer.Social.Github"
                   external
@@ -187,13 +187,13 @@ const { handleThirdPartyModalToggle } = useThirdPartyServices();
                 >
                   <IconGithub />
                 </BalLink>
-                <BalLink
+                <!-- <BalLink
                   :href="EXTERNAL_LINKS.Balancer.Social.Linkedin"
                   external
                   noStyle
                 >
                   <IconLinkedin />
-                </BalLink>
+                </BalLink> -->
                 <BalLink
                   :href="EXTERNAL_LINKS.Balancer.Social.Mail"
                   external
