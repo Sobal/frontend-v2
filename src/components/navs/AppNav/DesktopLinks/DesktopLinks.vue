@@ -37,7 +37,7 @@ function isActive(page: string): boolean {
     >
       {{ $t('swap') }}
     </DesktopLinkItem>
-    <DesktopLinkItem
+    <!-- <DesktopLinkItem
       :to="{ name: 'claim', params: { networkSlug } }"
       :active="isActive('claim')"
       prefetch
@@ -46,7 +46,7 @@ function isActive(page: string): boolean {
       <div class="flex items-center">
         {{ $t('claim') }}
       </div>
-    </DesktopLinkItem>
+    </DesktopLinkItem> -->
     <DesktopLinkItem
       v-if="isGoerli"
       :to="{ name: 'faucet', params: { networkSlug } }"
@@ -62,14 +62,14 @@ function isActive(page: string): boolean {
     >
       {{ $t('portfolio') }}
     </DesktopLinkItem>
-    <DesktopLinkItem
+    <!-- <DesktopLinkItem
       :to="{ name: 'vebal', params: { networkSlug } }"
       :active="isActive('vebal')"
       prefetch
       @click="trackGoal(Goals.ClickNavVebal)"
     >
       veBAL
-    </DesktopLinkItem>
+    </DesktopLinkItem> -->
   </div>
 </template>
 
