@@ -58,7 +58,6 @@ export default class VaultService {
       action: 'batchSwap',
       params: [swapKind, swaps, tokenAddresses, funds, limits, deadline],
       options,
-      shouldLogFailure: false,
     });
   }
 
