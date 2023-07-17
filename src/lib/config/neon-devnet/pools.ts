@@ -37,7 +37,9 @@ const pools: Pools = {
   Weighted: {
     // Only effective after given timestamp here: usePool.ts#createdAfterTimestamp
     // see useDisabledJoinPool.ts#nonAllowedWeightedPoolAfterTimestamp for logic.
-    AllowList: [],
+    AllowList: [
+      '0xe3f7cb8e66dc46a6479b780df45d608726d831b4000100000000000000000001',
+    ],
   },
   Factories: {
     '0xc828AbdEbe975d4d6e0345eB48d569A49A194A84': 'weightedPool', // weighted pool v4
