@@ -39,9 +39,8 @@ const pools: Pools = {
     // Only effective after given timestamp here: usePool.ts#createdAfterTimestamp
     // see useDisabledJoinPool.ts#nonAllowedWeightedPoolAfterTimestamp for logic.
     AllowList: [
-      '0xe3f7cb8e66dc46a6479b780df45d608726d831b4000100000000000000000001',
-      '0xf327836747d49ae0ab12c75c2b474f5c63257fe4000200000000000000000002',
-      '0xa370750a870e2219fb26630bfc64ed83675de5ab000200000000000000000003',
+      '0xcdc01f5f9bfba1a5095890b1a30e8e1c1885ffd2000200000000000000000009',
+      '0x6a1f6543bed6d048f92455f640159cf77369a41a000200000000000000000008',
     ],
   },
   Factories: {
@@ -58,7 +57,13 @@ const pools: Pools = {
     AllowList: [],
   },
   Metadata: {
-    '0xf327836747d49ae0ab12c75c2b474f5c63257fe4000200000000000000000002': {
+    '0xcdc01f5f9bfba1a5095890b1a30e8e1c1885ffd2000200000000000000000009': {
+      // name: 'USDT-WNEON-USDC',
+      hasIcon: true,
+      boosted: true,
+      boostedProtocols: [BoostedProtocol.NeonIncentivised],
+    },
+    '0x6a1f6543bed6d048f92455f640159cf77369a41a000200000000000000000008': {
       // name: 'USDT-WNEON-USDC',
       hasIcon: true,
       boosted: true,
