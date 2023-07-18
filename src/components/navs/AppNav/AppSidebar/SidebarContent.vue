@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router';
 import AppLogo from '@/components/images/AppLogo.vue';
 import { version } from '@/composables/useApp';
 import useConfig from '@/composables/useConfig';
-import useDarkMode from '@/composables/useDarkMode';
+// import useDarkMode from '@/composables/useDarkMode';
 import { sleep } from '@/lib/utils';
 import useWeb3 from '@/services/web3/useWeb3';
 import useNetwork from '@/composables/useNetwork';
@@ -16,6 +16,7 @@ import DiscordIcon from '@/components/_global/icons/brands/DiscordIcon.vue';
 import MediumIcon from '@/components/_global/icons/brands/MediumIcon.vue';
 import YoutubeIcon from '@/components/_global/icons/brands/YoutubeIcon.vue';
 import GithubIcon from '@/components/_global/icons/brands/GithubIcon.vue';
+import { EXTERNAL_LINKS } from '@/constants/links';
 
 /**
  * PROPS & EMITS
@@ -25,7 +26,7 @@ const emit = defineEmits(['close']);
 /**
  * COMPOSABLES
  */
-const { darkMode, toggleDarkMode } = useDarkMode();
+// const { darkMode, toggleDarkMode } = useDarkMode();
 const { blockNumber } = useWeb3();
 const { networkConfig } = useConfig();
 const { networkSlug } = useNetwork();
@@ -54,16 +55,17 @@ const navLinks = [
 ];
 
 const ecosystemLinks = [
-  { label: t('build'), url: 'https://balancer.fi/build' },
-  { label: t('blog'), url: 'https://medium.com/balancer-protocol' },
-  { label: t('docs'), url: 'https://docs.balancer.fi/' },
-  { label: t('governance'), url: 'https://vote.balancer.fi/#/' },
-  { label: t('analytics'), url: 'https://dune.xyz/balancerlabs' },
-  { label: t('forum'), url: 'https://forum.balancer.fi/' },
-  {
-    label: t('grants'),
-    url: 'http://grants.balancer.community',
-  },
+  // { label: t('build'), url: 'https://balancer.fi/build' },
+  // { label: t('blog'), url: 'https://medium.com/balancer-protocol' },
+  { label: t('docs'), url: 'https://docs.sobal.fi/' },
+  { label: t('governance'), url: 'https://snapshot.org/#/sobal.eth' },
+  // { label: t('analytics'), url: 'https://dune.xyz/balancerlabs' },
+  // { label: t('forum'), url: 'https://forum.balancer.fi/' },
+  // {
+  //   label: t('grants'),
+  //   url: 'http://grants.balancer.community',
+  // },
+  { label: t('neonpass'), url: EXTERNAL_LINKS.Balancer.NeonBridge },
 ];
 
 const socialLinks = {
@@ -148,13 +150,13 @@ watch(blockNumber, async () => {
       </BalLink>
     </div>
 
-    <div class="px-4 mt-6">
+    <!-- <div class="px-4 mt-6">
       <div class="mt-2 side-bar-btn" @click="toggleDarkMode">
         <MoonIcon v-if="!darkMode" class="mr-2" />
         <SunIcon v-else class="mr-2" />
         <span>{{ darkMode ? 'Light' : 'Dark' }} mode</span>
       </div>
-    </div>
+    </div> -->
 
     <div class="grid grid-rows-1 grid-flow-col auto-cols-min gap-2 px-4 mt-4">
       <BalLink

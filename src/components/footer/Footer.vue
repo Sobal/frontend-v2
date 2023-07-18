@@ -50,14 +50,14 @@ const { handleThirdPartyModalToggle } = useThirdPartyServices();
                 {{ $t('swap') }}
               </router-link>
             </p>
-            <p>
+            <!-- <p>
               <router-link
                 class="text-lg font-medium link"
                 :to="{ name: 'claim', params: { networkSlug } }"
               >
                 {{ $t('claim') }}
               </router-link>
-            </p>
+            </p> -->
             <p>
               <router-link
                 class="text-lg font-medium link"
@@ -67,13 +67,24 @@ const { handleThirdPartyModalToggle } = useThirdPartyServices();
               </router-link>
             </p>
             <p>
+              <BalLink
+                :href="EXTERNAL_LINKS.Balancer.NeonBridge"
+                external
+                noStyle
+                class="text-lg font-medium link"
+              >
+                {{ $t('neonpass') }}
+                <BalIcon name="arrow-up-right" size="sm" class="arrow" />
+              </BalLink>
+            </p>
+            <!-- <p>
               <router-link
                 class="text-lg font-medium link"
                 :to="{ name: 'vebal', params: { networkSlug } }"
               >
                 {{ $t('vebal') }}
               </router-link>
-            </p>
+            </p> -->
           </div>
 
           <div class="flex flex-wrap md:order-3 gap-3 md:gap-4">
@@ -114,6 +125,16 @@ const { handleThirdPartyModalToggle } = useThirdPartyServices();
               class="group link link--external"
             >
               {{ $t('vote') }}
+              <BalIcon name="arrow-up-right" size="sm" class="arrow" />
+            </BalLink>
+
+            <BalLink
+              :href="EXTERNAL_LINKS.Balancer.NeonBridge"
+              external
+              noStyle
+              class="group link link--external"
+            >
+              {{ $t('neonpass') }}
               <BalIcon name="arrow-up-right" size="sm" class="arrow" />
             </BalLink>
 

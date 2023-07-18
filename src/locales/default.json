@@ -109,6 +109,7 @@
   "browseLists": "Browse lists",
   "browserWallet": "Browser Wallet",
   "bugBounty": "Bug bounty",
+  "neonpass": "Neon Bridge",
   "builtOnBalancer": "Available on the Sobal Protocol",
   "boosted": "Boosted",
   "boostedTooltip": "This pool has a Boosted Pool component. In addition to accumulating swap fees, Boosted pools also generate yield for LPs by lending excess liquidity to other yield generating DeFi protocols.",

@@ -10,7 +10,7 @@ export class WalletLinkConnector extends Connector {
   async connect() {
     const configService = new ConfigService();
     const walletLink = new WalletLink({
-      appName: 'Balancer',
+      appName: 'Sobal',
       appLogoUrl: '~@/assets/images/logo-dark.svg',
       darkMode: false,
     });
