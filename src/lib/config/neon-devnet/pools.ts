@@ -1,3 +1,4 @@
+import { BoostedProtocol } from '@/composables/useBoostedPool';
 import { Pools } from '@/types/pools';
 
 const pools: Pools = {
@@ -52,7 +53,14 @@ const pools: Pools = {
     VotingGaugePools: [],
     AllowList: [],
   },
-  Metadata: {},
+  Metadata: {
+    '0xf327836747d49ae0ab12c75c2b474f5c63257fe4000200000000000000000002': {
+      // name: 'USDT-WNEON-USDC',
+      hasIcon: true,
+      boosted: true,
+      boostedProtocols: [BoostedProtocol.NeonIncentivised],
+    },
+  },
   Deep: [],
   BoostedApr: [],
   DisabledJoins: [],
