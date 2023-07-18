@@ -23,11 +23,11 @@ const config: Config = {
   ws: ``,
   explorer: 'https://neonscan.org',
   explorerName: 'Neonscan',
-  subgraph: 'https://thegraph.neonevm.org/subgraphs/name/sobal/sobal-pools',
+  subgraph: 'https://neon-subgraph.sobal.fi/sobal-pools',
   balancerApi: 'https://api.sobal.fi',
   poolsUrlV2: '',
   subgraphs: {
-    main: ['https://thegraph.neonevm.org/subgraphs/name/sobal/sobal-pools'],
+    main: ['https://neon-subgraph.sobal.fi/sobal-pools'],
     aave: '',
     gauge: '',
     blocks: '',
