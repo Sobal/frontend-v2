@@ -94,7 +94,7 @@
   "VotingEscrowDelegation": "",
   "VotingEscrowDelegationProxy": "",
   "WeightedPool2TokensFactory": "",
-  "WeightedPoolFactory": "0xc828AbdEbe975d4d6e0345eB48d569A49A194A84",
+  "WeightedPoolFactory": "0x2a48D000Ff815C3AE571c5121993150B600a6AF2",
   "WstETHRateProvider": "",
   "YearnLinearPoolFactory": ""
 }

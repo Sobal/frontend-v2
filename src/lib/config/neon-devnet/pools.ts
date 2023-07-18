@@ -42,7 +42,7 @@ const pools: Pools = {
     ],
   },
   Factories: {
-    '0xc828AbdEbe975d4d6e0345eB48d569A49A194A84': 'weightedPool', // weighted pool v4
+    '0x2a48D000Ff815C3AE571c5121993150B600a6AF2': 'weightedPool', // weighted pool v4
     '0x04EF81349F5A2049D2D8261f33b7dC5bc0B33889': 'managedPool', // managed pool v2
     '0x2297E369aa665f1cE2eCB9eBe4Ec0E6D9f02f72D': 'composableStablePool', // composable stable v5
     '0x2818b8F2752F0AAE3938c64943aEA2a1a9258246': 'erc4626Linear', // erc4626 linear pool v4
