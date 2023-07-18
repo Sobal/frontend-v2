@@ -15,7 +15,7 @@
   "BALTokenHolderFactory": "",
   "BatchRelayerLibrary": "0xB037e2108071B4b07f359cF0C13fb0bDcF32dcB1",
   "CircuitBreakerLib": "0xe702eFd2Ad19A45Cb46aBf2123c88DF810Df0451",
-  "ComposableStablePoolFactory": "0x404dB41fe07607E2488202f71A4F699aaE51C40E",
+  "ComposableStablePoolFactory": "0xA71103988745BE72528a6F01Be28C9815aa9C4D1",
   "DistributionScheduler": "",
   "DoubleEntrypointFixRelayer": "",
   "ERC4626LinearPoolFactory": "0xa7739e85ef4FD49Ca19073637D88b7e8D9A0CCe8",
@@ -36,7 +36,7 @@
   "LiquidityGaugeV5": "",
   "ManagedPoolAddRemoveTokenLib": "0x818f0371a8E9142cB899AB399c149FB3F0389FB0",
   "ManagedPoolAmmLib": "0x5016faf1062010ACD2F6385C51ad40dD6Ea868cC",
-  "ManagedPoolFactory": "0x6b2fe0b6eb5b277E35776988860d8Eff9015C267",
+  "ManagedPoolFactory": "0xb70a25b929A8381fA6f5fb13D7E551c73B742658",
   "MerkleOrchard": "",
   "MerkleRedeem": "",
   "MetaStablePoolFactory": "",
@@ -94,7 +94,7 @@
   "VotingEscrowDelegation": "",
   "VotingEscrowDelegationProxy": "",
   "WeightedPool2TokensFactory": "",
-  "WeightedPoolFactory": "0x38Ec2bd8A0EEAEfBad7e0D21e7fF87d9AD901010",
+  "WeightedPoolFactory": "0xd69A0B5C70f9a2Ab0Ca9A64b013827d87916a38b",
   "WstETHRateProvider": "",
   "YearnLinearPoolFactory": ""
 }
