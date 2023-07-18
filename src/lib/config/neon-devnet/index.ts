@@ -19,7 +19,7 @@ const config: Config = {
   network: 'neon-devnet',
   trustWalletNetwork: 'neondevnet',
   unknown: false,
-  visibleInUI: true,
+  visibleInUI: false,
   testNetwork: true,
   rpc: `https://devnet.neonevm.org`,
   ws: `wss://devnet.neonevm.org`,
