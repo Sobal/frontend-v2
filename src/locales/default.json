@@ -1551,7 +1551,8 @@
     "tooltips": {
       "approveForInvesting": "You must approve {0} to add liquidity for this token on Sobal. Approvals are required once per token, per wallet.",
       "approveForLocking": "You must approve {0} to lock this token. Approvals are required once per token, per wallet.",
-      "approveForStaking": "You must approve {0} to stake this token on Sobal. Approvals are required once per token, per wallet."
+      "approveForStaking": "You must approve {0} to stake this token on Sobal. Approvals are required once per token, per wallet.",
+      "approveForSwapping": "You must approve {0} to swap this token on Sobal. Approvals are required once per token, per wallet."
     }
   },
   "transactionType": "Transaction type",
