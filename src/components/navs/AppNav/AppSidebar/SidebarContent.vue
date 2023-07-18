@@ -13,8 +13,8 @@ import useNetwork from '@/composables/useNetwork';
 import { Goals, trackGoal } from '@/composables/useFathom';
 import TwitterIcon from '@/components/_global/icons/brands/TwitterIcon.vue';
 import DiscordIcon from '@/components/_global/icons/brands/DiscordIcon.vue';
-import MediumIcon from '@/components/_global/icons/brands/MediumIcon.vue';
-import YoutubeIcon from '@/components/_global/icons/brands/YoutubeIcon.vue';
+// import MediumIcon from '@/components/_global/icons/brands/MediumIcon.vue';
+// import YoutubeIcon from '@/components/_global/icons/brands/YoutubeIcon.vue';
 import GithubIcon from '@/components/_global/icons/brands/GithubIcon.vue';
 import { EXTERNAL_LINKS } from '@/constants/links';
 
@@ -71,24 +71,24 @@ const ecosystemLinks = [
 const socialLinks = {
   TwitterIcon: {
     component: TwitterIcon,
-    url: 'https://twitter.com/BalancerLabs',
+    url: 'https://twitter.com/sobalfi',
   },
   DiscordIcon: {
     component: DiscordIcon,
-    url: 'https://discord.balancer.fi/',
+    url: 'https://discord.sobal.fi/',
   },
-  MediumIcon: {
-    component: MediumIcon,
-    url: 'https://medium.com/balancer-protocol',
-  },
+  // MediumIcon: {
+  //   component: MediumIcon,
+  //   url: '',
+  // },
 
-  YoutubeIcon: {
-    component: YoutubeIcon,
-    url: 'https://www.youtube.com/channel/UCBRHug6Hu3nmbxwVMt8x_Ow',
-  },
+  // YoutubeIcon: {
+  //   component: YoutubeIcon,
+  //   url: '',
+  // },
 
   GithubIcon: {
-    url: 'https://github.com/balancer/',
+    url: 'https://github.com/sobal/',
     component: GithubIcon,
   },
 };
@@ -169,11 +169,7 @@ watch(blockNumber, async () => {
       >
         <component :is="getSocialComponent(componentName)" />
       </BalLink>
-      <BalLink
-        href="mailto:contact@balancer.finance"
-        class="social-link"
-        noStyle
-      >
+      <BalLink href="mailto:hello@sobal.fi" class="social-link" noStyle>
         <EmailIcon />
       </BalLink>
     </div>
@@ -189,7 +185,7 @@ watch(blockNumber, async () => {
         </span>
       </div>
       <BalLink
-        :href="`https://github.com/balancer/frontend-v2/releases/tag/${version}`"
+        :href="`https://github.com/sobal/frontend-v2/releases/tag/${version}`"
         class="flex items-center mt-2 text-gray-300"
         external
         noStyle

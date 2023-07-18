@@ -296,7 +296,7 @@ function symbolFor(titleTokenIndex: number): string {
   >
     {{ $t('investment.warning.blockedPool.description') }}
     <a
-      href="https://github.com/balancer/frontend-v2/wiki/How-tos#add-a-new-pool"
+      href="https://github.com/sobal/frontend-v2/wiki/How-tos#add-a-new-pool"
       target="_blank"
       class="underline"
       >{{ $t('here') }}</a
@@ -316,7 +316,7 @@ function symbolFor(titleTokenIndex: number): string {
   >
     {{ $t('Click') }}
     <a
-      href="https://github.com/balancer/frontend-v2/wiki/How-tos#add-a-new-pool"
+      href="https://github.com/sobal/frontend-v2/wiki/How-tos#add-a-new-pool"
       target="_blank"
       class="underline"
       >{{ $t('here') }}</a
