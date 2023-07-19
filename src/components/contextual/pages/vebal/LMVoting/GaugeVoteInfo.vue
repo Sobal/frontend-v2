@@ -46,7 +46,7 @@ const voteDifferenceText = computed<string>(() => {
 
 const voteTextClass = computed(() => {
   return {
-    'text-green-600': voteDifference.value > 0,
+    'text-lime-600': voteDifference.value > 0,
     'text-red-600': voteDifference.value < 0,
   };
 });

@@ -14,7 +14,7 @@ import { includesAddress } from '@/lib/utils';
 import { usePoolStaking } from '@/providers/local/pool-staking.provider';
 import { Pool, PoolToken } from '@/services/pool/types';
 import useWeb3 from '@/services/web3/useWeb3';
-import { AprBreakdown } from '@balancer-labs/sdk';
+import { AprBreakdown } from '@sobal/sdk';
 import { useDisabledJoinPool } from '@/composables/useDisabledJoinPool';
 import { poolMetadata as getPoolMetadata } from '@/lib/config/metadata';
 
@@ -296,7 +296,7 @@ function symbolFor(titleTokenIndex: number): string {
   >
     {{ $t('investment.warning.blockedPool.description') }}
     <a
-      href="https://github.com/balancer/frontend-v2/wiki/How-tos#add-a-new-pool"
+      href="https://github.com/sobal/frontend-v2/wiki/How-tos#add-a-new-pool"
       target="_blank"
       class="underline"
       >{{ $t('here') }}</a
@@ -316,7 +316,7 @@ function symbolFor(titleTokenIndex: number): string {
   >
     {{ $t('Click') }}
     <a
-      href="https://github.com/balancer/frontend-v2/wiki/How-tos#add-a-new-pool"
+      href="https://github.com/sobal/frontend-v2/wiki/How-tos#add-a-new-pool"
       target="_blank"
       class="underline"
       >{{ $t('here') }}</a

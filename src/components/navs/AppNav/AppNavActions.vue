@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import DarkModeToggle from '@/components/btns/DarkModeToggle.vue';
+// import DarkModeToggle from '@/components/btns/DarkModeToggle.vue';
 import useBreakpoints from '@/composables/useBreakpoints';
 import { useSidebar } from '@/composables/useSidebar';
 import useWeb3 from '@/services/web3/useWeb3';
@@ -14,7 +14,7 @@ import { Goals, trackGoal } from '@/composables/useFathom';
 /**
  * COMPOSABLES
  */
-const { isMobile, isDesktop } = useBreakpoints();
+const { isMobile } = useBreakpoints();
 const { account, connector, startConnectWithInjectedProvider } = useWeb3();
 const { setSidebarOpen } = useSidebar();
 
@@ -34,7 +34,7 @@ function connectWalletHandler() {
 
 <template>
   <div class="grid grid-rows-1 grid-flow-col gap-2">
-    <DarkModeToggle v-if="isDesktop" />
+    <!-- <DarkModeToggle v-if="isDesktop" /> -->
     <AppNavActivityBtn v-if="account" />
     <AppNavAccountBtn v-if="account" />
     <BalBtn

@@ -82,7 +82,7 @@ withDefaults(defineProps<Props>(), {
 .balance-indicator {
   @apply w-3 h-3;
   @apply rounded-full border-2 border-white dark:border-gray-850;
-  @apply bg-green-200 dark:bg-green-500;
+  @apply bg-lime-200 dark:bg-lime-500;
   @apply absolute top-0 right-0 -mt-1 -mr-1;
 }
 </style>

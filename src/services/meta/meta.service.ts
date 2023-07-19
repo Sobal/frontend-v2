@@ -60,10 +60,10 @@ class MetaService implements IMetaService {
   private setDefaultMeta(): void {
     const descriptionMeta = document.querySelector('meta[name=description]');
 
-    document.title = 'Balancer';
+    document.title = 'Sobal';
     descriptionMeta?.setAttribute(
       'content',
-      'A UI that supports core Balancer protocol functionality. Explore & create pools, manage liquidity, swap tokens, get veBAL and claim incentives.'
+      'A UI that supports core Sobal functionality. Explore & create pools, manage liquidity, swap tokens and claim incentives.'
     );
   }
 }

@@ -1,10 +1,10 @@
 {
-  "short_name": "Balancer",
-  "name": "Balancer",
-  "description": "Swap tokens and manage your assets on Balancer Protocol",
+  "short_name": "Sobal",
+  "name": "Sobal",
+  "description": "Swap tokens and manage your assets on Sobal",
   "providedBy": {
-    "name": "Balancer",
-    "url": "https://balancer.fi"
+    "name": "Sobal",
+    "url": "https://sobal.fi"
   },
   "icons": [
     {

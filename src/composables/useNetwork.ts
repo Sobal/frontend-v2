@@ -21,7 +21,7 @@ const NETWORK_ID =
   urlNetworkId ||
   localStorageNetworkId ||
   (Number(import.meta.env.VITE_NETWORK) as Network) ||
-  Network.MAINNET;
+  Network.NEON_MAINNET;
 if (windowAvailable) localStorage.setItem('networkId', NETWORK_ID.toString());
 export const networkSlug = config[NETWORK_ID].slug;
 export const networkConfig = config[NETWORK_ID];
@@ -38,6 +38,12 @@ export const isOptimism = computed(() => networkId.value === Network.OPTIMISM);
 export const isArbitrum = computed(() => networkId.value === Network.ARBITRUM);
 export const isGnosis = computed(() => networkId.value === Network.GNOSIS);
 export const isGoerli = computed(() => networkId.value === Network.GOERLI);
+
+export const isNeon = computed(
+  () =>
+    networkId.value === Network.NEON_MAINNET ||
+    networkId.value === Network.NEON_DEVNET
+);
 
 export const hasBridge = computed<boolean>(() => !!networkConfig.bridgeUrl);
 export const isTestnet = computed(() => isGoerli.value);

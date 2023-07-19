@@ -1,4 +1,5 @@
 <template>
+  <div />
   <div class="group bal-toggle" @click="onClick">
     <input
       type="checkbox"
@@ -26,8 +27,8 @@ export default defineComponent({
     disabled: { type: Boolean, default: false },
     color: {
       type: String,
-      default: 'green',
-      validator: (val: string): boolean => ['green'].includes(val),
+      default: 'lime',
+      validator: (val: string): boolean => ['lime'].includes(val),
     },
   },
   emits: ['update:modelValue', 'toggle'],
@@ -65,8 +66,8 @@ export default defineComponent({
 }
 
 .bal-toggle-checkbox:checked {
-  @apply right-0 border-green-400 group-hover:border-green-500 dark:border-green-500
-    dark:group-hover:border-green-400 transition-colors;
+  @apply right-0 border-lime-400 group-hover:border-lime-500 dark:border-lime-500
+    dark:group-hover:border-lime-400 transition-colors;
 }
 
 .bal-toggle-track[for='swapGasless'] {
@@ -86,7 +87,7 @@ export default defineComponent({
 }
 
 .bal-toggle-checkbox:checked + .bal-toggle-track {
-  @apply bg-green-400 group-hover:bg-green-500 dark:bg-green-500 dark:group-hover:bg-green-400;
+  @apply bg-lime-400 group-hover:bg-lime-500 dark:bg-lime-500 dark:group-hover:bg-lime-400;
 }
 
 .bal-toggle-checkbox[disabled] {

@@ -200,7 +200,7 @@ const isNegativeTrend = computed(() => {
 });
 
 const chartColors = computed(() => {
-  let color = tailwind.theme.colors.green['400'];
+  let color = tailwind.theme.colors.lime['400'];
   if (isNegativeTrend.value) color = tailwind.theme.colors.red['400'];
   return [color];
 });

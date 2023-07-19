@@ -13,6 +13,7 @@ export enum BoostedProtocol {
   Tetu = 'tetu',
   Granary = 'granary',
   Zerovix = '0vix',
+  NeonIncentivised = 'neon',
 }
 
 export const boostedProtocolIconPaths: Record<BoostedProtocol, string> = {
@@ -70,6 +71,10 @@ export const boostedProtocolIconPaths: Record<BoostedProtocol, string> = {
   ).href,
   [BoostedProtocol.Zerovix]: new URL(
     '@/assets/images/icons/protocols/0vix.svg',
+    import.meta.url
+  ).href,
+  [BoostedProtocol.NeonIncentivised]: new URL(
+    '@/assets/images/icons/protocols/neon.svg',
     import.meta.url
   ).href,
 };

@@ -172,7 +172,7 @@ function onCloseModal() {
                   <div v-else>
                     <div class="flex mb-2">
                       <div class="flex justify-center p-1 mr-1 align-center">
-                        <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                        <div class="w-2 h-2 rounded-full bg-lime-400"></div>
                       </div>
                       <div>
                         <div class="text-sm text-secondary">Ethereum veBAL</div>

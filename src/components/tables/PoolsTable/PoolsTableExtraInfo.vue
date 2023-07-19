@@ -19,7 +19,11 @@ defineProps<Props>();
 
 <template>
   <div>
-    <BalTooltip v-if="isBoosted(pool)" :text="$t('boostedTooltip')" width="56">
+    <BalTooltip
+      v-if="isBoosted(pool)"
+      :text="$t('boostedTooltipNeon')"
+      width="56"
+    >
       <template #activator>
         <BoostedChip
           :metadata="poolMetadata(pool.id) as PoolMetadata"
