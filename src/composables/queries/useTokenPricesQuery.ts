@@ -4,7 +4,6 @@ import QUERY_KEYS from '@/constants/queryKeys';
 import useNetwork from '../useNetwork';
 import { oneMinInMs } from '../useTime';
 import { getAddress } from '@ethersproject/address';
-import { configService } from '@/services/config/config.service';
 
 /**
  * TYPES
@@ -51,8 +50,7 @@ export default function useTokenPricesQuery(
   }
 
   const queryFn = async () => {
-    const apiTokenPath =
-      configService.network.balancerApi + '/tokens/' + networkId.value;
+    const apiTokenPath = '/tokens/' + networkId.value;
 
     let prices = {};
     const response = await fetch(apiTokenPath);
