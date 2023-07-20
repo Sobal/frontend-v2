@@ -4,7 +4,7 @@ import AppNav from '@/components/navs/AppNav/AppNav.vue';
 </script>
 
 <template>
-  <div>
+  <div class="app-wrapper">
     <div class="app-body">
       <AppNav />
       <div class="pb-16">
@@ -22,7 +22,11 @@ import AppNav from '@/components/navs/AppNav/AppNav.vue';
 
 .app-body {
   @apply mb-8;
+}
 
-  min-height: calc(100vh - 2rem);
+.app-wrapper {
+  @apply flex flex-col place-content-between;
+
+  min-height: calc(100vh);
 }
 </style>
