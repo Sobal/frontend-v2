@@ -32,7 +32,11 @@ defineProps<Props>();
 
     <BalTooltip
       v-if="isIncentivised(pool)"
-      :text="$t('incentivizedTooltip')"
+      :text="
+        poolMetadata(pool.id)?.incentivizedHoverText
+          ? poolMetadata(pool.id)?.incentivizedHoverText
+          : $t('incentivizedTooltip')
+      "
       width="56"
     >
       <template #activator>
