@@ -114,7 +114,7 @@
   "boosted": "Boosted",
   "incentivized": "Incentivized",
   "boostedTooltip": "This pool has a Boosted Pool component. In addition to accumulating swap fees, Boosted pools also generate yield for LPs by lending excess liquidity to other yield generating DeFi protocols.",
-  "incentivizedTooltip": "This pool is part of a special incentization program. To read more about this program check out the \"Active Programs\" section below.",
+  "incentivizedTooltip": "This pool is part of a special incentization program. To read more about this program check out the \"Incentivized Programs\" section below.",
   "buy": "Buy",
   "build": "Build",
   "blog": "Blog",
@@ -442,6 +442,7 @@
   "exploreBalancerV1Pools": "Explore V1 pools ->",
   "explorePools": "Explore pools",
   "featuredProtocol": "Featured ecosystem protocol",
+  "incentivizedPrograms": "Incentivized Programs",
   "featuredProtocols": {
     "title": "Featured ecosystem protocols",
     "Copper": {
