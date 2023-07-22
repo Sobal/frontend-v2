@@ -13,7 +13,6 @@ export enum BoostedProtocol {
   Tetu = 'tetu',
   Granary = 'granary',
   Zerovix = '0vix',
-  NeonIncentivised = 'neon',
 }
 
 export const boostedProtocolIconPaths: Record<BoostedProtocol, string> = {

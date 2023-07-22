@@ -1,4 +1,5 @@
 import { BoostedProtocol } from '@/composables/useBoostedPool';
+import { IncentiveProtocol } from '@/composables/useIncentivizedPool';
 export type FactoryType =
   | 'oracleWeightedPool'
   | 'weightedPool'
@@ -16,7 +17,9 @@ export type PoolMetadata = {
   name?: string;
   hasIcon?: boolean;
   boosted?: boolean;
+  incentivised?: boolean;
   boostedProtocols?: BoostedProtocol[];
+  incentiveProtocols?: IncentiveProtocol[];
 };
 
 export enum RiskKey {

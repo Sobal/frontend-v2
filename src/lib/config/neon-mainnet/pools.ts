@@ -1,4 +1,5 @@
-import { BoostedProtocol } from '@/composables/useBoostedPool';
+import { IncentiveProtocol } from '@/composables/useIncentivizedPool';
+
 import { Pools } from '@/types/pools';
 
 const pools: Pools = {
@@ -57,14 +58,14 @@ const pools: Pools = {
     '0x4e14f4933c8fbda3d4f24da8e4343d1918d2902f000200000000000000000003': {
       // name: 'WNEON-USDC',
       hasIcon: true,
-      boosted: true,
-      boostedProtocols: [BoostedProtocol.NeonIncentivised],
+      incentivised: true,
+      incentiveProtocols: [IncentiveProtocol.Neon],
     },
     '0xb04aba41dc9ed9b1c534b8239c4ffdfc526c5409000200000000000000000004': {
       // name: 'WNEON-WSOL',
       hasIcon: true,
-      boosted: true,
-      boostedProtocols: [BoostedProtocol.NeonIncentivised],
+      incentivised: true,
+      incentiveProtocols: [IncentiveProtocol.Neon],
     },
   },
   Deep: [],

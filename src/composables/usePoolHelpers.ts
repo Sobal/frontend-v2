@@ -96,6 +96,10 @@ export function isBoosted(pool: Pool) {
   return !!poolMetadata(pool.id)?.boosted;
 }
 
+export function isIncentivised(pool: Pool) {
+  return !!poolMetadata(pool.id)?.incentivised;
+}
+
 export function boostedProtocols(pool: Pool) {
   return poolMetadata(pool.id)?.boostedProtocols;
 }
