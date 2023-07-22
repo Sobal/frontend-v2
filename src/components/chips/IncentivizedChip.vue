@@ -32,7 +32,9 @@ const width = 20 + (iconURIs.length - 1) * 16;
       :ringSize="1"
     />
     <span class="text-xs font-semibold text-white">{{
-      $t('incentivized')
+      props.metadata?.incentivizedButtonText
+        ? props.metadata?.incentivizedButtonText
+        : $t('incentivized')
     }}</span>
   </div>
 </template>
