@@ -60,18 +60,18 @@ const pools: Pools = {
       hasIcon: true,
       incentivised: true,
       incentiveProtocols: [IncentiveProtocol.Neon],
-      incentivizedButtonText: '24% APY via AIRDROP',
+      incentivizedButtonText: '24% APY INCENTIVE',
       incentivizedHoverText:
-        'Enter before 5PM GMT on 17th August to be eliglble for an airdrop of NEON tokens up to 24% APY. Read more below in the "Incentivized Programs" section',
+        'Enter to be rewarded NEON tokens up to 24% APY. Promotion ends at 5pm GMT on 17th August. Read more below in the "Incentivized Programs" section',
     },
     '0xb04aba41dc9ed9b1c534b8239c4ffdfc526c5409000200000000000000000004': {
       // name: 'WNEON-WSOL',
       hasIcon: true,
       incentivised: true,
       incentiveProtocols: [IncentiveProtocol.Neon],
-      incentivizedButtonText: '24% APY via AIRDROP',
+      incentivizedButtonText: '24% APY INCENTIVE',
       incentivizedHoverText:
-        'Enter before 5PM GMT on 17th August to be eliglble for an airdrop of NEON tokens up to 24% APY. Read more below in the "Incentivized Programs" section',
+        'Enter to be rewarded NEON tokens up to 24% APY. Promotion ends at 5pm GMT on 17th August. Read more below in the "Incentivized Programs" section',
     },
   },
   Deep: [],
