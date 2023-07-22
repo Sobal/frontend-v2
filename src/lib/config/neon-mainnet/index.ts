@@ -18,7 +18,7 @@ const config: Config = {
   trustWalletNetwork: 'neon',
   unknown: false,
   visibleInUI: true,
-  testNetwork: true,
+  testNetwork: false,
   rpc: `https://neon-proxy-mainnet.solana.p2p.org`,
   ws: ``,
   explorer: 'https://neonscan.org',
