@@ -4,6 +4,8 @@ import { useRouter } from 'vue-router';
 import HomePageHero from '@/components/heros/HomePageHero.vue';
 import TokenSearchInput from '@/components/inputs/TokenSearchInput.vue';
 import FeaturedProtocols from '@/components/sections/FeaturedProtocols.vue';
+import IncentivizedArticles from '@/components/sections/IncentivizedArticles.vue';
+
 import PoolsTable from '@/components/tables/PoolsTable/PoolsTable.vue';
 import usePoolFilters from '@/composables/pools/usePoolFilters';
 import useBreakpoints from '@/composables/useBreakpoints';
@@ -14,10 +16,10 @@ import LS_KEYS from '@/constants/local-storage.keys';
 import { useIntersectionObserver } from '@vueuse/core';
 
 const featuredProtocolsSentinel = ref<HTMLDivElement | null>(null);
-const isFeaturedProtocolsVisible = ref(false);
+const isFeaturedVisible = ref(false);
 useIntersectionObserver(featuredProtocolsSentinel, ([{ isIntersecting }]) => {
   if (isIntersecting) {
-    isFeaturedProtocolsVisible.value = true;
+    isFeaturedVisible.value = true;
   }
 });
 
@@ -35,6 +37,8 @@ const initSortCol =
 const router = useRouter();
 const { appNetworkConfig } = useNetwork();
 const isElementSupported = appNetworkConfig.supportsElementPools;
+const displayIncentivizedArticles = appNetworkConfig.showIncentivizedArticles;
+
 const { selectedTokens, addSelectedToken, removeSelectedToken } =
   usePoolFilters();
 
@@ -123,10 +127,16 @@ function onColumnSort(columnId: string) {
         />
         <div ref="featuredProtocolsSentinel" />
         <div
-          v-if="isElementSupported && isFeaturedProtocolsVisible"
+          v-if="isElementSupported && isFeaturedVisible"
           class="p-4 xl:p-0 mt-12"
         >
           <FeaturedProtocols />
+        </div>
+        <div
+          v-if="displayIncentivizedArticles && isFeaturedVisible"
+          class="p-4 xl:p-0 mt-12"
+        >
+          <IncentivizedArticles />
         </div>
       </BalStack>
     </div>

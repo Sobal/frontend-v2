@@ -20,6 +20,8 @@ export type PoolMetadata = {
   incentivised?: boolean;
   boostedProtocols?: BoostedProtocol[];
   incentiveProtocols?: IncentiveProtocol[];
+  incentivizedButtonText?: string;
+  incentivizedHoverText?: string;
 };
 
 export enum RiskKey {

@@ -35,6 +35,7 @@ const config: Config = {
   bridgeUrl: 'https://neonpass.live',
   supportsEIP1559: false,
   supportsElementPools: false,
+  showIncentivizedArticles: true,
   blockTime: 2,
   nativeAsset: {
     name: 'Neon',
