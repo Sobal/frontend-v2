@@ -96,8 +96,8 @@ const { upToLargeBreakpoint, upToSmallBreakpoint } = useBreakpoints();
 const { networkSlug } = useNetwork();
 
 const wideCompositionWidth = computed(() => {
-  if (upToSmallBreakpoint.value) return 250;
-  return 350;
+  if (upToSmallBreakpoint.value) return 300;
+  return 400;
 });
 
 /**
@@ -110,7 +110,7 @@ const columns = computed<ColumnDefinition<Pool>[]>(() => [
     accessor: 'uri',
     Header: 'iconColumnHeader',
     Cell: 'iconColumnCell',
-    width: 125,
+    width: 80,
     noGrow: true,
   },
   {
@@ -118,7 +118,7 @@ const columns = computed<ColumnDefinition<Pool>[]>(() => [
     id: 'poolName',
     accessor: 'id',
     Cell: 'poolNameCell',
-    width: props.hiddenColumns.length >= 2 ? wideCompositionWidth.value : 350,
+    width: props.hiddenColumns.length >= 2 ? wideCompositionWidth.value : 400,
   },
   {
     name: t('myBoost'),
@@ -174,7 +174,7 @@ const columns = computed<ColumnDefinition<Pool>[]>(() => [
         return 0;
       return volume;
     },
-    width: 175,
+    width: 155,
     cellClassName: 'font-numeric',
   },
   {
@@ -194,7 +194,7 @@ const columns = computed<ColumnDefinition<Pool>[]>(() => [
         ? apr
         : 0;
     },
-    width: 150,
+    width: 110,
   },
   {
     name: t('expiryDate'),
@@ -329,7 +329,10 @@ function iconAddresses(pool: Pool) {
         </div>
       </template>
       <template #poolNameCell="pool">
-        <div v-if="!isLoading" class="flex items-center py-4 px-6">
+        <div
+          v-if="!isLoading"
+          class="flex flex-wrap-reverse items-center py-1 px-6"
+        >
           <div v-if="poolMetadata(pool.id)?.name" class="pr-2 text-left">
             {{ poolMetadata(pool.id)?.name }}
           </div>
