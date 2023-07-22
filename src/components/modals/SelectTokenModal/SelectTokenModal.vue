@@ -208,7 +208,7 @@ watchEffect(() => {
               <img
                 v-for="(tokenlist, i) in activeTokenLists"
                 :key="i"
-                :src="resolve(tokenlist.logoURI || '')"
+                :src="resolve(tokenlist.logoURI || 'images/logos/logo512.png')"
                 class="inline-block w-6 h-6 bg-white rounded-full shadow"
               />
             </span>
