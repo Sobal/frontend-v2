@@ -76,7 +76,9 @@ const stats = computed(() => {
       id: 'volumeTime',
       label: t('volumeTime', ['24h']),
       value: fNum(
-        volumeSnapshot > VOLUME_THRESHOLD ? '-' : volumeSnapshot,
+        volumeSnapshot > VOLUME_THRESHOLD || volumeSnapshot == 0
+          ? '-'
+          : volumeSnapshot,
         FNumFormats.fiat
       ),
       loading: props.loading,
@@ -85,7 +87,9 @@ const stats = computed(() => {
       id: 'feesTime',
       label: t('feesTime', ['24h']),
       value: fNum(
-        feesSnapshot > VOLUME_THRESHOLD ? '-' : feesSnapshot,
+        feesSnapshot > VOLUME_THRESHOLD || feesSnapshot == 0
+          ? '-'
+          : feesSnapshot,
         FNumFormats.fiat
       ),
       loading: props.loading,

@@ -38,7 +38,9 @@ const apr = computed<AprBreakdown | undefined>(
   () => props.pool?.apr || props.poolApr
 );
 const validAPR = computed(
-  () => Number(apr.value?.swapFees || 0) <= APR_THRESHOLD
+  () =>
+    Number(apr.value?.swapFees || 0) <= APR_THRESHOLD &&
+    Number(apr.value?.swapFees || 0) !== 0
 );
 
 const hasYieldAPR = computed(() => {

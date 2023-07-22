@@ -353,7 +353,8 @@ function iconAddresses(pool: Pool) {
           <span v-else class="text-right">
             {{
               fNum(
-                pool?.volumeSnapshot < VOLUME_THRESHOLD
+                pool?.volumeSnapshot < VOLUME_THRESHOLD &&
+                  pool?.volumeSnapshot !== '0'
                   ? pool?.volumeSnapshot
                   : '-',
                 {
