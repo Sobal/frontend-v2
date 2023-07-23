@@ -99,7 +99,7 @@ export interface Config {
   bridgeUrl: string;
   supportsEIP1559: boolean;
   supportsElementPools: boolean;
-  showIncentivizedArticles: boolean;
+  showLatestArticles: boolean;
   supportsVeBalSync?: boolean;
   blockTime: number;
   nativeAsset: {

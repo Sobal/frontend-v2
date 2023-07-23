@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 import HomePageHero from '@/components/heros/HomePageHero.vue';
 import TokenSearchInput from '@/components/inputs/TokenSearchInput.vue';
 import FeaturedProtocols from '@/components/sections/FeaturedProtocols.vue';
-import IncentivizedArticles from '@/components/sections/IncentivizedArticles.vue';
+import LatestArticles from '@/components/sections/LatestArticles.vue';
 
 import PoolsTable from '@/components/tables/PoolsTable/PoolsTable.vue';
 import usePoolFilters from '@/composables/pools/usePoolFilters';
@@ -37,7 +37,7 @@ const initSortCol =
 const router = useRouter();
 const { appNetworkConfig } = useNetwork();
 const isElementSupported = appNetworkConfig.supportsElementPools;
-const displayIncentivizedArticles = appNetworkConfig.showIncentivizedArticles;
+const displayLatestArticles = appNetworkConfig.showLatestArticles;
 
 const { selectedTokens, addSelectedToken, removeSelectedToken } =
   usePoolFilters();
@@ -133,10 +133,10 @@ function onColumnSort(columnId: string) {
           <FeaturedProtocols />
         </div>
         <div
-          v-if="displayIncentivizedArticles && isFeaturedVisible"
+          v-if="displayLatestArticles && isFeaturedVisible"
           class="p-4 xl:p-0 mt-12"
         >
-          <IncentivizedArticles />
+          <LatestArticles />
         </div>
       </BalStack>
     </div>
