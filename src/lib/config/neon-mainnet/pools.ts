@@ -62,7 +62,7 @@ const pools: Pools = {
       incentiveProtocols: [IncentiveProtocol.Neon],
       incentivizedButtonText: '24% APY INCENTIVE',
       incentivizedHoverText:
-        'Enter to be rewarded NEON tokens up to 24% APY. Promotion ends at 5pm GMT on 17th August. Read more below in the "Latest Articles" section',
+        'Deposit into this pool to be rewarded NEON tokens up to 24% APY. Promotion ends at 5pm GMT on 17th August. Read more below in the "Latest Articles" section',
     },
     '0xb04aba41dc9ed9b1c534b8239c4ffdfc526c5409000200000000000000000004': {
       // name: 'WNEON-WSOL',
@@ -71,7 +71,7 @@ const pools: Pools = {
       incentiveProtocols: [IncentiveProtocol.Neon],
       incentivizedButtonText: '24% APY INCENTIVE',
       incentivizedHoverText:
-        'Enter to be rewarded NEON tokens up to 24% APY. Promotion ends at 5pm GMT on 17th August. Read more below in the "Latest Articles" section',
+        'Deposit into this pool rewarded NEON tokens up to 24% APY. Promotion ends at 5pm GMT on 17th August. Read more below in the "Latest Articles" section',
     },
   },
   Deep: [],
