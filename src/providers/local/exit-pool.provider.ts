@@ -598,6 +598,7 @@ export const exitPoolProvider = (
     isTxPayloadReady,
     relayerSignature,
     relayerApprovalTx,
+    shouldUseSwapExit,
 
     // methods
     setIsSingleAssetExit,
