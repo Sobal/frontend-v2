@@ -37,7 +37,7 @@ export default function initSentry(app: App) {
     };
 
     init({
-      dsn: 'https://d292b6ec7b6e4aa2801d972e06cb232c@o574636.ingest.sentry.io/5725878',
+      dsn: 'https://231f98093d7341a68fded44e6ad93738@o4505603946315776.ingest.sentry.io/4505603947954176',
       integrations: [new Integrations.BrowserTracing()],
       tracesSampleRate: 1.0,
       environment: import.meta.env.MODE,
