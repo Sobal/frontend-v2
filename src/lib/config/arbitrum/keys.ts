@@ -1,7 +1,7 @@
 import { Keys } from '../types';
 
 const keys: Keys = {
-  infura: 'daaa68ec242643719749dd1caba2fc66',
+  infura: '7039bd4be95f4c26ae39452d256908a2',
   alchemy: 'VBeQgTCRqqPtuuEPsFzRdwKXzDyN6aFh',
 };
 

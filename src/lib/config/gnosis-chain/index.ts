@@ -63,7 +63,7 @@ const config: Config = {
   pools,
   tokens,
   keys: {
-    infura: 'daaa68ec242643719749dd1caba2fc66',
+    infura: '7039bd4be95f4c26ae39452d256908a2',
     alchemy: 'oGLgncMVHNWltnK0nTfiryxQ6gYemKQO',
   },
   gauges: {
