@@ -50,7 +50,7 @@ export default function useTokenPricesQuery(
   }
 
   const queryFn = async () => {
-    const apiTokenPath = '/tokens/' + networkId.value;
+    const apiTokenPath = '/tokens-api/' + networkId.value;
 
     let prices = {};
     const response = await fetch(apiTokenPath);

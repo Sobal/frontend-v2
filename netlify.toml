@@ -2,7 +2,7 @@
     targetPort = 8080
 
 [[redirects]]
-from = "/tokens/*"
+from = "/tokens-api/*"
 to = "https://api.sobal.fi/tokens/:splat"
 status = 200
 force = true
