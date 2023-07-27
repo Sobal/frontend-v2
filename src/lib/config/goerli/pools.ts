@@ -29,7 +29,9 @@ const pools: Pools = {
     'GyroE',
   ],
   Stable: {
-    AllowList: [],
+    AllowList: [
+      '0x57e2b9fcec1d6f16b660934a604f1a5345709df9000000000000000000000004',
+    ],
   },
   Investment: {
     AllowList: [],
