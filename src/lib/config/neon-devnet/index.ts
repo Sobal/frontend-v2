@@ -21,6 +21,7 @@ const config: Config = {
   unknown: false,
   visibleInUI: true,
   testNetwork: true,
+  showLatestArticles: false,
   rpc: `https://devnet.neonevm.org`,
   ws: `wss://devnet.neonevm.org`,
   explorer: 'https://devnet.neonscan.org',
