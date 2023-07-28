@@ -14,7 +14,7 @@ const featuredLatestArticles = [
       "In order to celebrate the launch of Sobal on Neon EVM, we've allocated 400,000 NEON tokens to incentivize our NEON/USDC and NEON/SOL pools!",
     linkText: 'Read more about the program',
     imgSrc: '/images/banners/articles/neon.svg',
-    link: 'https://blog.sobal.fi/',
+    link: 'https://blog.sobal.fi/celebrating-the-launch-of-sobal-on-neon-evm-14f3be2b668',
   },
 ];
 </script>
