@@ -57,7 +57,6 @@ export default function useTokenPricesQuery(
     if (response.status === 200) {
       const data = await response.json();
       prices = apiPriceArrayToMap(data);
-      console.log('fetch prices from api sucessfull', prices);
     }
 
     const pricesMap = injectCustomTokens(prices, pricesToInject.value);
