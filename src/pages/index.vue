@@ -136,7 +136,7 @@ function onColumnSort(columnId: string) {
           v-if="displayLatestArticles && isFeaturedVisible"
           class="p-4 xl:p-0 mt-12"
         >
-          <LatestArticles />
+          <LatestArticles :network="appNetworkConfig.network" />
         </div>
       </BalStack>
     </div>
