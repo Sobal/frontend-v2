@@ -23,11 +23,14 @@ const config: Config = {
   ws: ``,
   explorer: 'https://basescan.org',
   explorerName: 'BaseScan',
-  subgraph: 'https://api.thegraph.com/subgraphs/name/sobal/sobal-base',
+  subgraph:
+    'https://api.studio.thegraph.com/query/50526/sobal-base/version/latest',
   balancerApi: 'https://api.sobal.fi',
   poolsUrlV2: '',
   subgraphs: {
-    main: ['https://api.thegraph.com/subgraphs/name/sobal/sobal-base'],
+    main: [
+      'https://api.studio.thegraph.com/query/50526/sobal-base/version/latest',
+    ],
     aave: '',
     gauge: '',
     blocks: '',
