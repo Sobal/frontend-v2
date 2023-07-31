@@ -1,0 +1,69 @@
+import { Config } from '../types';
+import contracts from './contracts';
+import keys from './keys';
+import pools from './pools';
+import tokenlists from './tokenlists';
+import tokens from './tokens';
+import rateProviders from './rateProviders';
+
+const config: Config = {
+  key: '8453',
+  chainId: 8453,
+  chainName: 'Base',
+  name: 'Base',
+  shortName: 'base',
+  monorepoName: 'base',
+  slug: 'base',
+  network: 'base',
+  trustWalletNetwork: 'base',
+  unknown: false,
+  visibleInUI: true,
+  testNetwork: false,
+  rpc: `https://mainnet.base.org`,
+  ws: ``,
+  explorer: 'https://basescan.org',
+  explorerName: 'BaseScan',
+  subgraph: 'https://api.thegraph.com/subgraphs/name/sobal/sobal-base',
+  balancerApi: 'https://api.sobal.fi',
+  poolsUrlV2: '',
+  subgraphs: {
+    main: ['https://api.thegraph.com/subgraphs/name/sobal/sobal-base'],
+    aave: '',
+    gauge: '',
+    blocks: '',
+  },
+  bridgeUrl: 'https://docs.base.org/tools/bridges',
+  supportsEIP1559: false,
+  supportsElementPools: false,
+  showLatestArticles: true,
+  blockTime: 2,
+  nativeAsset: {
+    name: 'Ethereum',
+    address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+    symbol: 'ETH',
+    decimals: 18,
+    deeplinkId: 'eth',
+    logoURI: 'tokens/eth.png',
+    minTransactionBuffer: '0.05',
+  },
+  thirdParty: {
+    coingecko: {
+      nativeAssetId: 'ethereum',
+      platformId: 'base',
+    },
+  },
+  addresses: {
+    ...contracts,
+  },
+  pools,
+  tokens,
+  keys,
+  gauges: {
+    type: 3,
+    weight: 0,
+  },
+  tokenlists,
+  rateProviders,
+};
+
+export default config;

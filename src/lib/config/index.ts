@@ -9,6 +9,8 @@ import polygon from './polygon';
 import zkevm from './zkevm';
 import neonMainnet from './neon-mainnet';
 import neonDevnet from './neon-devnet';
+import base from './base';
+import baseGoerli from './base-goerli';
 
 // We don't import Network from sdk to avoid extra bundle size when loading app (while the SDK is not tree-shakable)
 export enum Network {
@@ -23,6 +25,8 @@ export enum Network {
   ARBITRUM = 42161,
   NEON_MAINNET = 245022934,
   NEON_DEVNET = 245022926,
+  BASE = 8453,
+  BASE_GOERLI = 84531,
 }
 
 const config: Record<Network | number, Config> = {
@@ -35,6 +39,8 @@ const config: Record<Network | number, Config> = {
   [Network.ZKEVM]: zkevm,
   [Network.NEON_MAINNET]: neonMainnet,
   [Network.NEON_DEVNET]: neonDevnet,
+  [Network.BASE]: base,
+  [Network.BASE_GOERLI]: baseGoerli,
 };
 
 export default config;
