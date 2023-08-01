@@ -43,7 +43,7 @@ const {
   goBack,
   setActiveStep,
   sortSeedTokens,
-  getScaledAmounts,
+  getAmounts,
   saveState,
   getPoolSymbol,
 } = usePoolCreation();
@@ -52,7 +52,7 @@ const { getToken, priceFor, nativeAsset, wrappedNativeAsset, balanceFor } =
   useTokens();
 const { fNum } = useNumbers();
 const { t } = useI18n();
-const { account } = useWeb3();
+const { account, isMismatchedNetwork } = useWeb3();
 const { networkConfig } = useNetwork();
 
 /**
@@ -89,11 +89,15 @@ const tokenAddresses = computed((): string[] => {
 });
 
 const tokenAmounts = computed((): string[] => {
-  return getScaledAmounts();
+  return getAmounts();
 });
 
 const hasMissingPoolNameOrSymbol = computed(() => {
   return poolSymbol.value === '' || poolName.value === '';
+});
+
+const actionsDisabled = computed((): boolean => {
+  return hasMissingPoolNameOrSymbol.value || isMismatchedNetwork.value;
 });
 
 const initialWeights = computed(() => {
@@ -345,7 +349,7 @@ function getInitialWeightHighlightClass(tokenAddress: string) {
         </AnimatePresence>
 
         <CreateActions
-          :createDisabled="hasMissingPoolNameOrSymbol"
+          :createDisabled="actionsDisabled"
           :tokenAddresses="tokenAddresses"
           :amounts="tokenAmounts"
           @success="handleSuccess"

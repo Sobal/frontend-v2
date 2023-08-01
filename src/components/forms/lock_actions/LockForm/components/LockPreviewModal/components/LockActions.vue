@@ -22,9 +22,9 @@ import { TransactionActionInfo } from '@/types/transactions';
 import useVotingGauges from '@/composables/useVotingGauges';
 import { VeBalLockInfo } from '@/services/balancer/contracts/contracts/veBAL';
 import { ApprovalAction } from '@/composables/approvals/types';
-import { captureException } from '@sentry/browser';
 import useTokenApprovalActions from '@/composables/approvals/useTokenApprovalActions';
-import { isUserError } from '@/composables/useTransactionErrors';
+import { captureBalancerException } from '@/lib/utils/errors';
+import { useCrossChainSync } from '@/providers/cross-chain-sync.provider';
 
 /**
  * TYPES
@@ -58,6 +58,7 @@ const emit = defineEmits<{
 /**
  * STATE
  */
+const isLoadingApprovals = ref(true);
 const lockActionStates = reactive<LockActionState[]>(
   props.lockType.map(() => ({
     init: false,
@@ -79,6 +80,7 @@ const { fNum } = useNumbers();
 const { totalVotes, unallocatedVotes } = useVotingGauges();
 const { networkSlug } = useNetwork();
 const { getTokenApprovalActions } = useTokenApprovalActions();
+const { refetch: refetchSyncData } = useCrossChainSync();
 
 const lockActions = props.lockType.map((lockType, actionIndex) => ({
   label: t(`getVeBAL.previewModal.actions.${lockType}.label`, [
@@ -144,6 +146,8 @@ async function handleTransaction(
 
       const confirmedAt = await getTxConfirmedAt(receipt);
       lockActionStates[actionIndex].confirmedAt = dateTimeLabelFor(confirmedAt);
+
+      refetchSyncData();
     },
     onTxFailed: () => {
       lockActionStates[actionIndex].confirming = false;
@@ -184,19 +188,12 @@ async function submit(lockType: LockType, actionIndex: number) {
     handleTransaction(tx, lockType, actionIndex);
     return tx;
   } catch (error) {
-    console.error(error);
-
     // An exception is already logged in balancerContractsService, but we should
     // log another here in case any exceptions are thrown before it's sent
-    if (!isUserError(error)) {
-      captureException(error, {
-        level: 'fatal',
-        extra: {
-          lockType,
-          props,
-        },
-      });
-    }
+    captureBalancerException({
+      error,
+      context: { level: 'fatal', extra: { lockType, props } },
+    });
 
     return Promise.reject(error);
   }
@@ -221,12 +218,18 @@ onBeforeMount(async () => {
     actionType: ApprovalAction.Locking,
   });
   actions.value.unshift(...approvalActions);
+  isLoadingApprovals.value = false;
 });
 </script>
 
 <template>
   <div>
-    <BalActionSteps v-if="!lockActionStatesConfirmed" :actions="actions" />
+    <BalActionSteps
+      v-if="!lockActionStatesConfirmed"
+      :actions="actions"
+      :isLoading="isLoadingApprovals"
+      primaryActionType="extendLock"
+    />
     <template v-else>
       <div
         v-for="(lockActionState, i) in lockActionStates"

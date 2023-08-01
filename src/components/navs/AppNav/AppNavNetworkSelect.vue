@@ -18,6 +18,7 @@ export interface NetworkOption {
   name: string;
   networkSlug?: string;
   key?: string;
+  testNetwork: boolean;
 }
 
 // COMPOSABLES
@@ -34,6 +35,7 @@ function convertConfigToNetworkOption(config: Config): NetworkOption {
     name: config.chainName,
     networkSlug: config.slug,
     key: config.key,
+    testNetwork: config.testNetwork,
   };
 }
 
@@ -51,12 +53,14 @@ const networksDev = ref(testNetworks);
 
 // COMPUTED
 const allNetworks = computed(() => {
-  return networks.value.concat(
-    configService.env.APP_ENV === 'development' ||
-      configService.env.APP_ENV === 'staging'
-      ? networksDev.value
-      : []
-  );
+  return networks.value
+    .concat(
+      configService.env.APP_ENV === 'development' ||
+        configService.env.APP_ENV === 'staging'
+        ? networksDev.value
+        : []
+    )
+    .sort(network => (network.testNetwork ? 1 : -1));
 });
 
 const appNetworkSupported = computed((): boolean => {
@@ -154,7 +158,34 @@ function isActive(network: NetworkOption): boolean {
         {{ $t('networkSelection') }}:
       </div>
       <a
-        v-for="network in allNetworks"
+        v-for="network in networks"
+        :key="network.id"
+        :href="getNetworkChangeUrl(network)"
+        class="flex justify-between items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-850 cursor-pointer"
+      >
+        <div class="flex items-center">
+          <img
+            :src="buildNetworkIconURL(network.id)"
+            :alt="network.name"
+            class="mr-2 w-6 h-6 rounded-full"
+          />
+          <span class="ml-1 font-medium">
+            {{ network.name }}
+          </span>
+        </div>
+        <BalIcon
+          v-if="isActive(network)"
+          name="check"
+          class="text-blue-500 dark:text-blue-400"
+        />
+      </a>
+      <div
+        class="py-2 px-3 text-sm font-medium text-gray-500 whitespace-nowrap bg-gray-50 dark:bg-gray-800 border-b dark:border-gray-900"
+      >
+        {{ $t('testnets') }}:
+      </div>
+      <a
+        v-for="network in networksDev"
         :key="network.id"
         :href="getNetworkChangeUrl(network)"
         class="flex justify-between items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-850 cursor-pointer"

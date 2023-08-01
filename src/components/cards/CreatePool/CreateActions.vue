@@ -47,6 +47,7 @@ const createState = reactive<CreateState>({
   isRestoredTxConfirmed: false,
   isLoadingRestoredTx: false,
 });
+const isLoading = ref(true);
 
 /*
  * COMPOSABLES
@@ -125,6 +126,8 @@ onBeforeMount(async () => {
     actionType: ApprovalAction.AddLiquidity,
   });
   actions.value = [...approvalActions, ...actions.value];
+
+  isLoading.value = false;
 });
 
 /**
@@ -142,8 +145,9 @@ function handleSuccess(details: any): void {
   <div>
     <BalActionSteps
       :actions="requiredActions"
+      primaryActionType="createPool"
       :disabled="props.createDisabled"
-      :isLoading="createState.isLoadingRestoredTx"
+      :isLoading="isLoading"
       :loadingLabel="$t('restoring')"
       @success="handleSuccess"
     />
