@@ -51,6 +51,7 @@ const { darkMode } = useDarkMode();
  * STATE
  */
 const networkName = configService.network.name;
+const unknownAllowed = configService.network.unknown;
 
 const tokenWeightListWrapper = ref<HTMLElement>();
 const addTokenRowElement = ref<HTMLElement>();
@@ -102,7 +103,7 @@ const isProceedDisabled = computed(() => {
   if (Number(totalAllocatedWeight.value) !== 100) return true;
   if (seedTokens.value.length < 2) return true;
   if (zeroWeightToken.value) return true;
-  if (hasUnlistedToken.value) return true;
+  if (hasUnlistedToken.value && !unknownAllowed) return true;
   return false;
 });
 
@@ -441,10 +442,17 @@ function onAlertMountChange() {
           @on-presence="onAlertMountChange"
           @on-exit="onAlertMountChange"
         >
-          <BalAlert :title="$t('unlistedTokenWarningTitle')" type="error">
+          <BalAlert
+            :title="$t('unlistedTokenWarningTitle')"
+            :type="unknownAllowed ? 'tip' : 'error'"
+          >
             <BalStack vertical spacing="xs">
               <span class="mt-2"
-                >{{ $t('unlistedTokenWarning') }}
+                >{{
+                  unknownAllowed
+                    ? $t('allowedUnlistedTokenWarning')
+                    : $t('unlistedTokenWarning')
+                }}
                 <a
                   href="https://github.com/sobal/frontend-v2/wiki/How-tos#add-tokens-to-tokenlist"
                   target="_blank"

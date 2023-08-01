@@ -1370,8 +1370,9 @@
   "tokensLowerCase": "tokens",
   "tokensParen": "Token(s)",
   "tokenPrices": "Token prices",
-  "unlistedTokenWarningTitle": "You have added a token that is not included in the Sobal Tokenlist.",
+  "unlistedTokenWarningTitle": "You have added a token that is not in the Sobal Tokenlist.",
   "unlistedTokenWarning": "You will not be able to complete pool creation until it's included. To add a token to our Tokenlist please follow our process described",
+  "allowedUnlistedTokenWarning": "Users may not be able to easily find one or more of the tokens in this pool as it's not on our Tokenlist. To add a token to our Tokenlist follow the steps",
   "tooltips": {
     "addLiquidity": {
       "priceImpact": "Price impact from adding liquidity results when the value of each token added is not proportional to the weights of the pool. Adding non-proportional amounts causes the internal prices of the pool to change, as if you were swapping tokens. The higher the price impact, the worse price you’ll get to enter your position.",

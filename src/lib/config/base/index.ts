@@ -16,7 +16,7 @@ const config: Config = {
   slug: 'base',
   network: 'base',
   trustWalletNetwork: 'base',
-  unknown: false,
+  unknown: true,
   visibleInUI: true,
   testNetwork: false,
   rpc: `https://mainnet.base.org`,
