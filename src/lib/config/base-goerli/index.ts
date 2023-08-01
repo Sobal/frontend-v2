@@ -38,7 +38,7 @@ const config: Config = {
   bridgeUrl: 'https://bridge.base.org/',
   supportsEIP1559: false,
   supportsElementPools: false,
-  showLatestArticles: true,
+  showLatestArticles: false,
   blockTime: 2,
   nativeAsset: {
     name: 'Ethereum',
