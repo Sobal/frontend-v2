@@ -708,6 +708,7 @@
   "network": "Network",
   "networkMismatch": "Please switch to {0}",
   "networkSelection": "Network selection",
+  "testnets": "Testnets",
   "poolDoesntExist": "Pool doesn't exist on",
   "new": "New",
   "newTotal": "New total",

@@ -18,7 +18,7 @@ const config: Config = {
   trustWalletNetwork: 'base-goerli',
   unknown: false,
   visibleInUI: true,
-  testNetwork: false,
+  testNetwork: true,
   rpc: `https://goerli.base.org`,
   ws: ``,
   explorer: 'https://goerli.basescan.org',
