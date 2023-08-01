@@ -18,7 +18,7 @@ const config: Config = {
   slug: 'neon-devnet',
   network: 'neon-devnet',
   trustWalletNetwork: 'neondevnet',
-  unknown: false,
+  unknown: true,
   visibleInUI: true,
   testNetwork: true,
   showLatestArticles: false,

@@ -16,7 +16,7 @@ const config: Config = {
   slug: 'neon',
   network: 'neon-mainnet',
   trustWalletNetwork: 'neon',
-  unknown: false,
+  unknown: true,
   visibleInUI: true,
   testNetwork: false,
   rpc: `https://neon-proxy-mainnet.solana.p2p.org`,

@@ -16,7 +16,7 @@ const config: Config = {
   slug: 'base-goerli',
   network: 'base-goerli',
   trustWalletNetwork: 'base-goerli',
-  unknown: false,
+  unknown: true,
   visibleInUI: true,
   testNetwork: true,
   rpc: `https://goerli.base.org`,
