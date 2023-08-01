@@ -15,8 +15,8 @@ const featuredLatestArticles = [
   {
     title: 'Adding Liquidity to Sobal on Base',
     description:
-      "You might be new to Sobal, so we've made a step by step guide to adding liquidity to Sobal, it's super simple!",
-    linkText: 'Learn how in 2 steps',
+      "You might be new to Sobal, so we've made a step by step guide to adding liquidity on Base, it's super simple!",
+    linkText: 'Learn how in a few short steps',
     imgSrc: '/images/banners/articles/adding-liquidity.svg',
     link: 'https://blog.sobal.fi/guide-adding-liquidity-to-sobal-on-base-642590717ec1',
     forNetwork: 'base',
