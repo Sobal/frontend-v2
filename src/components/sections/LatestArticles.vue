@@ -22,6 +22,15 @@ const featuredLatestArticles = [
     forNetwork: 'base',
   },
   {
+    title: 'Sobal Launches on Base! ',
+    description:
+      "We're celebrating the launch of Sobal on Base by setting aside $10,000 in USDC to airdrop to users who use our platform during the month of August!",
+    linkText: 'More about how to be eligible',
+    imgSrc: '/images/banners/articles/base.svg',
+    link: 'https://blog.sobal.fi/',
+    forNetwork: 'base',
+  },
+  {
     title: 'Adding Liquidity to Sobal on Neon',
     description:
       "We wanted to make it easier for our new users, so we've put together a comprehensive guide to adding Liquidity to Sobal including bridging tokens from Solana and adding the Neon RPC to your wallet.",
