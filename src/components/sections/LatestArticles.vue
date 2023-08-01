@@ -27,7 +27,7 @@ const featuredLatestArticles = [
       "We're celebrating the launch of Sobal on Base by setting aside $10,000 in USDC to airdrop to users who use our platform during the month of August!",
     linkText: 'More about how to be eligible',
     imgSrc: '/images/banners/articles/base.svg',
-    link: 'https://blog.sobal.fi/',
+    link: 'https://blog.sobal.fi/sobal-is-now-on-base-a2b4da61cbe0',
     forNetwork: 'base',
   },
   {
