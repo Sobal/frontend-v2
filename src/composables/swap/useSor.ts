@@ -358,7 +358,8 @@ export default function useSor({
       ? tokenInAmountInput.value
       : tokenOutAmountInput.value;
     // Avoid using SOR if querying a zero value or (un)wrapping swap
-    const zeroValueSwap = amount === '' || bnum(amount).isZero();
+    const zeroValueSwap =
+      amount === '' || bnum(amount).isZero() || isNaN(Number(amount));
     if (zeroValueSwap) {
       resetInputAmounts(amount);
       return;
