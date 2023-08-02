@@ -9,8 +9,8 @@ import rateProviders from './rateProviders';
 const config: Config = {
   key: '245022934',
   chainId: 245022934,
-  chainName: 'Neon Mainnet',
-  name: 'Neon Mainnet',
+  chainName: 'Neon',
+  name: 'Neon',
   shortName: 'neon-mainnet',
   monorepoName: 'neon-mainnet',
   slug: 'neon',

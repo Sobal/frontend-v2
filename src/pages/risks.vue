@@ -108,7 +108,7 @@ import { RiskKey } from '@/types/pools';
         <li class="toc-link">
           <router-link to="risks#network-risks"
             ><span class="font-semibold"
-              >Layer 2 network risks</span
+              >Layer 2 and side chain network risks</span
             ></router-link
           >
           <ul>
@@ -1032,7 +1032,7 @@ import { RiskKey } from '@/types/pools';
     </div>
     <hr />
     <div :id="RiskKey.Network" class="risk">
-      <h3>Layer 2 network risks</h3>
+      <h3>Layer 2 and side chain network risks</h3>
       <p>
         Sidechains and Layer 2 networks can offer advantages over Ethereum
         Mainnet, like faster transaction times and lower fees. However, they
