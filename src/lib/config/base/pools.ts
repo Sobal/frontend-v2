@@ -40,6 +40,7 @@ const pools: Pools = {
     AllowList: [
       '0xafb45a2c365749ddc9166e6ddf845af2e9217345000200000000000000000003', // WETH/axlUSD
       '0x074094aac7a5e2fe9e16b5d0be9ed288c5ea6c8e000200000000000000000004', // WETH/BOLD
+      '0x6e6ba6490fa58e8b8c4a45c6d02220f48ace8732000200000000000000000005', // BOLD/axlUSD
     ],
   },
   Factories: {
