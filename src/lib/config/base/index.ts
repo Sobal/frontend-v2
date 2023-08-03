@@ -35,7 +35,7 @@ const config: Config = {
     gauge: '',
     blocks: '',
   },
-  bridgeUrl: 'https://docs.base.org/tools/bridges',
+  bridgeUrl: 'https://bridge.base.org/',
   supportsEIP1559: false,
   supportsElementPools: false,
   showLatestArticles: true,

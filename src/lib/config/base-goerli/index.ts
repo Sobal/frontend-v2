@@ -35,7 +35,7 @@ const config: Config = {
     gauge: '',
     blocks: '',
   },
-  bridgeUrl: 'https://bridge.base.org/',
+  bridgeUrl: 'https://goerli-bridge.base.org/deposit',
   supportsEIP1559: false,
   supportsElementPools: false,
   showLatestArticles: false,
