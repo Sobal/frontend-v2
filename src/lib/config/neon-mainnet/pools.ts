@@ -42,8 +42,9 @@ const pools: Pools = {
     // Only effective after given timestamp here: usePool.ts#createdAfterTimestamp
     // see useDisabledJoinPool.ts#nonAllowedWeightedPoolAfterTimestamp for logic.
     AllowList: [
-      '0x4e14f4933c8fbda3d4f24da8e4343d1918d2902f000200000000000000000003',
-      '0xb04aba41dc9ed9b1c534b8239c4ffdfc526c5409000200000000000000000004',
+      '0x4e14f4933c8fbda3d4f24da8e4343d1918d2902f000200000000000000000003', // WNEON / USDC
+      '0xb04aba41dc9ed9b1c534b8239c4ffdfc526c5409000200000000000000000004', // WNEON / WSOL
+      '0x705e262b5ca06b78e7688227c17c287376a54071000200000000000000000007', // SBT-stable / WNEON
     ],
   },
   Factories: {
