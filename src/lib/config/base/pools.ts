@@ -29,7 +29,9 @@ const pools: Pools = {
     'GyroE',
   ],
   Stable: {
-    AllowList: [],
+    AllowList: [
+      '0x6372ec09dbf0c2907bb7b1529a1fc6359310f1bd000000000000000000000009', // DAI/USDbC SBT-stable
+    ],
   },
   Investment: {
     AllowList: [],
