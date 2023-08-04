@@ -1,15 +1,15 @@
-# Balancer Frontend App (v2)
+# Sobal Frontend App (v2)
 
-Official frontend app for the Balancer protocol (v2)
+Official frontend app for the Sobal protocol (v2)
 
-![Alt](https://repobeats.axiom.co/api/embed/9a2f4fbb502d735b6b8ec648723e686ae82f1fad.svg 'Repobeats analytics image')
+![Alt](https://repobeats.axiom.co/api/embed/0aa44270259de80d22b6126b8a2030d85b4b9335.svg 'Repobeats analytics image')
 
 ## Development
 
 To setup the development environment first clone the repo:
 
 ```bash
-git clone https://github.com/balancer/frontend-v2.git && cd frontend-v2
+git clone https://github.com/Sobal/frontend-v2.git && cd frontend-v2
 ```
 
 ### Local env
@@ -103,12 +103,12 @@ source: https://stackoverflow.com/questions/65612411/forcing-docker-to-use-linux
 
 ## Self-Hosting
 
-As we believe in decentralization at all layers, we've made it easy to host your own Balancer Frontend.
+As we believe in decentralization at all layers, we've made it easy to host your own Sobal Frontend.
 
 ### Docker Production Image
 
 We've created a production ready [docker image](./Dockerfile) runs
-a pre-built version of Balancer Frontend-v2 using nginx. You'll need your own
+a pre-built version of Sobal Frontend-v2 using nginx. You'll need your own
 [Infura](https://infura.io), [Alchemy](https://www.alchemy.com/), and
 [Blocknative](https://blocknative.com) API keys in order to fetch data and
 execute transactions.
@@ -120,7 +120,7 @@ docker run \
   -e INFURA_PROJECT_ID=   \ # Required
   -e ALCHEMY_KEY=         \ # Required
   -e BLOCKNATIVE_DAPP_ID= \ # Required
-  balancerfi/frontend-v2
+  sobal/frontend-v2
 ```
 
 ### Custom RPC urls
@@ -133,11 +133,11 @@ To override RPC network config set in `src/lib/config`, you can use the followin
 
 The frontend can easily be deployed to any static host. Use the buttons below to spin up an instance. You will be prompted to provide your Infura Project ID, Alchemy Key, and Blocknative Dapp ID as these are required for the frontend to work correctly.
 
-[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/balancer/frontend-v2/tree/master)
+[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/sobal/frontend-v2/tree/master)
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/balancer/frontend-v2)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/sobal/frontend-v2)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/balancer/frontend-v2)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/sobal/frontend-v2)
 
 ## Vite setup
 
