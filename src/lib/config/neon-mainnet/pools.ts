@@ -32,7 +32,7 @@ const pools: Pools = {
   ],
   Stable: {
     AllowList: [
-      '0x985b565665fb07133f2af74ee1c9b0adb29bd3d3000000000000000000000006',
+      '0x985b565665fb07133f2af74ee1c9b0adb29bd3d3000000000000000000000006', // USDT-USDC
     ],
   },
   Investment: {
@@ -60,7 +60,6 @@ const pools: Pools = {
   Metadata: {
     '0x4e14f4933c8fbda3d4f24da8e4343d1918d2902f000200000000000000000003': {
       // name: 'WNEON-USDC',
-      hasIcon: true,
       incentivised: true,
       incentiveProtocols: [IncentiveProtocol.Neon],
       incentivizedButtonText: '24% APY INCENTIVE',
@@ -69,15 +68,20 @@ const pools: Pools = {
     },
     '0xb04aba41dc9ed9b1c534b8239c4ffdfc526c5409000200000000000000000004': {
       // name: 'WNEON-WSOL',
-      hasIcon: true,
       incentivised: true,
       incentiveProtocols: [IncentiveProtocol.Neon],
       incentivizedButtonText: '24% APY INCENTIVE',
       incentivizedHoverText:
         'Deposit into this pool rewarded NEON tokens up to 24% APY. Promotion ends at 5pm GMT on 17th August. Read more below in the "Latest Articles" section',
     },
+    '0x985b565665fb07133f2af74ee1c9b0adb29bd3d3000000000000000000000006': {
+      name: 'Sobal Stable USD',
+    },
+    '0x705e262b5ca06b78e7688227c17c287376a54071000200000000000000000007': {
+      name: 'WNEON/Sobal Stable USD',
+    },
   },
-  Deep: [],
+  Deep: ['0x705e262b5ca06b78e7688227c17c287376a54071000200000000000000000007'],
   BoostedApr: [],
   DisabledJoins: [],
   NewVersionAvailable: {},
