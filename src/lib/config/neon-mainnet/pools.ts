@@ -32,7 +32,7 @@ const pools: Pools = {
   ],
   Stable: {
     AllowList: [
-      '0xe70c2afc3beb7dc9899b8de7a5f84796dcd5b3a2000000000000000000000005',
+      '0x985b565665fb07133f2af74ee1c9b0adb29bd3d3000000000000000000000006',
     ],
   },
   Investment: {
