@@ -1,6 +1,6 @@
 {
-  "name": "@balancer/frontend-v2",
-  "version": "1.115.8",
+  "name": "@sobal/frontend-v2",
+  "version": "1.0.0",
   "engines": {
     "node": "=16",
     "npm": ">=8"
@@ -73,7 +73,7 @@
     "@popperjs/core": "^2.9.2",
     "@sentry/browser": "^7.17.4",
     "@sentry/tracing": "^7.17.4",
-    "@sobal/sdk": "^1.1.3-beta.32",
+    "@sobal/sdk": "^1.1.3-beta.33",
     "@tanstack/vue-query": "^4.22.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/vue": "^6.4.2",
