@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center py-3 px-4 text-base leading-5 highlight">
     <img
-      :src="url(tokenlist.logoURI || 'images/logos/logo512.png')"
+      :src="url(tokenlist.logoURI || 'images/pixel.png')"
       class="inline-block p-1 mr-3 align-middle bg-white rounded-full"
       width="34"
       height="34"
@@ -27,7 +27,7 @@
       </div>
     </div>
     <BalToggle
-      v-if="notBalancer"
+      v-if="notSobal"
       name="active"
       :checked="isActive"
       @toggle="$emit('toggle')"
@@ -73,7 +73,7 @@ export default {
      * STATE
      */
     const state = reactive({
-      notBalancer: props.tokenlist?.name !== 'Balancer',
+      notSobal: props.tokenlist?.name !== 'Sobal',
       listUrl: resolve(props.uri),
     });
 
