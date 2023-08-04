@@ -46,6 +46,7 @@ const pools: Pools = {
       '0xf746c5856773feb08d043055422367e123e27254000200000000000000000006', // TOSHI/WETH
       '0xa405b5750ce237012e0dce6dca3a6bf70051c10c000200000000000000000007', // TOSHI/USDbC
       '0x0682e6ddd63d4912bf16bd8bc163f9b2b68d87de000200000000000000000008', // USDbC/DAI
+      '0x7a26919c527f9076d4a11bff6618949b494df66100020000000000000000000a', // WETH/SBT-stable
     ],
   },
   Factories: {
@@ -58,8 +59,17 @@ const pools: Pools = {
     VotingGaugePools: [],
     AllowList: [],
   },
-  Metadata: {},
-  Deep: [],
+  Metadata: {
+    '0x6372ec09dbf0c2907bb7b1529a1fc6359310f1bd000000000000000000000009': {
+      name: 'Sobal Stable USD',
+    },
+    '0x7a26919c527f9076d4a11bff6618949b494df66100020000000000000000000a': {
+      name: 'WETH/Sobal Stable USD',
+    },
+  },
+  Deep: [
+    '0x7a26919c527f9076d4a11bff6618949b494df66100020000000000000000000a', // WETH/SBT-stable
+  ],
   BoostedApr: [],
   DisabledJoins: [],
   NewVersionAvailable: {},
