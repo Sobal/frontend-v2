@@ -36,7 +36,7 @@ const config: Config = {
   supportsEIP1559: false,
   supportsElementPools: false,
   showLatestArticles: true,
-  blockTime: 2,
+  blockTime: 0.4,
   nativeAsset: {
     name: 'Neon',
     address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
