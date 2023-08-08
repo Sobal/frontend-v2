@@ -44,7 +44,7 @@ const config: Config = {
     decimals: 18,
     deeplinkId: 'neon',
     logoURI: 'tokens/neon.png',
-    minTransactionBuffer: '0.05',
+    minTransactionBuffer: '1',
   },
   thirdParty: {
     coingecko: {
