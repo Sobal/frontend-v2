@@ -34,7 +34,7 @@ const config: Config = {
     aave: '',
     gauge: '',
     blocks:
-      'https://api.studio.thegraph.com/query/48427/bleu-base-blocks/version/latest',
+      'https://api.studio.thegraph.com/query/50526/sobal-base-blocks/version/latest',
   },
   bridgeUrl: 'https://bridge.base.org/',
   supportsEIP1559: false,
