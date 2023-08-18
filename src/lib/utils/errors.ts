@@ -253,6 +253,7 @@ function isUserRejected(error): boolean {
     /cancelled/,
     /user rejected signing/,
     /user cancelled/,
+    /no matching key/,
   ];
 
   return isErrorOfType(error, messages);
