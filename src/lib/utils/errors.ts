@@ -266,7 +266,7 @@ function isUserNotEnoughGas(error): boolean {
   const messages = [
     /insufficient funds for gas/,
     /the signed fee is insufficient/,
-    /EffectivePriorityFeePerGas too low/,
+    /EffectivePriorityFeePerGas too low/i,
     /Комиссия за газ обновлена/i,
     /insufficient eth to pay the network fees/,
     /insufficient funds for intrinsic transaction cost/,
@@ -289,8 +289,8 @@ function isWalletConfigError(error): boolean {
  */
 function isFaucetRefillError(error): boolean {
   const messages = [
-    /execution reverted: ERR_NEEDS_REFILL/,
-    /execution reverted: ERR_DRIP_THROTTLE/,
+    /execution reverted: ERR_NEEDS_REFILL/i,
+    /execution reverted: ERR_DRIP_THROTTLE/i,
   ];
   return isErrorOfType(error, messages);
 }
@@ -299,7 +299,7 @@ function isFaucetRefillError(error): boolean {
  * Checks if error is a bot associated error.
  */
 function isBotError(error): boolean {
-  const messages = [/ResourceExhausted/];
+  const messages = [/ResourceExhausted/i];
 
   return isErrorOfType(error, messages);
 }
@@ -371,11 +371,11 @@ export function useErrorMsg() {
 
   function formatErrorMsg(error): TransactionError | null {
     if (isUserError(error)) return null;
-    if (isErrorOfType(error, [/UNPREDICTABLE_GAS_LIMIT/]))
+    if (isErrorOfType(error, [/UNPREDICTABLE_GAS_LIMIT/i]))
       return cannotEstimateGasError;
     if (isErrorOfType(error, [/-32010/])) return gasTooLowError;
-    if (isErrorOfType(error, [/BAL#507/])) return slippageError;
-    if (isErrorOfType(error, [/BAL#505/])) return slippageError;
+    if (isErrorOfType(error, [/BAL#507/i])) return slippageError;
+    if (isErrorOfType(error, [/BAL#505/i])) return slippageError;
 
     return defaultError();
   }
