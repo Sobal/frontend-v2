@@ -51,26 +51,14 @@ const testNetworks: NetworkOption[] = Object.values(config)
 
 const networksDev = ref(testNetworks);
 
-// COMPUTED
-const allNetworks = computed(() => {
-  return networks.value
-    .concat(
-      configService.env.APP_ENV === 'development' ||
-        configService.env.APP_ENV === 'staging'
-        ? networksDev.value
-        : []
-    )
-    .sort(network => (network.testNetwork ? 1 : -1));
-});
-
 const appNetworkSupported = computed((): boolean => {
-  return allNetworks.value
+  return networks.value
     .map(network => network.key)
     .includes(networkId.value.toString());
 });
 
 const activeNetwork = computed((): NetworkOption | undefined =>
-  allNetworks.value.find(network => {
+  networks.value.find(network => {
     if (!appNetworkSupported.value && network.id === 'ethereum') return true;
     return isActive(network);
   })
@@ -97,9 +85,7 @@ watch(chainId, (newChainId, oldChainId) => {
     oldChainId !== newChainId &&
     networkId.value !== newChainId
   ) {
-    const newNetwork = allNetworks.value.find(
-      n => Number(n.key) === newChainId
-    );
+    const newNetwork = networks.value.find(n => Number(n.key) === newChainId);
     if (newNetwork) {
       localStorage.setItem('networkId', newChainId.toString());
       hardRedirectTo(getNetworkChangeUrl(newNetwork));
@@ -179,33 +165,40 @@ function isActive(network: NetworkOption): boolean {
           class="text-blue-500 dark:text-blue-400"
         />
       </a>
-      <div
-        class="py-2 px-3 text-sm font-medium text-gray-500 whitespace-nowrap bg-gray-50 dark:bg-gray-800 border-b dark:border-gray-900"
+      <template
+        v-if="
+          configService.env.APP_ENV === 'development' ||
+          configService.env.APP_ENV === 'staging'
+        "
       >
-        {{ $t('testnets') }}:
-      </div>
-      <a
-        v-for="network in networksDev"
-        :key="network.id"
-        :href="getNetworkChangeUrl(network)"
-        class="flex justify-between items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-850 cursor-pointer"
-      >
-        <div class="flex items-center">
-          <img
-            :src="buildNetworkIconURL(network.id)"
-            :alt="network.name"
-            class="mr-2 w-6 h-6 rounded-full"
-          />
-          <span class="ml-1 font-medium">
-            {{ network.name }}
-          </span>
+        <div
+          class="py-2 px-3 text-sm font-medium text-gray-500 whitespace-nowrap bg-gray-50 dark:bg-gray-800 border-b dark:border-gray-900"
+        >
+          {{ $t('testnets') }}:
         </div>
-        <BalIcon
-          v-if="isActive(network)"
-          name="check"
-          class="text-blue-500 dark:text-blue-400"
-        />
-      </a>
+        <a
+          v-for="network in networksDev"
+          :key="network.id"
+          :href="getNetworkChangeUrl(network)"
+          class="flex justify-between items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-850 cursor-pointer"
+        >
+          <div class="flex items-center">
+            <img
+              :src="buildNetworkIconURL(network.id)"
+              :alt="network.name"
+              class="mr-2 w-6 h-6 rounded-full"
+            />
+            <span class="ml-1 font-medium">
+              {{ network.name }}
+            </span>
+          </div>
+          <BalIcon
+            v-if="isActive(network)"
+            name="check"
+            class="text-blue-500 dark:text-blue-400"
+          />
+        </a>
+      </template>
     </div>
   </BalPopover>
 </template>
