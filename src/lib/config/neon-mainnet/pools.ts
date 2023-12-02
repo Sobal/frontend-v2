@@ -1,4 +1,4 @@
-import { IncentiveProtocol } from '@/composables/useIncentivizedPool';
+// import { IncentiveProtocol } from '@/composables/useIncentivizedPool';
 
 import { Pools } from '@/types/pools';
 
@@ -64,11 +64,11 @@ const pools: Pools = {
     },
     '0x705e262b5ca06b78e7688227c17c287376a54071000200000000000000000007': {
       name: 'WNEON/Sobal Stable USD',
-      incentivised: true,
-      incentiveProtocols: [IncentiveProtocol.Neon],
-      incentivizedButtonText: 'SPECIAL INCENTIVE',
-      incentivizedHoverText:
-        'Deposit into this pool rewarded NEON tokens distributed every 14 days. Promotion ends at 5pm GMT on 17th September.',
+      // incentivised: true,
+      // incentiveProtocols: [IncentiveProtocol.Neon],
+      // incentivizedButtonText: 'SPECIAL INCENTIVE',
+      // incentivizedHoverText:
+      //   'Deposit into this pool rewarded NEON tokens distributed every 14 days. Promotion ends at 5pm GMT on 17th September.',
     },
   },
   Deep: ['0x705e262b5ca06b78e7688227c17c287376a54071000200000000000000000007'],
