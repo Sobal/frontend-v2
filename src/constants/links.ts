@@ -1,12 +1,11 @@
 export const EXTERNAL_LINKS = {
   Balancer: {
     Home: 'https://sobal.fi',
-    Analytics: 'https://dune.xyz/balancerlabs',
+    Analytics: 'https://dune.xyz/sobal',
     BalForGas:
       'https://docs.balancer.finance/core-concepts/bal-balancer-governance-token/bal-for-gas',
     BugBounty: 'https://immunefi.com/bounty/balancer/',
     Docs: 'https://docs.sobal.fi',
-    NeonBridge: 'https://neonpass.live',
     Forum: '',
     Grants: '',
     Social: {

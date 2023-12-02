@@ -25,6 +25,7 @@ const config: Config = {
   explorerName: 'Neonscan',
   subgraph: 'https://neon-subgraph.sobal.fi/sobal-pools',
   balancerApi: 'https://api.sobal.fi',
+  analyticsUrl: 'https://www.geckoterminal.com/neon-evm/sobal/pools',
   poolsUrlV2: '',
   subgraphs: {
     main: ['https://neon-subgraph.sobal.fi/sobal-pools'],

@@ -23,6 +23,7 @@ const config: Config = {
   ws: ``,
   explorer: 'https://goerli.basescan.org',
   explorerName: 'BaseScan',
+  analyticsUrl: '',
   subgraph:
     'https://api.studio.thegraph.com/query/50526/sobal-base-goerli/version/latest',
   balancerApi: 'https://api.sobal.fi',

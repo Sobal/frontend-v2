@@ -26,6 +26,7 @@ const config: Config = {
   subgraph:
     'https://api.studio.thegraph.com/query/50526/sobal-base/version/latest',
   balancerApi: 'https://api.sobal.fi',
+  analyticsUrl: 'https://www.geckoterminal.com/base/sobal-base/pools',
   poolsUrlV2: '',
   subgraphs: {
     main: [

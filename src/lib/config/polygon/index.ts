@@ -26,6 +26,7 @@ const config: Config = {
   publicRpc: 'https://polygon-rpc.com',
   explorer: 'https://polygonscan.com',
   explorerName: 'Polygonscan',
+  analyticsUrl: '',
   subgraph:
     'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-polygon-prune-v2',
   balancerApi: 'https://api.sobal.fi',

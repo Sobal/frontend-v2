@@ -23,6 +23,7 @@ const config: Config = {
   ws: 'wss://ws-mainnet.optimism.io',
   blockTime: 13,
   explorer: 'https://optimistic.etherscan.io/',
+  analyticsUrl: '',
   explorerName: 'The Optimism Explorer',
   subgraph:
     'https://api.thegraph.com/subgraphs/name/beethovenxfi/beethovenx-v2-optimism',

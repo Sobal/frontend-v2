@@ -25,6 +25,7 @@ const config: Config = {
   ws: `wss://arb-mainnet.g.alchemy.com/v2/${keys.alchemy}`,
   publicRpc: 'https://arb1.arbitrum.io/rpc',
   explorer: 'https://arbiscan.io',
+  analyticsUrl: '',
   explorerName: 'Arbiscan',
   subgraph:
     'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-arbitrum-v2',

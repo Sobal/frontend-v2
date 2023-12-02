@@ -3,12 +3,21 @@ import { useRoute } from 'vue-router';
 import DesktopLinkItem from './DesktopLinkItem.vue';
 import useNetwork, { isGoerli } from '@/composables/useNetwork';
 import { Goals, trackGoal } from '@/composables/useFathom';
+import { configService } from '@/services/config/config.service';
 
 /**
  * COMPOSABLES
  */
 const route = useRoute();
 const { networkSlug } = useNetwork();
+
+const analyticsUrl = computed((): string => {
+  return configService.network.analyticsUrl;
+});
+
+const bridgeUrl = computed((): string => {
+  return configService.network.bridgeUrl;
+});
 
 /**
  * METHODS
@@ -62,6 +71,24 @@ function isActive(page: string): boolean {
     >
       {{ $t('portfolio') }}
     </DesktopLinkItem>
+
+    <BalLink
+      v-if="bridgeUrl"
+      :href="bridgeUrl"
+      external
+      noStyle
+      class="group flex items-center"
+      >{{ $t('bridge') }}</BalLink
+    >
+    <BalLink
+      v-if="analyticsUrl"
+      :href="analyticsUrl"
+      external
+      noStyle
+      class="group flex items-center"
+      >{{ $t('analytics') }}</BalLink
+    >
+
     <!-- <DesktopLinkItem
       :to="{ name: 'vebal', params: { networkSlug } }"
       :active="isActive('vebal')"

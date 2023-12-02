@@ -26,6 +26,7 @@ const config: Config = {
   ws: `wss://devnet.neonevm.org`,
   explorer: 'https://devnet.neonscan.org',
   explorerName: 'Neonscan',
+  analyticsUrl: '',
   subgraph: 'https://ch2-graph.neontest.xyz/subgraphs/name/sobal/sobal-pools',
   balancerApi: 'https://api.sobal.fi',
   poolsUrlV2: '',

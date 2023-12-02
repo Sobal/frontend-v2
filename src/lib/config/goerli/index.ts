@@ -24,6 +24,7 @@ const config: Config = {
   ws: `wss://goerli.infura.io/ws/v3/${keys.infura}`,
   explorer: 'https://goerli.etherscan.io',
   explorerName: 'Etherscan',
+  analyticsUrl: '',
   subgraph: 'https://api.thegraph.com/subgraphs/name/sobal/sobal-goerli',
   poolsUrlV2: '',
   subgraphs: {

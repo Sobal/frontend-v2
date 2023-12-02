@@ -23,6 +23,7 @@ const config: Config = {
   ws: ``,
   publicRpc: 'https://zkevm-rpc.com',
   explorer: 'https://zkevm.polygonscan.com/',
+  analyticsUrl: '',
   explorerName: 'Polygonscan',
   subgraph:
     'https://api.studio.thegraph.com/query/24660/balancer-polygon-zk-v2/version/latest',

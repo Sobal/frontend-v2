@@ -16,7 +16,7 @@ import DiscordIcon from '@/components/_global/icons/brands/DiscordIcon.vue';
 // import MediumIcon from '@/components/_global/icons/brands/MediumIcon.vue';
 // import YoutubeIcon from '@/components/_global/icons/brands/YoutubeIcon.vue';
 import GithubIcon from '@/components/_global/icons/brands/GithubIcon.vue';
-import { EXTERNAL_LINKS } from '@/constants/links';
+import { configService } from '@/services/config/config.service';
 
 /**
  * PROPS & EMITS
@@ -32,6 +32,14 @@ const { networkConfig } = useConfig();
 const { networkSlug } = useNetwork();
 const { t } = useI18n();
 const router = useRouter();
+
+const analyticsUrl = computed((): string => {
+  return configService.network.analyticsUrl;
+});
+
+const bridgeUrl = computed((): string => {
+  return configService.network.bridgeUrl;
+});
 
 /**
  * STATE
@@ -54,6 +62,17 @@ const navLinks = [
   // { label: 'veBAL', path: `/${networkSlug}/vebal`, goal: Goals.ClickNavVebal },
 ];
 
+const navLinksSecondary = [
+  {
+    label: t('bridge'),
+    url: bridgeUrl.value,
+  },
+  {
+    label: t('analytics'),
+    url: analyticsUrl.value,
+  },
+];
+
 const ecosystemLinks = [
   // { label: t('build'), url: 'https://balancer.fi/build' },
   // { label: t('blog'), url: 'https://medium.com/balancer-protocol' },
@@ -65,7 +84,6 @@ const ecosystemLinks = [
   //   label: t('grants'),
   //   url: 'http://grants.balancer.community',
   // },
-  { label: t('neonpass'), url: EXTERNAL_LINKS.Balancer.NeonBridge },
 ];
 
 const socialLinks = {
@@ -133,6 +151,16 @@ watch(blockNumber, async () => {
       >
         {{ link.label }}
       </div>
+      <BalLink
+        v-for="link in navLinksSecondary"
+        :key="link.label"
+        class="side-bar-link"
+        :href="link.url"
+        external
+        noStyle
+      >
+        {{ link.label }}
+      </BalLink>
     </div>
 
     <div class="grid mt-5 text-sm grid-col-1">

@@ -25,6 +25,7 @@ const config: Config = {
   publicRpc: 'https://rpc.gnosis.gateway.fm',
   explorer: 'https://gnosisscan.io',
   explorerName: 'Gnosisscan',
+  analyticsUrl: '',
   balancerApi: 'https://api.sobal.fi',
   subgraph:
     'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-gnosis-chain-v2',

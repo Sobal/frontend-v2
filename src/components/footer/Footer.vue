@@ -7,6 +7,7 @@ import IconMail from '@/components/icons/IconMail.vue';
 import IconTwitter from '@/components/icons/IconTwitter.vue';
 // import IconYoutube from '@/components/icons/IconYoutube.vue';
 import { EXTERNAL_LINKS } from '@/constants/links';
+import { configService } from '@/services/config/config.service';
 
 import useNetwork from '@/composables/useNetwork';
 
@@ -15,6 +16,14 @@ import { useThirdPartyServices } from '@/composables/useThirdPartyServices';
 
 const { networkSlug } = useNetwork();
 const { handleThirdPartyModalToggle } = useThirdPartyServices();
+
+const analyticsUrl = computed((): string => {
+  return configService.network.analyticsUrl;
+});
+
+const bridgeUrl = computed((): string => {
+  return configService.network.bridgeUrl;
+});
 </script>
 
 <template>
@@ -68,13 +77,22 @@ const { handleThirdPartyModalToggle } = useThirdPartyServices();
             </p>
             <p>
               <BalLink
-                :href="EXTERNAL_LINKS.Balancer.NeonBridge"
-                external
                 noStyle
                 class="text-lg font-medium link"
+                :href="bridgeUrl"
+                external
               >
-                {{ $t('neonpass') }}
-                <BalIcon name="arrow-up-right" size="sm" class="arrow" />
+                {{ $t('bridge') }}
+              </BalLink>
+            </p>
+            <p>
+              <BalLink
+                noStyle
+                class="text-lg font-medium link"
+                :href="analyticsUrl"
+                external
+              >
+                {{ $t('analytics') }}
               </BalLink>
             </p>
             <!-- <p>
@@ -125,16 +143,6 @@ const { handleThirdPartyModalToggle } = useThirdPartyServices();
               class="group link link--external"
             >
               {{ $t('vote') }}
-              <BalIcon name="arrow-up-right" size="sm" class="arrow" />
-            </BalLink>
-
-            <BalLink
-              :href="EXTERNAL_LINKS.Balancer.NeonBridge"
-              external
-              noStyle
-              class="group link link--external"
-            >
-              {{ $t('neonpass') }}
               <BalIcon name="arrow-up-right" size="sm" class="arrow" />
             </BalLink>
 
