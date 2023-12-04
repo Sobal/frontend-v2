@@ -13,7 +13,9 @@ export default function useBreakpoints() {
     if (windowWidth.value < 748) return 'md';
     if (windowWidth.value < 1024) return 'lg';
     if (windowWidth.value < 1280) return 'xl';
-    return '2xl';
+    if (windowWidth.value < 1920) return '2xl';
+    if (windowWidth.value < 2560) return '3xl';
+    return '4xl';
   });
 
   const width = computed(() => windowWidth.value);
@@ -27,7 +29,9 @@ export default function useBreakpoints() {
   );
 
   const isMobile = computed(() => ['xs', 'sm', 'md', 'lg'].includes(bp.value));
-  const isDesktop = computed(() => ['xl', '2xl'].includes(bp.value));
+  const isDesktop = computed(() =>
+    ['xl', '2xl', '3xl', '4xl'].includes(bp.value)
+  );
 
   const upToSmallBreakpoint = computed(() => ['xs', 'sm'].includes(bp.value));
 
