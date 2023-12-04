@@ -194,10 +194,7 @@ const chartBlankText = computed(() => {
 const isNegativeTrend = computed(() => {
   const _priceData = priceData.value || [];
   if (_priceData.length > 2) {
-    if (
-      _priceData[_priceData.length - 1][1] <
-      _priceData[_priceData.length - 2][1]
-    ) {
+    if (_priceData[_priceData.length - 1][1] < _priceData[0][1]) {
       return true;
     }
   }
