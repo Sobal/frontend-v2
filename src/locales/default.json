@@ -1652,6 +1652,7 @@
   "yourBalanceInPool": "Your balance in this pool",
   "chooseAPair": "Please select a valid pair",
   "youCanAdd": "You can add",
+  "inThePast": "in the past",
   "poolChart": {
     "defaultTitle": {
       "tvl": "Current TVL"

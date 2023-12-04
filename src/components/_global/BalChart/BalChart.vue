@@ -59,6 +59,9 @@ type Props = {
   showTooltipLayer?: boolean; // hides tooltip floating layer
   useMinMax?: boolean; // whether to constrain the y-axis based on the min and max values of the data passed in
   areaStyle?: AreaStyle;
+  inputSym?: string;
+  outputSym?: string;
+  timespan?: string;
 };
 
 const emit = defineEmits([
@@ -85,6 +88,7 @@ const props = withDefaults(defineProps<Props>(), {
 const chartInstance = ref<echarts.ECharts>();
 const currentValue = ref('$0,00');
 const change = ref(0);
+const axleActive = ref(0);
 const { fNum } = useNumbers();
 const tailwind = useTailwind();
 const { darkMode } = useDarkMode();
@@ -319,6 +323,7 @@ function setCurrentValueToLatest(updateCurrentValue: boolean) {
   change.value =
     ((currentDayValue.value() || 0) - (startValue.value() || 0)) /
     (startValue.value() || 0);
+  axleActive.value = 0;
 }
 
 // make sure to update the latest values when we get a fresh set of data
@@ -375,12 +380,14 @@ const handleAxisMoved = ({ dataIndex, seriesIndex }: AxisMoveEvent) => {
 
     // if first point in chart, show overall change
     if (dataIndex === 0) {
+      axleActive.value = 0;
       const prev = Number(props.data[seriesIndex].values[0][1]);
       const current = props.data[seriesIndex].values[
         props.data[seriesIndex].values.length - 1
       ][1] as number;
       change.value = (current - prev) / prev;
     } else {
+      axleActive.value = 1;
       const prev = props.data[seriesIndex].values[dataIndex - 1][1] as number;
       const current = props.data[seriesIndex].values[dataIndex][1] as number;
       const _change = (current - prev) / prev;
@@ -413,17 +420,48 @@ const handleAxisMoved = ({ dataIndex, seriesIndex }: AxisMoveEvent) => {
     @touchend="handleMouseLeave"
   >
     <div v-if="showHeader" id="lineChartHeader" class="mb-4">
-      <h3 class="text-xl tracking-wider text-gray-800 dark:text-gray-400">
-        {{ currentValue }}
+      <h3
+        class="text-xl font-light tracking-wider text-gray-800 dark:text-gray-400 truncate"
+      >
+        <template v-if="inputSym">
+          <span class="font-normal text-white">1</span> {{ inputSym }} =
+          <span class="font-normal text-white">{{ currentValue }}</span>
+          {{ outputSym }}
+        </template>
+        <template v-if="!inputSym">
+          <div>{{ props.data[0].name }}</div>
+          <span class="font-normal text-white">{{
+            currentValue
+          }}</span></template
+        >
       </h3>
       <span
         :class="{
           'text-lime-400': change >= 0,
           'text-red-400': change < 0,
-          'font-medium': true,
+          'font-regular': true,
+          'rounded-md': true,
+          'py-0.5': true,
+          'px-1': true,
+          'bg-lime-200': change >= 0,
+          'bg-red-200': change < 0,
+          'bg-opacity-10': true,
         }"
         >{{ numeral(change).format('+0.0%') }}
       </span>
+      <span
+        v-if="timespan"
+        id="timespanText"
+        :class="{
+          'pl-2': true,
+          'text-sm': true,
+          'font-light': true,
+          'text-gray-200': true,
+          hidden: axleActive > 0,
+        }"
+      >
+        {{ $t('inThePast') }} {{ timespan }}</span
+      >
     </div>
     <ECharts
       ref="chartInstance"

@@ -84,22 +84,27 @@ async function getPairPriceData(
 const chartTimespans = [
   {
     option: '1d',
+    fulltext: 'day',
     value: 1,
   },
   {
     option: '1w',
+    fulltext: 'week',
     value: 7,
   },
   {
     option: '1m',
+    fulltext: 'month',
     value: 30,
   },
   {
     option: '1y',
+    fulltext: '1 day',
     value: 365,
   },
   {
     option: 'All',
+    fulltext: '&infin;',
     value: 4000,
   },
 ];
@@ -112,7 +117,7 @@ const tailwind = useTailwind();
 const { chainId: userNetworkId, appNetworkConfig } = useWeb3();
 
 const chartHeight = ref(upToLargeBreakpoint ? 75 : 100);
-const activeTimespan = ref(chartTimespans[0]);
+const activeTimespan = ref(chartTimespans[1]);
 
 const inputSym = computed(() => {
   if (tokenInAddress.value === '') return 'Unknown';
@@ -229,14 +234,6 @@ const chartGrid = computed(() => {
       :noBorder="upToLargeBreakpoint"
     >
       <div class="relative p-4 h-full bg-transparent">
-        <div v-if="!failedToLoadPriceData && !isLoadingPriceData" class="flex">
-          <h6 class="font-medium">{{ outputSym }}/{{ inputSym }}</h6>
-          <BalTooltip class="ml-2" :text="$t('coingeckoPricingTooltip')">
-            <template #activator>
-              <img class="h-5" src="@/assets/images/icons/coingecko.svg" />
-            </template>
-          </BalTooltip>
-        </div>
         <div
           v-if="failedToLoadPriceData && tokenOutAddress"
           class="flex justify-center items-center w-full h-full"
@@ -278,11 +275,22 @@ const chartGrid = computed(() => {
               hideXAxis
               showHeader
               useMinMax
+              :inputSym="inputSym"
+              :outputSym="outputSym"
+              :timespan="activeTimespan.fulltext"
             />
             <div class="-mt-2 lg:mt-2">
-              <span class="flex justify-end w-full text-sm text-gray-500">{{
-                activeTimespan.option
-              }}</span>
+              <span class="flex justify-end w-full text-sm text-gray-500"
+                >{{ activeTimespan.option }}
+                <BalTooltip class="ml-2" :text="$t('coingeckoPricingTooltip')">
+                  <template #activator>
+                    <img
+                      class="h-5"
+                      src="@/assets/images/icons/coingecko.svg"
+                    />
+                  </template>
+                </BalTooltip>
+              </span>
             </div>
           </template>
         </div>
