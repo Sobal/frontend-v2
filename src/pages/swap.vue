@@ -3,12 +3,12 @@ import { computed, onMounted } from 'vue';
 import MyWallet from '@/components/cards/MyWallet/MyWallet.vue';
 import PairPriceGraph from '@/components/cards/PairPriceGraph/PairPriceGraph.vue';
 import SwapCard from '@/components/cards/SwapCard/SwapCard.vue';
-import Col3Layout from '@/components/layouts/Col3Layout.vue';
 import usePoolFilters from '@/composables/pools/usePoolFilters';
-import useBreakpoints from '@/composables/useBreakpoints';
 import BridgeLink from '@/components/links/BridgeLink.vue';
 import { hasBridge } from '@/composables/useNetwork';
 import { provideUserTokens } from '@/providers/local/user-tokens.provider';
+import useBreakpoints from '@/composables/useBreakpoints';
+import Col2SwapLayout from '@/components/layouts/Col2SwapLayout.vue';
 
 /**
  * PROVIDERS
@@ -19,7 +19,6 @@ provideUserTokens();
  * COMPOSABLES
  */
 const { setSelectedTokens } = usePoolFilters();
-const { upToLargeBreakpoint } = useBreakpoints();
 
 /**
  * COMPUTED
@@ -32,6 +31,7 @@ const sections = computed(() => {
   if (hasBridge.value) sections.push({ title: 'Bridge assets', id: 'bridge' });
   return sections;
 });
+const { upToLargeBreakpoint } = useBreakpoints();
 
 /**
  * CALLBACKS
@@ -44,16 +44,16 @@ onMounted(() => {
 
 <template>
   <div>
-    <Col3Layout offsetGutters mobileHideGutters class="mt-8">
-      <template #gutterLeft>
-        <MyWallet />
+    <Col2SwapLayout class="mt-8">
+      <template #left>
+        <SwapCard />
       </template>
 
-      <SwapCard />
       <div class="p-4 sm:p-0 lg:p-0 mt-8">
         <BalAccordion
           v-if="upToLargeBreakpoint"
           class="w-full"
+          :isOpenedByDefault="true"
           :sections="sections"
         >
           <template #my-wallet>
@@ -68,11 +68,12 @@ onMounted(() => {
         </BalAccordion>
       </div>
 
-      <template #gutterRight>
+      <template v-if="!upToLargeBreakpoint" #right>
         <PairPriceGraph />
+        <MyWallet />
         <BridgeLink v-if="hasBridge" class="mt-4" />
       </template>
-    </Col3Layout>
+    </Col2SwapLayout>
   </div>
 </template>
 
