@@ -116,7 +116,7 @@ const { tokenInAddress, tokenOutAddress, initialized } = useSwapState();
 const tailwind = useTailwind();
 const { chainId: userNetworkId, appNetworkConfig } = useWeb3();
 
-const chartHeight = ref(upToLargeBreakpoint ? 75 : 100);
+const chartHeight = ref(100);
 const activeTimespan = ref(chartTimespans[1]);
 
 const inputSym = computed(() => {
@@ -231,9 +231,10 @@ const chartGrid = computed(() => {
       hFull
       growContent
       noPad
+      :background="false"
       :noBorder="upToLargeBreakpoint"
     >
-      <div class="relative p-4 h-full bg-transparent">
+      <div class="relative p-4 lg:p-0 h-full bg-transparent">
         <div
           v-if="failedToLoadPriceData && tokenOutAddress"
           class="flex justify-center items-center w-full h-full"
