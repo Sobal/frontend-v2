@@ -11,7 +11,7 @@ const config: Config = {
   chainId: 245022934,
   chainName: 'Neon',
   name: 'Neon',
-  shortName: 'neon-mainnet',
+  shortName: 'neon',
   monorepoName: 'neon-mainnet',
   slug: 'neon',
   network: 'neon-mainnet',
