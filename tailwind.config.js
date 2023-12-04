@@ -17,7 +17,7 @@ module.exports = {
   theme: {
     fontFamily: {
       body: [
-        'Inter-Variable',
+        'Montserrat',
         '-apple-system',
         'BlinkMacSystemFont',
         '"Segoe UI"',
@@ -33,6 +33,7 @@ module.exports = {
         '"Times New Roman"',
         'serif',
       ],
+      robotic: ['Roboto-Mono'],
     },
     boxShadow: {
       sm: '0 2px 4px 0 rgba(0,0,0,0.05)',
