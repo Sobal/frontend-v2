@@ -21,6 +21,7 @@ import useWeb3 from '@/services/web3/useWeb3';
 import { useTokens } from '@/providers/tokens.provider';
 import { PoolType } from '@sobal/sdk';
 import { wNativeAssetAddress } from '../usePoolHelpers';
+import { configService } from '@/services/config/config.service';
 
 export const POOL_CREATION_STATE_VERSION = '1.0';
 export const POOL_CREATION_STATE_KEY = 'poolCreationState';
@@ -85,6 +86,8 @@ export default function usePoolCreation() {
   const { account, getProvider } = useWeb3();
   const { txListener } = useEthers();
   const { addTransaction } = useTransactions();
+
+  const unknownAllowed = configService.network.unknown;
 
   /**
    * COMPUTED
@@ -419,7 +422,7 @@ export default function usePoolCreation() {
   }
 
   async function createPool(): Promise<TransactionResponse> {
-    if (hasUnlistedToken.value) {
+    if (hasUnlistedToken.value && !unknownAllowed) {
       throw new Error('Invalid pool creation due to unlisted tokens.');
     }
     const provider = getProvider();
