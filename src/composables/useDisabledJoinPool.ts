@@ -18,6 +18,7 @@ import { isAddress } from '@ethersproject/address';
 import { isTestnet } from './useNetwork';
 
 const POOLS = configService.network.pools;
+const unknownAllowed = configService.network.unknown;
 
 function doesRequireAllowListing(pool: Pool, account: string): boolean {
   const requiresAllowlisting =
@@ -47,7 +48,11 @@ export function useDisabledJoinPool(pool: Pool) {
   });
 
   const nonVettedTokensAfterTimestamp = computed(() => {
-    return createdAfterTimestamp(pool) && notVettedTokens.value.length > 0;
+    return (
+      createdAfterTimestamp(pool) &&
+      notVettedTokens.value.length > 0 &&
+      !unknownAllowed
+    );
   });
 
   const nonAllowedWeightedPoolAfterTimestamp = computed(() => {
