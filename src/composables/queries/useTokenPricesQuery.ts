@@ -33,10 +33,10 @@ export default function useTokenPricesQuery(
   };
 
   function apiPriceArrayToMap(prices: apiTokenPrice[]): TokenPrices {
-    return prices.reduce(
-      (obj, item) => ((obj[getAddress(item.address)] = item.price.usd), obj),
-      {}
-    );
+    return prices.reduce(function (obj, item) {
+      if (!item.price) return obj;
+      return (obj[getAddress(item.address)] = item.price.usd), obj;
+    }, {});
   }
 
   function injectCustomTokens(
