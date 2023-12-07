@@ -85,7 +85,7 @@ onMounted(() => {
           :isOpenedByDefault="true"
           :sections="sections"
         >
-          <template #swap-route>
+          <template v-if="initialized" #swap-route>
             <SwapRoute
               v-if="initialized"
               :addressIn="swapping.tokenIn.value.address"
