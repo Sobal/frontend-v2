@@ -19,7 +19,7 @@ function onClickConnect() {
 
 <template>
   <div
-    class="text-3xl font-semibold text-pink-400 cursor-pointer"
+    class="text-3xl font-semibold text-center xl:text-left text-pink-400 cursor-pointer"
     @click="onClickConnect"
   >
     {{ $t('walletDisconnected') }}
