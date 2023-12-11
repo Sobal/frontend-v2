@@ -7,6 +7,7 @@ import useTailwind from '@/composables/useTailwind';
  */
 type Props = {
   forceDark?: boolean;
+  sidebar?: boolean;
 };
 
 /**
@@ -38,13 +39,13 @@ const fillColor = computed(() => {
   <div class="flex items-center sm:mr-4 app-logo">
     <svg
       id="logo"
-      width="69"
-      height="20"
       viewBox="0 0 69 20"
       xmlns="http://www.w3.org/2000/svg"
       aria-labelledby="logoTitle logoDesc"
       role="img"
       class="logo-svg"
+      :width="sidebar ? '100' : '69'"
+      :height="sidebar ? '29' : '20'"
     >
       <title id="logoTitle">Sobal Home</title>
       <desc id="logoDesc">Sobal Home</desc>
