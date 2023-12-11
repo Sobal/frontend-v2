@@ -49,6 +49,12 @@ const colSpanClasses = computed(
     '9': 'col-span-9',
   })
 );
+const marginClasses = computed(
+  (): Record<string, string> => ({
+    '2xl': 'mx-10',
+    '3xl': 'mx-20',
+  })
+);
 
 const { bp } = useBreakpoints();
 </script>
@@ -56,27 +62,17 @@ const { bp } = useBreakpoints();
 <template>
   <div
     :class="`px-4 mx-auto ${
-      maxWidthClasses[
-        bp === '3xl' ? '1920px' : bp === '4xl' ? '2560px' : maxWidth
-      ]
+      maxWidthClasses[bp === '3xl' ? '1920px' : maxWidth]
     }`"
   >
     <div
-      :class="`grid grid-cols-1 ${totalColsClasses[cols]} gap-x-0 ${gapClasses[gap]}}`"
+      :class="`grid grid-cols-1 ${totalColsClasses[cols]} gap-x-0 ${gapClasses[gap]}} ${marginClasses[bp]}`"
     >
-      <div
-        :class="
-          colSpanClasses[bp === '3xl' ? '4' : bp === '4xl' ? '3' : leftSpan]
-        "
-      >
+      <div :class="colSpanClasses[bp === '3xl' ? '4' : leftSpan]">
         <slot name="left" />
       </div>
 
-      <div
-        :class="
-          colSpanClasses[bp === '3xl' ? '8' : bp === '4xl' ? '9' : rightSpan]
-        "
-      >
+      <div :class="colSpanClasses[bp === '3xl' ? '8' : rightSpan]">
         <slot name="right" />
       </div>
 
