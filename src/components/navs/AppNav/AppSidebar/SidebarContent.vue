@@ -32,6 +32,7 @@ const { networkConfig } = useConfig();
 const { networkSlug } = useNetwork();
 const { t } = useI18n();
 const router = useRouter();
+const route = useRoute();
 
 const analyticsUrl = computed((): string => {
   return configService.network.analyticsUrl;
@@ -124,6 +125,15 @@ async function navTo(path: string, goal: string) {
   emit('close');
 }
 
+function isActive(page: string): boolean {
+  if (
+    (route.name === 'home' && page.toLowerCase() === 'pool') ||
+    route.name === page.toLowerCase()
+  )
+    return true;
+  return false;
+}
+
 /**
  * WATCHERS
  */
@@ -135,31 +145,61 @@ watch(blockNumber, async () => {
 </script>
 
 <template>
-  <div class="opacity-0 fade-in-delay">
-    <div
-      class="flex flex-col justify-center px-4 h-20 border-b border-gray-800"
-    >
-      <AppLogo forceDark />
+  <div
+    class="flex flex-col flex-grow pl-2 w-80 h-full opacity fade-in-delay background-image"
+  >
+    <div class="flex flex-col justify-center pl-8 mt-3 h-20">
+      <router-link
+        :to="{ name: 'home', params: { networkSlug } }"
+        @click="trackGoal(Goals.ClickNavLogo)"
+      >
+        <AppLogo sidebar forceDark />
+      </router-link>
     </div>
 
-    <div class="grid mt-2 text-lg grid-col-1">
+    <div class="grid flex-grow content-start text-lg grid-col-1">
       <div
         v-for="link in navLinks"
         :key="link.label"
         class="side-bar-link"
+        :class="[
+          'mx-3 my-2 rounded side-bar-link bg-gray-900 bg-opacity-70 border-2',
+          isActive(link.label) ? 'border-blue-600' : 'border-transparent',
+        ]"
         @click="navTo(link.path, link.goal)"
       >
-        {{ link.label }}
+        <div class="flex flex-row py-3">
+          <img
+            src="~@/assets/images/sidebar/button-icon.svg"
+            width="30"
+            class="mr-4 grayscale"
+            :class="[
+              isActive(link.label) ? 'transform: rotate-90 grayscale-0' : '',
+            ]"
+          /><span>{{ link.label }}</span>
+        </div>
       </div>
       <BalLink
         v-for="link in navLinksSecondary"
         :key="link.label"
         class="side-bar-link"
+        :class="[
+          'mx-3 my-2 rounded side-bar-link bg-gray-900 bg-opacity-70 border-2 border-transparent',
+        ]"
         :href="link.url"
         external
         noStyle
       >
-        {{ link.label }}
+        <div class="flex flex-row py-3">
+          <img
+            src="~@/assets/images/sidebar/button-icon.svg"
+            width="30"
+            class="mr-4 grayscale"
+          /><span
+            >{{ link.label
+            }}<BalIcon name="arrow-up-right" size="xs" class="ml-1"
+          /></span>
+        </div>
       </BalLink>
     </div>
 
@@ -202,7 +242,7 @@ watch(blockNumber, async () => {
       </BalLink>
     </div>
 
-    <div class="px-4 mt-6 text-xs">
+    <div class="px-4 my-6 text-xs">
       <div class="flex items-center">
         <div
           ref="blockIcon"
@@ -226,8 +266,17 @@ watch(blockNumber, async () => {
 </template>
 
 <style scoped>
+.background-image {
+  background-image: linear-gradient(
+      to right,
+      rgb(255 255 255 / 0%) 20%,
+      theme('colors.gray.900')
+    ),
+    url('/images/backgrounds/side_panel_background.svg');
+}
+
 .side-bar-link {
-  @apply transition duration-300 p-4 py-1.5 hover:bg-gray-850 cursor-pointer;
+  @apply transition duration-300 p-4 py-1.5 hover:bg-gray-850 hover:hover:border-gray-600 cursor-pointer;
 }
 
 .side-bar-btn {
