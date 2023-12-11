@@ -146,9 +146,9 @@ watch(blockNumber, async () => {
 
 <template>
   <div
-    class="flex flex-col flex-grow pl-2 w-80 h-full opacity fade-in-delay background-image"
+    class="flex flex-col flex-grow pl-4 w-80 h-full opacity fade-in-delay background-image"
   >
-    <div class="flex flex-col justify-center pl-8 mt-3 h-20">
+    <div class="flex flex-col justify-center pl-8 my-8 mx-auto h-32">
       <router-link
         :to="{ name: 'home', params: { networkSlug } }"
         @click="trackGoal(Goals.ClickNavLogo)"
@@ -276,7 +276,7 @@ watch(blockNumber, async () => {
 }
 
 .side-bar-link {
-  @apply transition duration-300 p-4 py-1.5 hover:bg-gray-850 hover:hover:border-gray-600 cursor-pointer;
+  @apply transition duration-300 p-4 py-0.5 hover:bg-gray-850 hover:hover:border-gray-600 cursor-pointer;
 }
 
 .side-bar-btn {
