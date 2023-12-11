@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 
-import HomePageHero from '@/components/heros/HomePageHero.vue';
 import TokenSearchInput from '@/components/inputs/TokenSearchInput.vue';
 import FeaturedProtocols from '@/components/sections/FeaturedProtocols.vue';
 import LatestArticles from '@/components/sections/LatestArticles.vue';
@@ -68,21 +67,24 @@ function onColumnSort(columnId: string) {
 
 <template>
   <div>
-    <HomePageHero />
-    <div class="xl:container xl:px-4 pt-10 md:pt-8 xl:mx-auto">
+    <div class="flex flex-col justify-between">
+      <h1 class="mt-5 xl:mt-0 font-light text-center xl:text-left">
+        {{ $t('liquidityPoolsOn') }}
+        <span class="font-medium">{{ networkConfig.chainName }}</span>
+      </h1>
+    </div>
+
+    <div class="xl:px-4 pt-10 md:pt-8 xl:mx-auto">
       <BalStack vertical>
         <div class="px-4 xl:px-0">
-          <div class="flex justify-between items-end mb-2">
-            <h3>
-              {{ networkConfig.chainName }}
-              <span class="lowercase">{{ $t('pools') }}</span>
-            </h3>
+          <div class="flex flex-col justify-between mb-2">
             <BalBtn
               v-if="upToMediumBreakpoint"
               color="blue"
               size="sm"
               outline
               :class="{ 'mt-4': upToMediumBreakpoint }"
+              class="w-full"
               @click="navigateToCreatePool"
             >
               {{ $t('createAPool.title') }}
