@@ -60,7 +60,7 @@ onUnmounted(() => {
           @click="trackGoal(Goals.ClickNavLogo)"
         >
           <AppIcon v-if="['xs', 'sm'].includes(bp)" />
-          <AppLogo v-else />
+          <AppLogo v-else class="xl:hidden" />
         </router-link>
 
         <DesktopLinks v-if="isDesktop" class="ml-8 font-medium" />
