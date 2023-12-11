@@ -13,9 +13,8 @@ export default function useBreakpoints() {
     if (windowWidth.value < 748) return 'md';
     if (windowWidth.value < 1024) return 'lg';
     if (windowWidth.value < 1280) return 'xl';
-    if (windowWidth.value < 1920) return '2xl';
-    if (windowWidth.value < 2560) return '3xl';
-    return '4xl';
+    if (windowWidth.value < 2048) return '2xl';
+    return '3xl';
   });
 
   const width = computed(() => windowWidth.value);
