@@ -53,7 +53,7 @@ watch(showSidebar, () => {
 }
 
 .app-sidebar {
-  @apply text-white shadow-xl h-full w-3/4 max-w-sm bg-gray-900 cursor-default overflow-y-auto pb-4;
+  @apply text-white shadow-xl h-full w-3/4 max-w-sm bg-gray-900 cursor-default overflow-y-auto;
 
   will-change: transform;
 }
