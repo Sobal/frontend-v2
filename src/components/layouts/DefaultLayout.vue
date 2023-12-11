@@ -1,17 +1,25 @@
 <script setup lang="ts">
 import Footer from '@/components/footer/Footer.vue';
 import AppNav from '@/components/navs/AppNav/AppNav.vue';
+import SidebarContent from '@/components/navs/AppNav/AppSidebar/SidebarContent.vue';
 </script>
 
 <template>
   <div class="app-wrapper">
-    <div class="app-body">
-      <AppNav />
-      <div class="pb-16">
-        <slot />
+    <div class="hidden xl:block">
+      <SidebarContent />
+    </div>
+    <div class="app-body-wrapper">
+      <div class="m-2 lg:mx-5 app-body">
+        <AppNav />
+        <div class="pb-16 m-auto">
+          <slot />
+        </div>
+      </div>
+      <div class="footer-body">
+        <Footer />
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
@@ -25,8 +33,16 @@ import AppNav from '@/components/navs/AppNav/AppNav.vue';
 }
 
 .app-wrapper {
-  @apply flex flex-col place-content-between;
+  @apply flex xl:flex-row flex-col place-content-between;
 
   min-height: calc(100vh);
+}
+
+.app-body-wrapper {
+  @apply flex flex-col place-content-between flex-grow;
+}
+
+.footer-body {
+  @apply xl:hidden;
 }
 </style>
