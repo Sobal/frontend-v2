@@ -44,8 +44,8 @@ const fillColor = computed(() => {
       aria-labelledby="logoTitle logoDesc"
       role="img"
       class="logo-svg"
-      :width="sidebar ? '100' : '69'"
-      :height="sidebar ? '29' : '20'"
+      :width="sidebar ? '190' : '69'"
+      :height="sidebar ? '55' : '20'"
     >
       <title id="logoTitle">Sobal Home</title>
       <desc id="logoDesc">Sobal Home</desc>
