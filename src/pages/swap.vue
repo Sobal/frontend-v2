@@ -13,6 +13,7 @@ import Col2SwapLayout from '@/components/layouts/Col2SwapLayout.vue';
 import { useSwapState } from '@/composables/swap/useSwapState';
 import SwapRoute from '@/components/cards/SwapCard/SwapRoute.vue';
 import useSwapping from '@/composables/swap/useSwapping';
+import useNetwork from '@/composables/useNetwork';
 
 /**
  * PROVIDERS
@@ -23,6 +24,8 @@ provideUserTokens();
  * COMPOSABLES
  */
 const { setSelectedTokens } = usePoolFilters();
+const { networkConfig } = useNetwork();
+
 const exactIn = ref(true);
 
 const {
@@ -73,6 +76,12 @@ onMounted(() => {
 
 <template>
   <div>
+    <div class="flex flex-col justify-between">
+      <h1 class="mt-5 xl:mt-0 font-light text-center xl:text-left">
+        {{ $t('swapOn') }}
+        <span class="font-medium">{{ networkConfig.chainName }}</span>
+      </h1>
+    </div>
     <Col2SwapLayout class="mt-8">
       <template #left>
         <SwapCard />
