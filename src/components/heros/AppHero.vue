@@ -1,5 +1,5 @@
 <template>
-  <div class="app-hero">
+  <div class="bg-gradient-to-r from-transparent via-gray-800 app-hero">
     <div class="mx-auto w-full max-w-lg">
       <slot />
     </div>
@@ -8,9 +8,8 @@
 
 <style>
 .app-hero {
-  @apply bg-cover bg-center flex items-center justify-center text-center px-4;
+  @apply flex items-center justify-center text-center px-4 rounded-md;
 
   transition: all 0.3s ease-in-out;
-  background-image: url('/images/backgrounds/bg-header.svg');
 }
 </style>
