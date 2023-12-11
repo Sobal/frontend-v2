@@ -2,10 +2,11 @@
   <div
     role="alert"
     aria-live="polite"
+    class="mt-3 rounded-md"
     :class="['app-nav-alert', classes]"
     @click="handleClick"
   >
-    <div class="flex flex-1 md:justify-center fade-in-slow">
+    <div class="flex flex-1 justify-center fade-in-slow">
       <BalIcon v-if="iconName" :name="iconName" class="mr-3" />
       <div>
         <p class="alert-label">
@@ -48,9 +49,9 @@ export default defineComponent({
     const colorClass = computed(() => {
       switch (props.alert.type) {
         case AlertType.ERROR:
-          return 'bg-red-500 text-white';
+          return 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white';
         case AlertType.FEATURE:
-          return 'bg-orange-300 text-black';
+          return 'bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-500 text-black';
         default:
           return 'bg-black text-white';
       }
