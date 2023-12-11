@@ -1,6 +1,6 @@
 <template>
   <div class="bg-gradient-to-r from-transparent via-gray-800 app-hero">
-    <div class="mx-auto w-full max-w-lg">
+    <div class="mx-auto w-full max-w-2xl">
       <slot />
     </div>
   </div>
