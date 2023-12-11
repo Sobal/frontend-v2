@@ -131,5 +131,5 @@ export interface Config {
   };
   tokenlists: TokenListURLMap;
   rateProviders: Record<string, Record<string, boolean>>;
-  analyticsUrlf: string;
+  analyticsUrl: string;
 }
