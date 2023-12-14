@@ -65,6 +65,14 @@ const pools = computed<SubgraphPoolBase[]>(
   }
 );
 
+const showSwapRoute = computed(
+  () =>
+    initialized &&
+    swapping.tokenInAmountInput.value &&
+    swapping.tokenInAmountInput.value !== 'NaN' &&
+    swapping.tokenOutAmountInput.value
+);
+
 /**
  * CALLBACKS
  */
@@ -94,9 +102,9 @@ onMounted(() => {
           :isOpenedByDefault="true"
           :sections="sections"
         >
-          <template v-if="initialized" #swap-route>
+          <template v-if="showSwapRoute" #swap-route>
             <SwapRoute
-              v-if="initialized"
+              v-if="showSwapRoute"
               :addressIn="swapping.tokenIn.value.address"
               :amountIn="swapping.tokenInAmountInput.value"
               :addressOut="swapping.tokenOut.value.address"
@@ -122,7 +130,7 @@ onMounted(() => {
       <template v-if="!upToLargeBreakpoint" #right>
         <PairPriceGraph />
         <SwapRoute
-          v-if="initialized"
+          v-if="showSwapRoute"
           :addressIn="swapping.tokenIn.value.address"
           :amountIn="swapping.tokenInAmountInput.value"
           :addressOut="swapping.tokenOut.value.address"
@@ -132,6 +140,9 @@ onMounted(() => {
           class="mb-4"
           hideContainer
         />
+        <BalCard v-if="!showSwapRoute" class="mb-4 text-center">{{
+          $t('swapRouteOnInput')
+        }}</BalCard>
         <MyWallet />
         <BridgeLink v-if="hasBridge" class="mt-4" />
       </template>

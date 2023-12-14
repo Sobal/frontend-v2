@@ -1007,6 +1007,7 @@
   "swapFeeManager": "Swap fee manager",
   "swapper": "Swapper",
   "swapRoute": "Swap route",
+  "swapRouteOnInput": "Swap route will display once an input has been made",
   "swapException": "Failed to submit ({0}) swap transaction.",
   "switchNetwork": "Switch network",
   "symbol": "Symbol",
