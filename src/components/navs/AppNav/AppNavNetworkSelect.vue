@@ -128,7 +128,7 @@ function isActive(network: NetworkOption): boolean {
           <img
             :src="buildNetworkIconURL(activeNetwork.id)"
             :alt="activeNetwork.name"
-            class="w-6 h-6 rounded-full"
+            class="rounded-full h-[22px] w-[22px]"
           />
           <span class="ml-2">
             {{ activeNetwork.name }}
