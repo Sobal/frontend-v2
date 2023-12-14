@@ -187,7 +187,7 @@ const displayClasses = computed(() => {
 
 const shapeClasses = computed(() => {
   if (props.circle || props.rounded) return 'rounded-full';
-  return 'rounded-lg';
+  return 'rounded-md';
 });
 
 const cursorClasses = computed(() => {
