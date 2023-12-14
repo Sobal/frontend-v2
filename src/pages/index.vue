@@ -50,7 +50,7 @@ const { pools, isLoading, poolsIsFetchingNextPage, loadMorePools } = usePools(
 const { upToMediumBreakpoint } = useBreakpoints();
 const { networkSlug, networkConfig } = useNetwork();
 
-const isPaginated = computed(() => pools.value.length >= 10);
+const isPaginated = computed(() => pools.value.length > 10);
 
 /**
  * METHODS
