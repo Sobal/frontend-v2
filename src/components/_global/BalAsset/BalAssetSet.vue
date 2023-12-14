@@ -74,7 +74,7 @@ export default defineComponent({
     },
     size: {
       type: Number,
-      default: 26,
+      default: 30,
     },
     maxAssetsPerLine: {
       type: Number,
@@ -127,7 +127,7 @@ export default defineComponent({
 
     const radius = computed(() => props.size / 2);
     const smallSetSpacer = computed(() =>
-      props.addresses.length < 4 ? 30 : 0
+      props.addresses.length < 4 ? 18 : 0
     );
 
     const spacer = computed(
