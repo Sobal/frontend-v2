@@ -33,7 +33,7 @@ const config: Config = {
     gauge: '',
     blocks: 'https://neon-subgraph.sobal.fi/sobal-neon-blocks',
   },
-  blockTime: 2,
+  blockTime: 4,
   bridgeUrl: 'https://neonpass.live',
   supportsEIP1559: false,
   supportsElementPools: false,

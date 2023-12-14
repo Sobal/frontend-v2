@@ -339,6 +339,9 @@ export default function useSor({
       tokenOutAmountInput.value = '';
     } else if (!exactIn.value && bnum(amount).isZero()) {
       tokenInAmountInput.value = '';
+    } else if (amount === 'NaN') {
+      tokenInAmountInput.value = '';
+      tokenOutAmountInput.value = '';
     } else {
       tokenInAmountInput.value = amount;
       tokenOutAmountInput.value = amount;
@@ -359,7 +362,7 @@ export default function useSor({
       : tokenOutAmountInput.value;
     // Avoid using SOR if querying a zero value or (un)wrapping swap
     const zeroValueSwap =
-      amount === '' || bnum(amount).isZero() || isNaN(Number(amount));
+      amount === '' || bnum(amount).isZero() || amount === 'NaN';
     if (zeroValueSwap) {
       resetInputAmounts(amount);
       return;
