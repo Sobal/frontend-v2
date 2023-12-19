@@ -75,7 +75,7 @@ const sizeClasses = computed(() => {
     case 'sm':
       return 'px-3 h-9 text-base';
     case 'lg':
-      return 'px-5 h-18 text-lg md:text-2xl';
+      return 'px-5 h-16 text-lg md:text-2xl';
     default:
       return 'px-4 h-12 text-base';
   }
