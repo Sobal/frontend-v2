@@ -44,6 +44,9 @@ const ContentLayout = defineAsyncComponent(
 const PoolLayout = defineAsyncComponent(
   () => import('@/pages/_layouts/PoolLayout.vue')
 );
+const LandingLayout = defineAsyncComponent(
+  () => import('@/pages/_layouts/LandingLayout.vue')
+);
 
 BigNumber.config({ DECIMAL_PLACES: DEFAULT_TOKEN_DECIMALS });
 
@@ -58,6 +61,7 @@ const Layouts = {
   DefaultLayout: DefaultLayout,
   FocussedLayout: FocussedLayout,
   PoolLayout: PoolLayout,
+  LandingLayout: LandingLayout,
 };
 /**
  * COMPOSABLES

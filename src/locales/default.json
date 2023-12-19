@@ -1,4 +1,79 @@
 {
+  "marketingNavBar": {
+    "invest": "Invest",
+    "trade": "Trade",
+    "stake": "Stake",
+    "veBal": "veBal"
+  },
+  "landing": {
+    "enterApp": "Enter App",
+    "documentation": "Documentation",
+    "readDocs": "Read the Docs",
+    "hero": {
+      "title": "Discover Powerful & Flexible Defi Opportunities"
+    },
+    "info": {
+      "improvingEco": {
+        "title": "Improving the ecosystem",
+        "description": "Discover the power of scalable, autonomous digital asset management and take back control of your financial journey."
+      },
+      "join": {
+        "title": "Join the community",
+        "description": "Join our thriving discord community and get involved with our ever expanding projects."
+      },
+      "builders": {
+        "title": "Built for builders",
+        "description": "Sobal isn’t just a platform for users, it’s a comprehensive foundation for projects and teams to build upon, censorship free.",
+        "poweredBy": "powered by"
+      }
+    },
+    "infoCard": {
+      "swap": {
+        "title": "Swap",
+        "description": "Enjoy the best prices possible with the Sobal Smart Order Router which draws liquidity from crowdsourced pools.",
+        "button": "Swap Now"
+      },
+      "invest": {
+        "title": "Invest",
+        "description": "Reduce the risk of impermanent loss with weighted liquidity poools. Single sided deposits are avaliable in all pools.",
+        "button": "Invest now"
+      },
+      "stake": {
+        "title": "Stake",
+        "description": "Stake your Sobal for veSobal to enjoy increased rewards and be eligible to participate in Sobal governance.",
+        "button": "Stake now"
+      },
+      "bridging": {
+        "title": "Bridging",
+        "description": "Seamless bridging between Solana and Neon by utilising functionality directly implemented into the chains virtual machine.",
+        "button": "Bridge now"
+      },
+      "swapping": {
+        "title": "Swapping",
+        "description": "Enjoy a flexible and versatile AMM with custom token weights and swapping fees, liquidity pools that can operate on any price curve.",
+        "button": "Swap Tokens"
+      },
+      "launchToken": {
+        "title": "Launch a token",
+        "description": "Help combat the epidemic of unfair launches of tokens and NFT projects though permissionless LBPs that puts the power back into the hands of the investors.",
+        "button": "Coming Soon"
+      },
+      "pools": {
+        "title": "Pools",
+        "description": "Discover the next generation of weighted liquidity pools, with up to 20 tokens in one vault whilst still allowing single sided deposits.",
+        "viewButton": "View pools",
+        "createButton": "+ Create pool"
+      },
+      "featured": {
+        "title": "Featured",
+        "subtitle": "XYZ pool"
+      },
+      "learnMore": {
+        "title": "Learn more about our products",
+        "description": "None of this is making sense? Read through our documentation for more information or jump into our socials and ask us directly."
+      }
+    }
+  },
   "about": "About",
   "accept": "Accept",
   "account": "Account",

@@ -56,7 +56,7 @@ onUnmounted(() => {
     <div class="flex justify-between items-center h-full">
       <div class="flex items-center h-full">
         <router-link
-          :to="{ name: 'home', params: { networkSlug } }"
+          :to="{ name: 'landing', params: { networkSlug } }"
           @click="trackGoal(Goals.ClickNavLogo)"
         >
           <AppIcon v-if="['xs', 'sm'].includes(bp)" />
