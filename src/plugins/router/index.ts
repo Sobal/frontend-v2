@@ -41,12 +41,12 @@ declare module 'vue-router' {
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/',
+    path: '/pools',
     name: 'home',
     component: HomePage,
   },
   {
-    path: '/landing',
+    path: '/',
     name: 'landing',
     component: Landing,
     meta: { layout: 'LandingLayout' },

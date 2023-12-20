@@ -234,7 +234,7 @@ const infoCards: Info[] = [
                 rounded
                 outline
                 class="!p-6 !border-purple-700 !border-2 !text-white !bg-gray-800"
-                @click="() => router.push('/')"
+                @click="() => router.push('/pools')"
               />
               <router-link
                 :to="{ name: 'create-pool', params: { networkSlug } }"

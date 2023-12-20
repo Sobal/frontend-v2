@@ -29,7 +29,7 @@ const router = useRouter();
           size="lg"
           color="blue"
           rounded
-          @click="router.push('/')"
+          @click="router.push('/pools')"
         />
         <div class="flex flex-col">
           <BalLink external :href="EXTERNAL_LINKS.Balancer.Docs">
