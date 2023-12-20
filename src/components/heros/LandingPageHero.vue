@@ -44,7 +44,10 @@ const router = useRouter();
           </BalLink>
           <div class="self-center">
             <BalLink external :href="EXTERNAL_LINKS.Gitbook.Home">
-              <img class="mt-3" width="170" :src="gitbook" />
+              <img
+                class="mt-3 w-[130px] md:w-[150px] xl:w-[170px]"
+                :src="gitbook"
+              />
             </BalLink>
           </div>
         </div>
