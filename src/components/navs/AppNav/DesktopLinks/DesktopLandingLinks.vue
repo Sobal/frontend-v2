@@ -16,21 +16,23 @@ import DesktopLandingLinkItem from './DesktopLandingLinkItem.vue';
 </script>
 
 <template>
-  <div class="desktop-marketing-links">
-    <DesktopLandingLinkItem to="/invest-marketing" :active="false">
-      {{ $t('marketingNavBar.invest') }}
-    </DesktopLandingLinkItem>
-    <DesktopLandingLinkItem to="/trade-marketing" :active="false">
-      {{ $t('marketingNavBar.trade') }}
-    </DesktopLandingLinkItem>
-    <DesktopLandingLinkItem to="/stake-marketing" :active="false">
-      {{ $t('marketingNavBar.stake') }}
-    </DesktopLandingLinkItem>
+  <div class="flex content-center w-full">
+    <div class="desktop-marketing-links">
+      <DesktopLandingLinkItem to="home" :active="false">
+        {{ $t('landingNavBar.invest') }}
+      </DesktopLandingLinkItem>
+      <DesktopLandingLinkItem to="swap" :active="false">
+        {{ $t('landingNavBar.trade') }}
+      </DesktopLandingLinkItem>
+      <DesktopLandingLinkItem to="portfolio" :active="false">
+        {{ $t('landingNavBar.portfolio') }}
+      </DesktopLandingLinkItem>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .desktop-marketing-links {
-  @apply grid gap-6 grid-flow-col grid-rows-1 h-full content-center;
+  @apply grid grid-flow-col grid-cols-3 gap-6 mx-auto text-center;
 }
 </style>
