@@ -9,9 +9,9 @@ export default function useBreakpoints() {
 
   const bp = computed(() => {
     if (windowWidth.value < 440) return 'xs';
-    if (windowWidth.value < 640) return 'sm';
+    if (windowWidth.value < 656) return 'sm';
     if (windowWidth.value < 748) return 'md';
-    if (windowWidth.value < 1024) return 'lg';
+    if (windowWidth.value < 1040) return 'lg';
     if (windowWidth.value < 1280) return 'xl';
     if (windowWidth.value < 2048) return '2xl';
     return '3xl';
