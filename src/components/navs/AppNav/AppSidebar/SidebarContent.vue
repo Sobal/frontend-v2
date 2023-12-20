@@ -150,10 +150,10 @@ watch(blockNumber, async () => {
   >
     <div class="flex flex-col justify-center pl-8 my-8 mx-auto h-32">
       <router-link
-        :to="{ name: 'home', params: { networkSlug } }"
+        :to="{ name: 'landing', params: { networkSlug } }"
         @click="trackGoal(Goals.ClickNavLogo)"
       >
-        <AppLogo sidebar forceDark />
+        <AppLogo location="sidebar" forceDark />
       </router-link>
     </div>
 
