@@ -101,10 +101,10 @@ const infoCards: Info[] = [
         <img class="absolute top-0 right-0" :src="sobalDiagonal" />
       </div>
     </div>
-    <div class="py-10 mt-36 bg-black">
+    <div class="py-10 px-5 lg:px-0 mt-36 bg-black">
       <div class="container flex flex-col lg:flex-row content-padded">
         <div class="flex-grow">
-          <img class="mb-2" :src="gitbookLogo" />
+          <img :src="gitbookLogo" class="mb-2 w-[80px] md:w-[100px]" />
           <h2 class="text-4xl text-white">
             {{ $t('landing.infoCard.learnMore.title') }}
           </h2>
