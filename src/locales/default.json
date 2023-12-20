@@ -1,16 +1,17 @@
 {
-  "marketingNavBar": {
+  "landingNavBar": {
     "invest": "Invest",
-    "trade": "Trade",
-    "stake": "Stake",
-    "veBal": "veBal"
+    "trade": "Swap",
+    "portfolio": "Portfolio",
+    "joinCommunity": "Join the community"
   },
   "landing": {
     "enterApp": "Enter App",
+    "enterAppShort": "Enter",
     "documentation": "Documentation",
     "readDocs": "Read the Docs",
     "hero": {
-      "title": "Discover Powerful & Flexible Defi Opportunities"
+      "title": "Discover Powerful DeFi Opportunities."
     },
     "info": {
       "improvingEco": {
