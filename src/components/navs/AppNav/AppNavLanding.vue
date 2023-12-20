@@ -19,17 +19,25 @@ const { trackGoal, Goals } = useFathom();
 
 <template>
   <nav id="app-nav-landing" ref="appNavLanding" class="p-4 md:px-6 md:pt-4">
-    <div class="flex justify-between items-center h-full text-white">
-      <router-link
-        :to="{ name: 'landing' }"
-        @click="trackGoal(Goals.ClickNavLogo)"
-      >
-        <AppIcon v-if="['xs', 'sm'].includes(bp)" />
-        <AppLogo v-else />
-      </router-link>
+    <div
+      class="grid grid-cols-10 grid-flow-col justify-between items-center h-full text-white"
+    >
+      <div class="col-span-1 sm:col-span-3 lg:col-span-3 2xl:col-span-4">
+        <router-link
+          :to="{ name: 'landing' }"
+          @click="trackGoal(Goals.ClickNavLogo)"
+        >
+          <AppIcon v-if="['xs', 'sm'].includes(bp)" />
+          <AppLogo v-else location="landing" />
+        </router-link>
+      </div>
+      <div class="lg:col-span-4 2xl:col-span-2">
+        <DesktopLandingLinks v-if="isDesktop" class="" />
+      </div>
 
-      <DesktopLandingLinks v-if="isDesktop" class="" />
-      <InfoBar :fees="fees" :vol="vol" :tvl="tvl" />
+      <div class="col-span-9 sm:col-span-7 lg:col-span-3 2xl:col-span-4">
+        <InfoBar :fees="fees" :vol="vol" :tvl="tvl" :desktop="isDesktop" />
+      </div>
     </div>
   </nav>
 </template>
