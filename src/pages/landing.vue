@@ -4,12 +4,13 @@ import LandingInfoCard from '@/components/cards/LandingInfoCard/LandingInfoCard.
 import ThreeCoins from '@/components/images/ThreeCoins.vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
+import useNetwork from '@/composables/useNetwork';
 
 import bridge2d from '@/assets/images/landing/flatSvgs/bridge_2d.svg';
 import swap2d from '@/assets/images/landing/flatSvgs/swap_2d.svg';
 import invest2d from '@/assets/images/landing/flatSvgs/invest_2d.svg';
-// import neonLogo from '@/assets/images/icons/networks/neon.svg';
-// import baseLogo from '@/assets/images/icons/networks/base.svg';
+import neonLogo from '@/assets/images/icons/networks/neon.svg';
+import baseLogo from '@/assets/images/icons/networks/base.svg';
 import sobalDiagonal from '@/assets/images/landing/sobal_diagonal.svg';
 import gitbookLogo from '@/assets/images/landing/thirdPartyLogos/gitbook_blue.svg';
 import bridge3d from '@/assets/images/landing/threeDimensionalSvgs/bridge_3d.svg';
@@ -18,16 +19,19 @@ import neonCoin from '@/assets/images/landing/threeDimensionalSvgs/neon_right_co
 import balancerLogo from '@/assets/images/landing/thirdPartyLogos/balancer_logo.svg';
 import buildings3d from '@/assets/images/landing/threeDimensionalSvgs/buildings_3d.svg';
 
+import { EXTERNAL_LINKS } from '@/constants/links';
+
 type Info = {
   title: string;
   description: string;
   buttonLabel: string;
   svgSrc: string;
-  onClick: () => void;
+  link: string;
 };
 
 const { t } = useI18n();
 const router = useRouter();
+const { networkSlug } = useNetwork();
 
 const infoCards: Info[] = [
   {
@@ -36,21 +40,21 @@ const infoCards: Info[] = [
       'Bridge your funds directly to Neon and experience all the benefits the Solana and Ethereum ecosystem have to offer in tandem.',
     buttonLabel: 'Bridge now',
     svgSrc: bridge2d,
-    onClick: () => router.push('/bridge'),
+    link: 'home',
   },
   {
     title: t(`landing.infoCard.swap.title`),
     description: t(`landing.infoCard.swap.description`),
     buttonLabel: t(`landing.infoCard.swap.button`),
     svgSrc: swap2d,
-    onClick: () => router.push('/trade'),
+    link: 'swap',
   },
   {
     title: t(`landing.infoCard.invest.title`),
     description: t(`landing.infoCard.invest.description`),
     buttonLabel: t(`landing.infoCard.invest.button`),
     svgSrc: invest2d,
-    onClick: () => router.push('/portfolio'),
+    link: 'home',
   },
 ];
 </script>
@@ -59,17 +63,21 @@ const infoCards: Info[] = [
   <div>
     <LandingPageHero />
     <div class="container flex flex-col content-padded">
-      <!-- <div class="flex flex-row gap-2 items-center self-center my-20">
-        <img :src="neonLogo" width="50" />
-        <img :src="baseLogo" width="50" />
-        <h3 class="ml-4 text-white">Built on Neon</h3>
-      </div> -->
       <div
-        class="grid grid-cols-1 lg:grid-cols-3 gap-x-10 gap-y-16 lg:gap-y-5 mt-20 lg:mt-32"
+        class="flex flex-row gap-2 items-center self-center place-content-center mt-14 mb-16 w-full"
       >
+        <h3 class="mr-2 text-white">Built on</h3>
+        <BalLink external :href="EXTERNAL_LINKS.Neon.Home">
+          <img :src="neonLogo" class="md:h-[50px] h-[35px]" />
+        </BalLink>
+        <BalLink external :href="EXTERNAL_LINKS.Base.Home">
+          <img :src="baseLogo" class="md:h-[50px] h-[35px]" />
+        </BalLink>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-x-10 gap-y-16 lg:gap-y-5">
         <div
           v-for="(
-            { title, buttonLabel, description, onClick, svgSrc }, index
+            { title, buttonLabel, description, link, svgSrc }, index
           ) in infoCards"
           :key="index"
         >
@@ -78,7 +86,8 @@ const infoCards: Info[] = [
             :title="title"
             :buttonLabel="buttonLabel"
             :description="description"
-            :onClick="onClick"
+            :link="link"
+            :networkSlug="networkSlug"
             :svgSrc="svgSrc"
           />
         </div>
