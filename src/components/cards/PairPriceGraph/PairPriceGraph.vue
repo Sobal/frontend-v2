@@ -109,6 +109,20 @@ const chartTimespans = [
   },
 ];
 
+type Props = {
+  landing?: boolean;
+  chain?: string;
+  height?: string;
+  hideTooltip?: boolean;
+};
+
+const props = withDefaults(defineProps<Props>(), {
+  landing: false,
+  chain: '',
+  height: '120',
+  hideTooltip: false,
+});
+
 const { upToLargeBreakpoint } = useBreakpoints();
 const { t } = useI18n();
 const { getToken, wrappedNativeAsset, nativeAsset } = useTokens();
@@ -116,7 +130,7 @@ const { tokenInAddress, tokenOutAddress, initialized } = useSwapState();
 const tailwind = useTailwind();
 const { chainId: userNetworkId, appNetworkConfig } = useWeb3();
 
-const chartHeight = ref(100);
+const chartHeight = ref(Number(props.height));
 const activeTimespan = ref(chartTimespans[1]);
 
 const inputSym = computed(() => {
@@ -219,8 +233,8 @@ const chartGrid = computed(() => {
 </script>
 
 <template>
-  <div class="h-40 lg:h-56">
-    <BalLoadingBlock v-if="isLoadingPriceData" class="h-56" />
+  <div>
+    <BalLoadingBlock v-if="isLoadingPriceData" class="h-40" />
     <BalCard
       v-else
       :square="upToLargeBreakpoint"
@@ -234,7 +248,7 @@ const chartGrid = computed(() => {
       <div class="relative p-4 lg:p-0 h-full bg-transparent">
         <div
           v-if="failedToLoadPriceData && tokenOutAddress"
-          class="flex justify-center items-center w-full h-full"
+          class="flex justify-center items-center w-full h-40"
         >
           <span class="text-sm text-gray-400">{{
             $t('insufficientData')
@@ -267,7 +281,7 @@ const chartGrid = computed(() => {
                 yAxis: { maximumSignificantDigits: 6, fixedFormat: true },
               }"
               wrapperClass="flex flex-row lg:flex-col flex-row"
-              :showTooltip="!upToLargeBreakpoint"
+              :showTooltip="!upToLargeBreakpoint && !landing"
               chartType="line"
               hideYAxis
               hideXAxis
@@ -276,11 +290,18 @@ const chartGrid = computed(() => {
               :inputSym="inputSym"
               :outputSym="outputSym"
               :timespan="activeTimespan.fulltext"
+              :landing="landing"
             />
             <div class="-mt-2 lg:mt-2">
-              <span class="flex justify-end w-full text-sm text-gray-500"
+              <span
+                class="flex justify-end w-full text-sm text-gray-500"
+                :class="{ 'pr-4': landing }"
                 >{{ activeTimespan.option }}
-                <BalTooltip class="ml-2" :text="$t('coingeckoPricingTooltip')">
+                <BalTooltip
+                  v-if="!hideTooltip"
+                  class="ml-2"
+                  :text="$t('coingeckoPricingTooltip')"
+                >
                   <template #activator>
                     <img
                       class="h-5"
