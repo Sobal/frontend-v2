@@ -1,23 +1,34 @@
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
+
 import LandingPageHero from '@/components/heros/LandingPageHero.vue';
 import LandingInfoCard from '@/components/cards/LandingInfoCard/LandingInfoCard.vue';
 import ThreeCoins from '@/components/images/ThreeCoins.vue';
-import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
+import PairPriceGraph from '@/components/cards/PairPriceGraph/PairPriceGraph.vue';
+
+import { useSwapState } from '@/composables/swap/useSwapState';
 import useNetwork from '@/composables/useNetwork';
+
+import sobalDiagonal from '@/assets/images/landing/sobal_diagonal.svg';
 
 import bridge2d from '@/assets/images/landing/flatSvgs/bridge_2d.svg';
 import swap2d from '@/assets/images/landing/flatSvgs/swap_2d.svg';
 import invest2d from '@/assets/images/landing/flatSvgs/invest_2d.svg';
+
 import neonLogo from '@/assets/images/icons/networks/neon.svg';
 import baseLogo from '@/assets/images/icons/networks/base.svg';
-import sobalDiagonal from '@/assets/images/landing/sobal_diagonal.svg';
 import gitbookLogo from '@/assets/images/landing/thirdPartyLogos/gitbook_blue.svg';
+import balancerLogo from '@/assets/images/landing/thirdPartyLogos/balancer_logo.svg';
+
+import launch3d from '@/assets/images/landing/threeDimensionalSvgs/launch_3d.svg';
+
 import bridge3d from '@/assets/images/landing/threeDimensionalSvgs/bridge_3d.svg';
+import pool3d from '@/assets/images/landing/threeDimensionalSvgs/pool_3d.svg';
+import buildings3d from '@/assets/images/landing/threeDimensionalSvgs/buildings_3d.svg';
+
 import solanaCoin from '@/assets/images/landing/threeDimensionalSvgs/solana_left_coin.svg';
 import neonCoin from '@/assets/images/landing/threeDimensionalSvgs/neon_right_coin.svg';
-import balancerLogo from '@/assets/images/landing/thirdPartyLogos/balancer_logo.svg';
-import buildings3d from '@/assets/images/landing/threeDimensionalSvgs/buildings_3d.svg';
 
 import { EXTERNAL_LINKS } from '@/constants/links';
 
@@ -33,26 +44,47 @@ const { t } = useI18n();
 const router = useRouter();
 const { networkSlug } = useNetwork();
 
+const featuredPool = {
+  neon: {
+    tokenInAddress: '0x202C35e517Fa803B537565c40F0a6965D7204609',
+    tokenOutAddress: '0xEA6B04272f9f62F997F666F07D3a974134f7FFb9',
+  },
+  base: {
+    tokenInAddress: '0x4200000000000000000000000000000000000006',
+    tokenOutAddress: '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913',
+  },
+};
+
+const { setTokenInAddress, setTokenOutAddress, setInitialized } =
+  useSwapState();
+
+onMounted(() => {
+  setTokenInAddress(featuredPool[networkSlug].tokenInAddress.toLowerCase());
+  setTokenOutAddress(featuredPool[networkSlug].tokenOutAddress.toLowerCase());
+  setInitialized(true);
+
+  // setSelectedTokens([]);
+});
+
 const infoCards: Info[] = [
   {
-    title: 'Bridge',
-    description:
-      'Bridge your funds directly to Neon and experience all the benefits the Solana and Ethereum ecosystem have to offer in tandem.',
-    buttonLabel: 'Bridge now',
+    title: t(`landing.pageCard.bridge.title`),
+    description: t(`landing.pageCard.bridge.description`),
+    buttonLabel: t(`landing.pageCard.bridge.button`),
     svgSrc: bridge2d,
     link: 'home',
   },
   {
-    title: t(`landing.infoCard.swap.title`),
-    description: t(`landing.infoCard.swap.description`),
-    buttonLabel: t(`landing.infoCard.swap.button`),
+    title: t(`landing.pageCard.swap.title`),
+    description: t(`landing.pageCard.swap.description`),
+    buttonLabel: t(`landing.pageCard.swap.button`),
     svgSrc: swap2d,
     link: 'swap',
   },
   {
-    title: t(`landing.infoCard.invest.title`),
-    description: t(`landing.infoCard.invest.description`),
-    buttonLabel: t(`landing.infoCard.invest.button`),
+    title: t(`landing.pageCard.invest.title`),
+    description: t(`landing.pageCard.invest.description`),
+    buttonLabel: t(`landing.pageCard.invest.button`),
     svgSrc: invest2d,
     link: 'home',
   },
@@ -112,13 +144,20 @@ const infoCards: Info[] = [
             {{ $t('landing.infoCard.learnMore.description') }}
           </p>
         </div>
-        <BalBtn
-          :label="$t('landing.readDocs')"
-          class="self-center !p-6 !border-pink-700 !border-2 !text-white"
-          rounded
-          size="sm"
-          outline
-        />
+        <BalLink
+          external
+          :href="EXTERNAL_LINKS.Balancer.Docs"
+          class="self-center h-min"
+          noStyle
+        >
+          <BalBtn
+            :label="$t('landing.readDocs')"
+            class="!p-6 !border-pink-700 !border-2 !text-white"
+            rounded
+            size="sm"
+            outline
+          />
+        </BalLink>
       </div>
     </div>
     <div class="container content-padded">
@@ -160,26 +199,32 @@ const infoCards: Info[] = [
             <p class="py-5 xl:text-lg text-center text-gray-900">
               {{ $t('landing.infoCard.swapping.description') }}
             </p>
-            <BalBtn
-              class="self-center !text-white !p-6"
-              rounded
-              :label="$t('landing.infoCard.swapping.button')"
-              size="sm"
-              color="white"
-              @click="router.push('/trade')"
-            />
+            <router-link
+              :to="{ name: 'swap', params: { networkSlug } }"
+              class="self-center w-fit"
+            >
+              <BalBtn
+                class="!text-white !p-6"
+                rounded
+                :label="$t('landing.infoCard.swapping.button')"
+                size="sm"
+                color="white"
+              />
+            </router-link>
           </div>
         </BalCard>
         <img
           class="hidden lg:block col-span-1 justify-self-center self-center"
           :src="neonCoin"
         />
-        <BalCard class="col-span-1 lg:col-span-2">
+        <BalCard class="overflow-hidden relative col-span-1 lg:col-span-2">
           <div class="flex-grow p-8">
             <h2 class="text-white">
               {{ $t('landing.infoCard.pools.title') }}
             </h2>
-            <p class="my-3 max-w-sm xl:text-lg text-gray-300">
+            <p
+              class="my-3 max-w-sm lg:max-w-xs xl:max-w-sm xl:text-lg text-gray-300"
+            >
               {{ $t('landing.infoCard.pools.description') }}
             </p>
             <BalStack horizontal class="pt-2">
@@ -191,24 +236,26 @@ const infoCards: Info[] = [
                 class="!p-6 !border-purple-700 !border-2 !text-white !bg-gray-800"
                 @click="() => router.push('/')"
               />
-              <BalBtn
-                :label="$t('landing.infoCard.pools.createButton')"
-                size="sm"
-                rounded
-                outline
-                class="!font-bold !text-blue-500 !p-6 !pl-2"
-                @click="() => router.push('/')"
-              />
+              <router-link
+                :to="{ name: 'create-pool', params: { networkSlug } }"
+              >
+                <BalBtn
+                  :label="$t('landing.infoCard.pools.createButton')"
+                  size="sm"
+                  rounded
+                  outline
+                  class="!font-bold !text-blue-500 !p-6 !pl-2"
+                />
+              </router-link>
             </BalStack>
           </div>
+          <img
+            class="hidden sm:block absolute right-0 bottom-0 xl:w-[298px] w-[230px]"
+            :src="pool3d"
+          />
         </BalCard>
-        <BalCard class="col-span-1 p-5">
-          <h2 class="text-white">
-            {{ $t('landing.infoCard.featured.title') }}
-          </h2>
-          <h2 class="text-white">
-            {{ $t('landing.infoCard.featured.subtitle') }}
-          </h2>
+        <BalCard class="col-span-1 p-0 pt-10" noPad>
+          <PairPriceGraph chain="neon" landing height="100" hideTooltip />
         </BalCard>
       </div>
 
@@ -236,12 +283,14 @@ const infoCards: Info[] = [
         </div>
       </div>
 
-      <div class="p-9 mt-20 bg-blue-600 rounded-2xl">
+      <div class="relative p-9 mt-20 xl:mt-48 bg-blue-600 rounded-2xl">
         <div class="flex flex-col my-4">
           <h2 class="text-center text-black">
             {{ $t('landing.infoCard.launchToken.title') }}
           </h2>
-          <p class="self-center my-5 max-w-lg text-center text-black">
+          <p
+            class="self-center my-5 max-w-md md:max-w-lg text-center text-black"
+          >
             {{ $t('landing.infoCard.launchToken.description') }}
           </p>
           <BalBtn
@@ -250,9 +299,12 @@ const infoCards: Info[] = [
             :label="$t('landing.infoCard.launchToken.button')"
             disabled
             size="sm"
-            @click="() => router.push('/portfolio')"
           />
         </div>
+        <img
+          class="hidden sm:block absolute bottom-0 left-0 w-full"
+          :src="launch3d"
+        />
       </div>
     </div>
   </div>
