@@ -425,7 +425,7 @@ const handleAxisMoved = ({ dataIndex, seriesIndex }: AxisMoveEvent) => {
       v-if="showHeader"
       id="lineChartHeader"
       class="mb-4"
-      :class="{ 'pl-10': landing }"
+      :class="{ 'px-10': landing }"
     >
       <div v-if="landing" class="pb-3">
         <h2 class="text-white">{{ $t('landing.infoCard.featured.title') }}</h2>
@@ -433,6 +433,7 @@ const handleAxisMoved = ({ dataIndex, seriesIndex }: AxisMoveEvent) => {
       </div>
       <h3
         class="text-xl font-light tracking-wider text-gray-800 dark:text-gray-400 truncate"
+        :class="{ hidden: landing, 'sm:block': landing }"
       >
         <template v-if="inputSym">
           <span class="font-normal text-white">1</span> {{ inputSym }} =
@@ -480,6 +481,7 @@ const handleAxisMoved = ({ dataIndex, seriesIndex }: AxisMoveEvent) => {
         height && typeof (height === 'string') ? `h-${height}` : '',
         'w-full',
         chartClass,
+        landing ? 'pr-10 lg:pr-0' : '',
       ]"
       :option="chartConfig"
       autoresize
