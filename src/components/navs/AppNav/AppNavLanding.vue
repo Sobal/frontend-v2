@@ -5,13 +5,49 @@ import useFathom from '@/composables/useFathom';
 import AppLogo from '@/components/images/AppLogo.vue';
 import DesktopLandingLinks from '@/components/navs/AppNav/DesktopLinks/DesktopLandingLinks.vue';
 import InfoBar from '@/components/info/InfoBar.vue';
+import { reactive } from 'vue';
 
-// TODO: Add Defilamaa feed
-const { tvl, fees, vol } = {
-  tvl: 1200000,
-  fees: 6942,
-  vol: 260300000,
+const protocolData = reactive({
+  initialized: false,
+  vol: 0,
+  tvl: 0,
+  fees: 0,
+});
+
+const getProtocolFees = async () => {
+  const feesApi = 'https://api.llama.fi/summary/fees/sobal?dataType=dailyFees';
+  const tvlApi = 'https://api.llama.fi/protocol/sobal';
+  const volumeApi =
+    'https://api.llama.fi/summary/dexs/sobal?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume';
+
+  const responseFees = await fetch(feesApi);
+  const responseTvl = await fetch(tvlApi);
+  const responseVolume = await fetch(volumeApi);
+
+  if (responseFees.status === 200) {
+    const data = await responseFees.json();
+    protocolData.fees = data.total24h;
+  }
+
+  if (responseTvl.status === 200) {
+    const data = await responseTvl.json();
+    const tvl = Object.values(data.currentChainTvls).reduce((a, b) => a + b, 0);
+    protocolData.tvl = tvl;
+  }
+
+  if (responseVolume.status === 200) {
+    const data = await responseVolume.json();
+    protocolData.vol = data.total24h;
+  }
+
+  protocolData.initialized = true;
+
+  return protocolData;
 };
+
+onMounted(async () => {
+  await getProtocolFees();
+});
 
 const { bp, isDesktop } = useBreakpoints();
 const { trackGoal, Goals } = useFathom();
@@ -36,7 +72,13 @@ const { trackGoal, Goals } = useFathom();
       </div>
 
       <div class="col-span-9 sm:col-span-7 lg:col-span-3 2xl:col-span-4">
-        <InfoBar :fees="fees" :vol="vol" :tvl="tvl" :desktop="isDesktop" />
+        <InfoBar
+          v-if="protocolData.initialized"
+          :fees="protocolData.fees"
+          :vol="protocolData.vol"
+          :tvl="protocolData.tvl"
+          :desktop="isDesktop"
+        />
       </div>
     </div>
   </nav>
