@@ -15,9 +15,11 @@ defineProps<Props>();
 </script>
 
 <template>
-  <span class="pr-1 font-semibold text-white">{{ label }}&nbsp;</span>
-  <span class="font-semibold text-blue-700 text-md">{{
-    numeral(fNum(value)).format(PresetFormats[currencyFormatter])
-  }}</span>
+  <div class="flex flex-col xl:flex-row place-items-center">
+    <span class="pr-1 font-semibold text-white h-fit">{{ label }}</span>
+    <span class="font-semibold text-blue-700 text-md h-fit">{{
+      numeral(fNum(value)).format(PresetFormats[currencyFormatter])
+    }}</span>
+  </div>
   <span v-if="addSeparator" class="m-2 text-sm text-primary-50">|</span>
 </template>
