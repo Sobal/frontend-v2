@@ -7,7 +7,17 @@ import useTailwind from '@/composables/useTailwind';
  */
 type Props = {
   forceDark?: boolean;
-  sidebar?: boolean;
+  location?: string;
+};
+
+const width = {
+  sidebar: '190',
+  landing: '100',
+};
+
+const height = {
+  sidebar: '55',
+  landing: '29',
 };
 
 /**
@@ -44,8 +54,8 @@ const fillColor = computed(() => {
       aria-labelledby="logoTitle logoDesc"
       role="img"
       class="logo-svg"
-      :width="sidebar ? '190' : '69'"
-      :height="sidebar ? '55' : '20'"
+      :width="location ? width[location] : '69'"
+      :height="location ? height[location] : '20'"
     >
       <title id="logoTitle">Sobal Home</title>
       <desc id="logoDesc">Sobal Home</desc>
