@@ -1,12 +1,16 @@
 <script lang="ts" setup>
 import infoIcon from '@/assets/images/landing/icons/info_icon.svg';
+import useFathom from '@/composables/useFathom';
+
+const { trackGoal, Goals } = useFathom();
 
 type Props = {
   title: string;
   description: string;
   buttonLabel: string;
   svgSrc: string;
-  onClick: () => void;
+  link: string;
+  networkSlug: string;
 };
 
 defineProps<Props>();
@@ -32,13 +36,18 @@ defineProps<Props>();
     <p class="flex-grow px-2 mb-6 xl:text-lg text-gray-300">
       {{ description }}
     </p>
-    <BalBtn
-      class="justify-self-end"
-      :label="buttonLabel"
-      size="md"
-      color="blue"
-      rounded
-      @click="onClick"
-    />
+    <router-link
+      :to="{ name: link, params: { networkSlug } }"
+      @click="trackGoal(Goals.ClickNavLogo)"
+    >
+      <!-- TODO: CHANGE GOAL TRACKING -->
+      <BalBtn
+        class="justify-self-end w-full"
+        :label="buttonLabel"
+        size="md"
+        color="blue"
+        rounded
+      />
+    </router-link>
   </div>
 </template>
