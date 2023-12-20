@@ -12,7 +12,7 @@ export const EXTERNAL_LINKS = {
       Discord: 'https://discord.sobal.fi',
       Github: 'https://github.com/sobal/',
       Mail: 'mailto:hello@sobal.fi',
-      Medium: '',
+      Medium: 'https://blog.sobal.fi',
       Linkedin: '',
       Twitter: 'https://twitter.com/sobalfi',
       Youtube: '',
@@ -22,8 +22,17 @@ export const EXTERNAL_LINKS = {
   Gauntlet: {
     Home: 'https://gauntlet.network',
   },
+  Neon: {
+    Home: 'http://neonevm.org',
+  },
+  Base: {
+    Home: 'https://base.org',
+  },
   Ethereum: {
     Wallets: 'https://ethereum.org/en/wallets',
+  },
+  Gitbook: {
+    Home: 'https://www.gitbook.com',
   },
   Element: {
     Home: 'https://element.fi',
