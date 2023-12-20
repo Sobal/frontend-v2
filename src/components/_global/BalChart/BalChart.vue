@@ -62,6 +62,7 @@ type Props = {
   inputSym?: string;
   outputSym?: string;
   timespan?: string;
+  landing?: boolean;
 };
 
 const emit = defineEmits([
@@ -83,6 +84,7 @@ const props = withDefaults(defineProps<Props>(), {
   showTooltip: true,
   showTooltipLayer: true,
   useMinMax: false,
+  landing: false,
 });
 
 const chartInstance = ref<echarts.ECharts>();
@@ -419,7 +421,16 @@ const handleAxisMoved = ({ dataIndex, seriesIndex }: AxisMoveEvent) => {
     @mouseleave="handleMouseLeave"
     @touchend="handleMouseLeave"
   >
-    <div v-if="showHeader" id="lineChartHeader" class="mb-4">
+    <div
+      v-if="showHeader"
+      id="lineChartHeader"
+      class="mb-4"
+      :class="{ 'pl-10': landing }"
+    >
+      <div v-if="landing" class="pb-3">
+        <h2 class="text-white">{{ $t('landing.infoCard.featured.title') }}</h2>
+        {{ inputSym }} / {{ outputSym }}
+      </div>
       <h3
         class="text-xl font-light tracking-wider text-gray-800 dark:text-gray-400 truncate"
       >
