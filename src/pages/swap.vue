@@ -128,7 +128,7 @@ onMounted(() => {
       </div>
 
       <template v-if="!upToLargeBreakpoint" #right>
-        <PairPriceGraph />
+        <PairPriceGraph height="150" class="pb-5" />
         <SwapRoute
           v-if="showSwapRoute"
           :addressIn="swapping.tokenIn.value.address"
