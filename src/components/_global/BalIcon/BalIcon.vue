@@ -8,6 +8,7 @@ type Props = {
   name: string;
   size?: IconSize;
   filled?: boolean;
+  color?: string;
 };
 
 /**
@@ -51,6 +52,12 @@ onMounted(async () => {
 
 <template>
   <div class="inline-block bal-icon">
-    <i :data-feather="name" :width="iconSize" :height="iconSize" :fill="fill" />
+    <i
+      :data-feather="name"
+      :width="iconSize"
+      :height="iconSize"
+      :fill="fill"
+      :color="color"
+    />
   </div>
 </template>
