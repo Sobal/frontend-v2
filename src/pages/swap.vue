@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue';
-import { SubgraphPoolBase } from '@sobal/sdk';
 import MyWallet from '@/components/cards/MyWallet/MyWallet.vue';
 import PairPriceGraph from '@/components/cards/PairPriceGraph/PairPriceGraph.vue';
 import SwapCard from '@/components/cards/SwapCard/SwapCard.vue';
@@ -11,8 +10,6 @@ import { provideUserTokens } from '@/providers/local/user-tokens.provider';
 import useBreakpoints from '@/composables/useBreakpoints';
 import Col2SwapLayout from '@/components/layouts/Col2SwapLayout.vue';
 import { useSwapState } from '@/composables/swap/useSwapState';
-import SwapRoute from '@/components/cards/SwapCard/SwapRoute.vue';
-import useSwapping from '@/composables/swap/useSwapping';
 import useNetwork from '@/composables/useNetwork';
 
 /**
@@ -25,24 +22,13 @@ provideUserTokens();
  */
 const { setSelectedTokens } = usePoolFilters();
 const { networkConfig } = useNetwork();
+const { initialized } = useSwapState();
+const { upToLargeBreakpoint } = useBreakpoints();
 
-const exactIn = ref(true);
-
-const {
-  tokenInAddress,
-  tokenOutAddress,
-  tokenInAmount,
-  tokenOutAmount,
-  initialized,
-} = useSwapState();
-
-const swapping = useSwapping(
-  exactIn,
-  tokenInAddress,
-  tokenInAmount,
-  tokenOutAddress,
-  tokenOutAmount
-);
+/**
+ * VARIABLES
+ */
+const showSwapRoute = ref(false);
 
 /**
  * COMPUTED
@@ -56,22 +42,22 @@ const sections = computed(() => {
   if (hasBridge.value) sections.push({ title: 'Bridge assets', id: 'bridge' });
   return sections;
 });
-const { upToLargeBreakpoint } = useBreakpoints();
 
-const pools = computed<SubgraphPoolBase[]>(
-  // @ts-ignore-next-line -- Fix types incompatibility error. Related to BigNumber?
-  () => {
-    return swapping.sor.pools.value;
-  }
-);
+/**
+ * WATCHERS
+ */
 
-const showSwapRoute = computed(
-  () =>
-    initialized &&
-    swapping.tokenInAmountInput.value &&
-    swapping.tokenInAmountInput.value !== 'NaN' &&
-    swapping.tokenOutAmountInput.value
-);
+watch(useSwapState, swapStateChange => {
+  showSwapRoute.value =
+    initialized.value &&
+    swapStateChange.tokenInAddress.value &&
+    swapStateChange.tokenOutAddress.value &&
+    swapStateChange.tokenInAmount.value &&
+    swapStateChange.tokenInAmount.value !== 'NaN' &&
+    swapStateChange.tokenOutAmount.value
+      ? true
+      : false;
+});
 
 /**
  * CALLBACKS
@@ -103,17 +89,7 @@ onMounted(() => {
           :sections="sections"
         >
           <template v-if="showSwapRoute" #swap-route>
-            <SwapRoute
-              v-if="showSwapRoute"
-              :addressIn="swapping.tokenIn.value.address"
-              :amountIn="swapping.tokenInAmountInput.value"
-              :addressOut="swapping.tokenOut.value.address"
-              :amountOut="swapping.tokenOutAmountInput.value"
-              :pools="pools"
-              :sorReturn="swapping.sor.sorReturn.value"
-              class="mb-4"
-              hideContainer
-            />
+            <TeleportTarget id="route-card" />
           </template>
           <template #my-wallet>
             <MyWallet />
@@ -129,18 +105,8 @@ onMounted(() => {
 
       <template v-if="!upToLargeBreakpoint" #right>
         <PairPriceGraph height="150" class="pb-5" />
-        <SwapRoute
-          v-if="showSwapRoute"
-          :addressIn="swapping.tokenIn.value.address"
-          :amountIn="swapping.tokenInAmountInput.value"
-          :addressOut="swapping.tokenOut.value.address"
-          :amountOut="swapping.tokenOutAmountInput.value"
-          :pools="pools"
-          :sorReturn="swapping.sor.sorReturn.value"
-          class="mb-4"
-          hideContainer
-        />
-        <BalCard v-if="!showSwapRoute" class="mb-4 text-center">{{
+        <TeleportTarget v-if="showSwapRoute" id="route-card" class="mb-4" />
+        <BalCard v-else class="mb-4 text-center">{{
           $t('swapRouteOnInput')
         }}</BalCard>
         <MyWallet />
