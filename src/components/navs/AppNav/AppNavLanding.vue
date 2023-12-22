@@ -5,6 +5,8 @@ import useFathom from '@/composables/useFathom';
 import AppLogo from '@/components/images/AppLogo.vue';
 import DesktopLandingLinks from '@/components/navs/AppNav/DesktopLinks/DesktopLandingLinks.vue';
 import InfoBar from '@/components/info/InfoBar.vue';
+import AppNavNetworkSelect from '@/components/navs/AppNav/AppNavNetworkSelect.vue';
+import useWeb3 from '@/services/web3/useWeb3';
 import { reactive } from 'vue';
 
 const protocolData = reactive({
@@ -51,6 +53,9 @@ onMounted(async () => {
 
 const { bp, isDesktop } = useBreakpoints();
 const { trackGoal, Goals } = useFathom();
+const { connector } = useWeb3();
+
+const hideNetworkSelect = computed(() => connector.value?.id === 'gnosis');
 </script>
 
 <template>
@@ -58,7 +63,9 @@ const { trackGoal, Goals } = useFathom();
     <div
       class="grid grid-cols-10 grid-flow-col justify-between items-center h-full text-white"
     >
-      <div class="col-span-1 sm:col-span-3 lg:col-span-3 2xl:col-span-4">
+      <div
+        class="flex flex-row col-span-1 sm:col-span-3 lg:col-span-3 2xl:col-span-4"
+      >
         <router-link
           :to="{ name: 'landing' }"
           @click="trackGoal(Goals.ClickNavLogo)"
@@ -66,6 +73,12 @@ const { trackGoal, Goals } = useFathom();
           <AppIcon v-if="['xs', 'sm'].includes(bp)" />
           <AppLogo v-else location="landing" />
         </router-link>
+        <AppNavNetworkSelect
+          v-if="!hideNetworkSelect"
+          hideLabel
+          class="w-fit"
+          alignMenu="left"
+        />
       </div>
       <div class="lg:col-span-4 2xl:col-span-2">
         <DesktopLandingLinks v-if="isDesktop" class="" />

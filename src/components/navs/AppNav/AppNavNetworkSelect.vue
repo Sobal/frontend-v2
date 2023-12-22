@@ -21,6 +21,16 @@ export interface NetworkOption {
   testNetwork: boolean;
 }
 
+type Props = {
+  hideLabel?: boolean;
+  alignMenu?: string;
+};
+
+withDefaults(defineProps<Props>(), {
+  alignMenu: 'right',
+  hideLabel: false,
+});
+
 // COMPOSABLES
 const { upToLargeBreakpoint } = useBreakpoints();
 const { networkId, networkConfig } = useNetwork();
@@ -73,7 +83,7 @@ onMounted(async () => {
       title: '',
       message: `${t('poolDoesntExist')} ${networkConfig.chainName}`,
     });
-    router.replace({ query: {} });
+    router.replace({ name: 'home', query: {} });
   }
 });
 
@@ -107,6 +117,7 @@ function getNetworkChangeUrl(network: NetworkOption): string {
   }
 
   const currentRoute = router.currentRoute.value;
+
   return router.resolve({
     name: currentRoute.name ?? 'home',
     params: { ...currentRoute.params, networkSlug: network.networkSlug },
@@ -121,7 +132,7 @@ function isActive(network: NetworkOption): boolean {
 </script>
 
 <template>
-  <BalPopover noPad>
+  <BalPopover noPad :align="alignMenu">
     <template #activator>
       <BalBtn color="white" :size="upToLargeBreakpoint ? 'md' : 'sm'">
         <template v-if="activeNetwork">
@@ -131,7 +142,7 @@ function isActive(network: NetworkOption): boolean {
             class="rounded-full h-[22px] w-[22px]"
           />
           <span class="ml-2">
-            {{ activeNetwork.name }}
+            {{ hideLabel ? '' : activeNetwork.name }}
           </span>
           <BalIcon name="chevron-down" size="sm" class="ml-2" />
         </template>
