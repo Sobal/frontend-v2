@@ -24,11 +24,15 @@ export interface NetworkOption {
 type Props = {
   hideLabel?: boolean;
   alignMenu?: string;
+  noBg?: boolean;
+  noPadding?: boolean;
 };
 
 withDefaults(defineProps<Props>(), {
   alignMenu: 'right',
   hideLabel: false,
+  noBg: false,
+  noPadding: false,
 });
 
 // COMPOSABLES
@@ -134,17 +138,26 @@ function isActive(network: NetworkOption): boolean {
 <template>
   <BalPopover noPad :align="alignMenu">
     <template #activator>
-      <BalBtn color="white" :size="upToLargeBreakpoint ? 'md' : 'sm'">
+      <BalBtn
+        :color="noBg ? 'transparent' : 'white'"
+        :outline="noBg"
+        :size="noPadding ? 'base-noPad' : upToLargeBreakpoint ? 'md' : 'sm'"
+      >
         <template v-if="activeNetwork">
           <img
             :src="buildNetworkIconURL(activeNetwork.id)"
             :alt="activeNetwork.name"
             class="rounded-full h-[22px] w-[22px]"
           />
-          <span class="ml-2">
-            {{ hideLabel ? '' : activeNetwork.name }}
+          <span v-if="!hideLabel" class="ml-2">
+            {{ activeNetwork.name }}
           </span>
-          <BalIcon name="chevron-down" size="sm" class="ml-2" />
+          <BalIcon
+            name="chevron-down"
+            size="sm"
+            :class="{ 'ml-2': !hideLabel, 'ml-1': hideLabel }"
+            :color="noBg ? 'white' : ''"
+          />
         </template>
       </BalBtn>
     </template>
