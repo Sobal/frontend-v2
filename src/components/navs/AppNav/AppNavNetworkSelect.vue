@@ -140,7 +140,6 @@ function isActive(network: NetworkOption): boolean {
     <template #activator>
       <BalBtn
         :color="noBg ? 'transparent' : 'white'"
-        :outline="noBg"
         :size="noPadding ? 'base-noPad' : upToLargeBreakpoint ? 'md' : 'sm'"
       >
         <template v-if="activeNetwork">
@@ -155,7 +154,7 @@ function isActive(network: NetworkOption): boolean {
           <BalIcon
             name="chevron-down"
             size="sm"
-            :class="{ 'ml-2': !hideLabel, 'ml-1': hideLabel }"
+            :class="{ 'ml-2': !hideLabel, 'ml-0': hideLabel }"
             :color="noBg ? 'white' : ''"
           />
         </template>
