@@ -8,6 +8,10 @@ const tokens: TokenConstants = {
     input: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
     output: '0xe0C9275E44Ea80eF17579d33c55136b7DA269aEb',
   },
+  FeaturedSwapTokens: {
+    input: '',
+    output: '',
+  },
   Addresses: {
     nativeAsset: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
     wNativeAsset: '0xdFCeA9088c8A88A76FF74892C1457C17dfeef9C1',

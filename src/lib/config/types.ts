@@ -24,6 +24,10 @@ export type TokenConstants = {
     input: string;
     output: string;
   };
+  FeaturedSwapTokens: {
+    input: string;
+    output: string;
+  };
   PriceChainMap?: Record<string, string>;
   DisableInternalBalanceWithdrawals?: string[];
   DoubleApprovalRequired?: string[];

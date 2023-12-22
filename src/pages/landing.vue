@@ -32,6 +32,8 @@ import neonCoin from '@/assets/images/landing/threeDimensionalSvgs/neon_right_co
 
 import { EXTERNAL_LINKS } from '@/constants/links';
 
+import { configService } from '@/services/config/config.service';
+
 type Info = {
   title: string;
   description: string;
@@ -44,23 +46,16 @@ const { t } = useI18n();
 const router = useRouter();
 const { networkSlug } = useNetwork();
 
-const featuredPool = {
-  neon: {
-    tokenInAddress: '0x202C35e517Fa803B537565c40F0a6965D7204609',
-    tokenOutAddress: '0xEA6B04272f9f62F997F666F07D3a974134f7FFb9',
-  },
-  base: {
-    tokenInAddress: '0x4200000000000000000000000000000000000006',
-    tokenOutAddress: '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913',
-  },
-};
-
 const { setTokenInAddress, setTokenOutAddress, setInitialized } =
   useSwapState();
 
 onMounted(() => {
-  setTokenInAddress(featuredPool[networkSlug].tokenInAddress.toLowerCase());
-  setTokenOutAddress(featuredPool[networkSlug].tokenOutAddress.toLowerCase());
+  setTokenInAddress(
+    configService.network.tokens.FeaturedSwapTokens.input.toLowerCase()
+  );
+  setTokenOutAddress(
+    configService.network.tokens.FeaturedSwapTokens.output.toLowerCase()
+  );
   setInitialized(true);
 
   // setSelectedTokens([]);
