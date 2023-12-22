@@ -64,7 +64,7 @@ const hideNetworkSelect = computed(() => connector.value?.id === 'gnosis');
       class="grid grid-cols-10 grid-flow-col justify-between items-center h-full text-white"
     >
       <div
-        class="flex flex-row col-span-1 sm:col-span-3 lg:col-span-3 2xl:col-span-4"
+        class="flex flex-col sm:flex-row col-span-1 sm:col-span-3 lg:col-span-3 2xl:col-span-4"
       >
         <router-link
           :to="{ name: 'landing' }"
@@ -78,6 +78,8 @@ const hideNetworkSelect = computed(() => connector.value?.id === 'gnosis');
           hideLabel
           class="w-fit"
           alignMenu="left"
+          noPadding
+          noBg
         />
       </div>
       <div class="lg:col-span-4 2xl:col-span-2">
