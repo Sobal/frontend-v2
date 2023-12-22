@@ -4,6 +4,7 @@ import router from '@/plugins/router';
 import blocknative from '@/plugins/blocknative';
 import VueVirtualScroller from 'vue3-virtual-scroller';
 import { VueQueryPlugin } from '@tanstack/vue-query';
+import VueSafeTeleport from 'vue-safe-teleport';
 
 export function registerPlugins(app: App) {
   app
@@ -11,6 +12,7 @@ export function registerPlugins(app: App) {
     .use(router)
     .use(VueQueryPlugin)
     .use(blocknative)
-    .use(VueVirtualScroller);
+    .use(VueVirtualScroller)
+    .use(VueSafeTeleport);
   return app;
 }

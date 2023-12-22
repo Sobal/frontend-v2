@@ -172,6 +172,7 @@
   "license": "MIT",
   "repository": "balancer/frontend-v2",
   "dependencies": {
-    "postcss-html": "^1.5.0"
+    "postcss-html": "^1.5.0",
+    "vue-safe-teleport": "^0.1.2"
   }
 }
