@@ -41,7 +41,7 @@
       },
       "bridge": {
         "title": "Bridge",
-        "description": "Bridge your funds directly to Neon and experience all the benefits the Solana and Ethereum ecosystem have to offer in tandem.",
+        "description": "Bridge your funds directly to Neon and experience all the benefits our ecosystem have to offer in tandem.",
         "button": "Bridge now"
       }
     },
@@ -53,7 +53,7 @@
       },
       "bridging": {
         "title": "Bridging",
-        "description": "Seamless bridging between Solana and Neon by utilising functionality directly implemented into the chains virtual machine.",
+        "description": "Seamless bridging by utilising functionality directly implemented into the chains virtual machine.",
         "button": "Bridge now"
       },
       "swapping": {
