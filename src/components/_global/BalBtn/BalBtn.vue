@@ -29,7 +29,7 @@ import {
 
 type Props = {
   tag?: 'button' | 'a' | 'div' | 'router-link';
-  size?: 'xs' | 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'base-noPad';
   color?:
     | 'primary'
     | 'gradient'
@@ -76,6 +76,8 @@ const sizeClasses = computed(() => {
       return 'px-3 h-9 text-base';
     case 'lg':
       return 'px-5 h-16 text-lg md:text-2xl';
+    case 'base-noPad':
+      return 'py-1 px-3 sm:px-1 h-full text-base';
     default:
       return 'px-4 h-12 text-base';
   }
