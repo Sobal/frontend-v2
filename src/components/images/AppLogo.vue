@@ -46,7 +46,13 @@ const fillColor = computed(() => {
 </script>
 
 <template>
-  <div class="flex items-center sm:mr-4 app-logo">
+  <div
+    class="flex items-center app-logo"
+    :class="{
+      'sm:mr-4': location !== 'landing',
+      'sm:mr-2': location === 'landing',
+    }"
+  >
     <svg
       id="logo"
       viewBox="0 0 69 20"
