@@ -46,7 +46,7 @@ const routes: RouteRecordRaw[] = [
     component: HomePage,
   },
   {
-    path: '/',
+    path: '/:networkSlug?',
     name: 'landing',
     component: Landing,
     meta: { layout: 'LandingLayout' },
@@ -156,7 +156,7 @@ const routes: RouteRecordRaw[] = [
     component: BalancesPage,
   },
   {
-    path: '/:networkSlug?',
+    path: '/:networkSlug?/pools',
     name: 'home',
     component: HomePage,
     beforeEnter: (to, from, next) => {
