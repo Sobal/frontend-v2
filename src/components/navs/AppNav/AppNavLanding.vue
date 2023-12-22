@@ -64,13 +64,13 @@ const hideNetworkSelect = computed(() => connector.value?.id === 'gnosis');
       class="grid grid-cols-10 grid-flow-col justify-between items-center h-full text-white"
     >
       <div
-        class="flex flex-col sm:flex-row col-span-1 sm:col-span-3 lg:col-span-3 2xl:col-span-4"
+        class="flex flex-col xs:flex-row col-span-1 xs:col-span-3 lg:col-span-3 2xl:col-span-4"
       >
         <router-link
           :to="{ name: 'landing' }"
           @click="trackGoal(Goals.ClickNavLogo)"
         >
-          <AppIcon v-if="['xs', 'sm'].includes(bp)" />
+          <AppIcon v-if="['xs', 'sm'].includes(bp)" landing />
           <AppLogo v-else location="landing" />
         </router-link>
         <AppNavNetworkSelect
@@ -86,7 +86,7 @@ const hideNetworkSelect = computed(() => connector.value?.id === 'gnosis');
         <DesktopLandingLinks v-if="isDesktop" class="" />
       </div>
 
-      <div class="col-span-9 sm:col-span-7 lg:col-span-3 2xl:col-span-4">
+      <div class="col-span-9 xs:col-span-7 lg:col-span-3 2xl:col-span-4">
         <InfoBar
           v-if="protocolData.initialized"
           :fees="protocolData.fees"
