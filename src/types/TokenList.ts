@@ -47,4 +47,5 @@ export interface TokenListURLMap {
     Allowlisted: string;
   };
   External: string[];
+  Bridge: string[];
 }

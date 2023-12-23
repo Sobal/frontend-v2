@@ -8,6 +8,7 @@ const tokenlists: TokenListURLMap = {
   External: [
     'https://unpkg.com/quickswap-default-token-list@1.0.67/build/quickswap-default.tokenlist.json',
   ],
+  Bridge: [],
 };
 
 export default tokenlists;

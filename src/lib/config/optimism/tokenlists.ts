@@ -5,6 +5,7 @@ const tokenlists: TokenListURLMap = {
     Allowlisted: '',
   },
   External: [],
+  Bridge: [],
 };
 
 export default tokenlists;

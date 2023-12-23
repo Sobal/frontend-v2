@@ -35,6 +35,7 @@ const config: Config = {
   },
   blockTime: 4,
   bridgeUrl: 'https://neonpass.live',
+  bridgeUi: true,
   supportsEIP1559: false,
   supportsElementPools: false,
   showLatestArticles: true,

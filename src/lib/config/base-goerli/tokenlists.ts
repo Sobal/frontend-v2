@@ -6,6 +6,7 @@ const tokenlists: TokenListURLMap = {
       'https://raw.githubusercontent.com/Sobal/tokenlists/main/generated/sobal.tokenlist.json',
   },
   External: [],
+  Bridge: [],
 };
 
 export default tokenlists;
