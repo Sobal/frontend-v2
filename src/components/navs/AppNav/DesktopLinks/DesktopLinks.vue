@@ -15,10 +15,6 @@ const analyticsUrl = computed((): string => {
   return configService.network.analyticsUrl;
 });
 
-const bridgeUrl = computed((): string => {
-  return configService.network.bridgeUrl;
-});
-
 /**
  * METHODS
  */
@@ -71,15 +67,14 @@ function isActive(page: string): boolean {
     >
       {{ $t('portfolio') }}
     </DesktopLinkItem>
-
-    <BalLink
-      v-if="bridgeUrl"
-      :href="bridgeUrl"
-      external
-      noStyle
-      class="group flex items-center"
-      >{{ $t('bridge') }}</BalLink
+    <DesktopLinkItem
+      :to="{ name: 'bridge', params: { networkSlug } }"
+      :active="isActive('bridge')"
+      prefetch
+      @click="trackGoal(Goals.ClickNavPortfolio)"
     >
+      {{ $t('bridge') }}
+    </DesktopLinkItem>
     <BalLink
       v-if="analyticsUrl"
       :href="analyticsUrl"

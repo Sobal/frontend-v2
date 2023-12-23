@@ -67,7 +67,7 @@ const infoCards: Info[] = [
     description: t(`landing.pageCard.bridge.description`),
     buttonLabel: t(`landing.pageCard.bridge.button`),
     svgSrc: bridge2d,
-    link: 'home',
+    link: 'bridge',
   },
   {
     title: t(`landing.pageCard.swap.title`),
@@ -172,14 +172,19 @@ const infoCards: Info[] = [
             <p class="my-4 max-w-md xl:max-w-xl xl:text-lg text-gray-300">
               {{ $t('landing.infoCard.bridging.description') }}
             </p>
-            <BalBtn
-              :label="$t('landing.infoCard.bridging.button')"
-              class="!p-6 !border-purple-700 !border-2 !text-white !bg-gray-800"
-              rounded
-              size="sm"
-              outline
-              @click="() => router.push('/bridge')"
-            />
+
+            <router-link
+              :to="{ name: 'bridge', params: { networkSlug } }"
+              class="self-center w-fit"
+            >
+              <BalBtn
+                :label="$t('landing.infoCard.bridging.button')"
+                class="!p-6 !border-purple-700 !border-2 !text-white !bg-gray-800"
+                rounded
+                size="sm"
+                outline
+              />
+            </router-link>
           </div>
         </div>
         <img
