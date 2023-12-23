@@ -123,7 +123,7 @@ const infoCards: Info[] = [
         <BalImage
           class="z-50 mt-6 ml-7"
           width="760"
-          src="images/screenshots/bridge_screenshot.png"
+          src="/images/screenshots/bridge_screenshot.png"
         />
         <img class="absolute top-0 right-0" :src="sobalDiagonal" />
       </div>
