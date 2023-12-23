@@ -172,7 +172,10 @@
   "license": "MIT",
   "repository": "balancer/frontend-v2",
   "dependencies": {
+    "@solana/wallet-adapter-base": "^0.9.23",
+    "@solana/wallet-adapter-wallets": "^0.19.24",
     "postcss-html": "^1.5.0",
+    "solana-wallets-vue": "^0.6.0",
     "vue-safe-teleport": "^0.1.2"
   }
 }
