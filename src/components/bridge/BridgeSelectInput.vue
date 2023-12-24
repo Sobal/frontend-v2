@@ -4,7 +4,7 @@ import { TokenInfo } from '@/types/TokenList';
 import useNumbers from '@/composables/useNumbers';
 import { isSameAddress } from '@/lib/utils';
 import SelectBridgeTokenModal from '@/components/bridge/SelectBridgeTokenModal.vue';
-import { useBridgeTokens } from '@/composables/useBridgeTokens';
+import { useTokens } from '@/providers/tokens.provider';
 
 type Props = {
   modelValue: string;
@@ -38,7 +38,7 @@ const optionTokens = ref<Record<string, TokenInfo>>({});
  * COMPOSABLEs
  */
 const { fNum } = useNumbers();
-const { getToken, tokens } = useBridgeTokens();
+const { getToken, tokens } = useTokens();
 
 /**
  * COMPUTED
