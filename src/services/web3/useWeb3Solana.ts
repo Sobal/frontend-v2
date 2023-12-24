@@ -8,11 +8,6 @@ const toggleSolanaWalletSelectModal = (value?: boolean) => {
     value ?? !isSolanaWalletSelectVisible.value;
 };
 
-// const delayedToggleSolanaWalletSelectModal = debounce(
-//   toggleSolanaWalletSelectModal,
-//   200
-// );
-
 export default function useWeb3Solana() {
   const {
     connected,
