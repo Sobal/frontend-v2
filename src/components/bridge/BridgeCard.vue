@@ -80,7 +80,7 @@ const setConnected = (walletType: WalletType): boolean => {
 const setAddress = (walletType: WalletType): string => {
   return walletType === WalletTypes.EVM
     ? account.value
-    : publicKeyTrimmed.value ?? '';
+    : publicKeyTrimmed.value;
 };
 
 watchEffect(() => {
