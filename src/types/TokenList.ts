@@ -1,6 +1,7 @@
 export interface TokenInfo {
   readonly chainId: number;
   readonly address: string;
+  readonly address_spl?: string;
   readonly name: string;
   readonly decimals: number;
   readonly symbol: string;
