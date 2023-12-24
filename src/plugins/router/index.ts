@@ -17,6 +17,7 @@ const RisksPage = () => import('@/pages/risks.vue');
 const SwapPage = () => import('@/pages/swap.vue');
 const FaucetPage = () => import('@/pages/faucet.vue');
 const PortfolioPage = () => import('@/pages/portfolio.vue');
+const BridgePage = () => import('@/pages/bridge.vue');
 
 export const SwapPagePrefetchLinks = async () =>
   import('@/pages/swap.vue').toString();
@@ -78,6 +79,11 @@ const routes: RouteRecordRaw[] = [
     path: '/:networkSlug/swap/:assetIn?/:assetOut?',
     name: 'swap',
     component: SwapPage,
+  },
+  {
+    path: '/:networkSlug/bridge/:assetIn?/:assetOut?',
+    name: 'bridge',
+    component: BridgePage,
   },
   {
     path: '/:networkSlug/trade/:assetIn?/:assetOut?',

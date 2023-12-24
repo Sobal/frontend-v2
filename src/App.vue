@@ -5,9 +5,12 @@ import { useRoute } from 'vue-router';
 import Notifications from '@/components/notifications/Notifications.vue';
 import ThirdPartyServicesModal from '@/components/web3/ThirdPartyServicesModal.vue';
 import WalletSelectModal from '@/components/web3/WalletSelectModal.vue';
+import SolanaSelectModal from '@/components/web3/SolanaSelectModal.vue';
+
 import useWeb3Watchers from '@/composables/watchers/useWeb3Watchers';
 import { DEFAULT_TOKEN_DECIMALS } from '@/constants/tokens';
 import useWeb3 from '@/services/web3/useWeb3';
+import useWeb3Solana from '@/services/web3/useWeb3Solana';
 
 import GlobalModalContainer from './components/modals/GlobalModalContainer.vue';
 import AppSidebar from './components/navs/AppNav/AppSidebar/AppSidebar.vue';
@@ -73,6 +76,8 @@ useGnosisSafeApp();
 useExploitWatcher();
 useNavigationGuards();
 const { isWalletSelectVisible, toggleWalletSelectModal, isBlocked } = useWeb3();
+const { isSolanaWalletSelectVisible, toggleSolanaWalletSelectModal } =
+  useWeb3Solana();
 const route = useRoute();
 const { newRouteHandler: updateBgColorFor } = useBackgroundColor();
 const { sidebarOpen } = useSidebar();
@@ -109,7 +114,10 @@ watch(route, newRoute => {
   <div id="modal" />
   <div id="app">
     <component :is="Layouts[layout]" />
-
+    <SolanaSelectModal
+      :isVisible="isSolanaWalletSelectVisible"
+      @close="toggleSolanaWalletSelectModal"
+    />
     <WalletSelectModal
       :isVisible="isWalletSelectVisible"
       :onShowThirdParty="() => handleThirdPartyModalToggle(true)"

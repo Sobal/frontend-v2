@@ -16,6 +16,7 @@ interface TokenListUris {
   };
   Approved: string[];
   External: string[];
+  Bridge: string[];
 }
 
 export default class TokenListService {
@@ -30,13 +31,13 @@ export default class TokenListService {
    * a structured object.
    */
   public get uris(): TokenListUris {
-    const { Balancer, External } = configService.getNetworkConfig(
+    const { Balancer, External, Bridge } = configService.getNetworkConfig(
       this.appNetwork
     ).tokenlists;
 
     const balancerLists = [Balancer.Allowlisted];
-    const All = [...balancerLists, ...External];
-    const Approved = [Balancer.Allowlisted, ...External];
+    const All = [...balancerLists, ...External, ...Bridge];
+    const Approved = [Balancer.Allowlisted, ...External, ...Bridge];
 
     return {
       All,
@@ -46,6 +47,7 @@ export default class TokenListService {
       },
       Approved,
       External,
+      Bridge,
     };
   }
 

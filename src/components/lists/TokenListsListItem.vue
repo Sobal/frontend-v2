@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center py-3 px-4 text-base leading-5 highlight">
     <img
-      :src="url(tokenlist.logoURI || 'images/pixel.png')"
+      :src="url(tokenlist.logoURI || '/images/pixel.png')"
       class="inline-block p-1 mr-3 align-middle bg-white rounded-full"
       width="34"
       height="34"

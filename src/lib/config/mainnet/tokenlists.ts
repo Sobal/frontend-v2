@@ -9,6 +9,7 @@ const tokenlists: TokenListURLMap = {
     'ipns://tokens.uniswap.org',
     'https://www.gemini.com/uniswap/manifest.json',
   ],
+  Bridge: [],
 };
 
 export default tokenlists;

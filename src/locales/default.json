@@ -3,6 +3,7 @@
     "invest": "Invest",
     "trade": "Swap",
     "portfolio": "Portfolio",
+    "bridge": "Bridge",
     "joinCommunity": "Join the community"
   },
   "landing": {
@@ -193,6 +194,7 @@
   "browserWallet": "Browser Wallet",
   "bugBounty": "Bug bounty",
   "bridge": "Bridge",
+  "bridgeOn": "Bridge tokens on",
   "builtOnSobal": "Available on the Sobal Protocol",
   "boosted": "Boosted",
   "incentivized": "Incentivized",
@@ -791,7 +793,7 @@
   "namePlaceholder": "Name, symbol or contract address",
   "nativeTokens": "Native tokens",
   "network": "Network",
-  "networkMismatch": "Please switch to {0}",
+  "networkMismatch": "Wallet network mismatch. Please switch to {0}",
   "networkSelection": "Network selection",
   "testnets": "Testnets",
   "poolDoesntExist": "Pool doesn't exist on",

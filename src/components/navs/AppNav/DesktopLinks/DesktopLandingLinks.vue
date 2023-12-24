@@ -24,6 +24,9 @@ import DesktopLandingLinkItem from './DesktopLandingLinkItem.vue';
       <DesktopLandingLinkItem to="swap" :active="false">
         {{ $t('landingNavBar.trade') }}
       </DesktopLandingLinkItem>
+      <DesktopLandingLinkItem to="bridge" :active="false">
+        {{ $t('landingNavBar.bridge') }}
+      </DesktopLandingLinkItem>
       <DesktopLandingLinkItem to="portfolio" :active="false">
         {{ $t('landingNavBar.portfolio') }}
       </DesktopLandingLinkItem>
@@ -33,6 +36,6 @@ import DesktopLandingLinkItem from './DesktopLandingLinkItem.vue';
 
 <style scoped>
 .desktop-marketing-links {
-  @apply grid grid-flow-col grid-cols-3 gap-6 mx-auto text-center;
+  @apply flex flex-row flex-none grid-cols-3 gap-6 mx-auto text-center;
 }
 </style>

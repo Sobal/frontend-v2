@@ -102,6 +102,7 @@ export interface Config {
     blocks: string;
   };
   bridgeUrl: string;
+  bridgeUi?: boolean;
   supportsEIP1559: boolean;
   supportsElementPools: boolean;
   showLatestArticles: boolean;

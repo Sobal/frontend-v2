@@ -38,10 +38,6 @@ const analyticsUrl = computed((): string => {
   return configService.network.analyticsUrl;
 });
 
-const bridgeUrl = computed((): string => {
-  return configService.network.bridgeUrl;
-});
-
 /**
  * STATE
  */
@@ -60,14 +56,15 @@ const navLinks = [
     path: `/${networkSlug}/portfolio`,
     goal: Goals.ClickNavPortfolio,
   },
+  {
+    label: t('bridge'),
+    path: `/${networkSlug}/bridge`,
+    goal: Goals.ClickNavPortfolio,
+  },
   // { label: 'veBAL', path: `/${networkSlug}/vebal`, goal: Goals.ClickNavVebal },
 ];
 
 const navLinksSecondary = [
-  {
-    label: t('bridge'),
-    url: bridgeUrl.value,
-  },
   {
     label: t('analytics'),
     url: analyticsUrl.value,

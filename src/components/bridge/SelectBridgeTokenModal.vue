@@ -6,7 +6,7 @@ import { useI18n } from 'vue-i18n';
 import TokenListItem from '@/components/lists/TokenListItem.vue';
 import TokenListsListItem from '@/components/lists/TokenListsListItem.vue';
 import { useTokenLists } from '@/providers/token-lists.provider';
-import { useTokens } from '@/providers/tokens.provider';
+import { useTokens } from '@/providers/bridge-tokens.provider';
 import useUrls from '@/composables/useUrls';
 import { TokenInfoMap, TokenList } from '@/types/TokenList';
 import { useMagicKeys } from '@vueuse/core';
@@ -16,7 +16,6 @@ interface Props {
   excludedTokens?: string[];
   subset?: string[];
   includeEther?: boolean;
-  disableInjection?: boolean;
   hideTokenLists?: boolean;
   ignoreBalances?: boolean;
 }
@@ -26,8 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
   excludedTokens: () => [],
   subset: () => [],
   includeEther: false,
-  disableInjection: false,
-  hideTokenLists: false,
+  hideTokenLists: true,
   ignoreBalances: false,
 });
 
@@ -55,8 +53,7 @@ const state: ComponentState = reactive({
 /**
  * COMPOSABLES
  */
-const { activeTokenLists, approvedTokenLists, toggleTokenList, isActiveList } =
-  useTokenLists();
+const { toggleTokenList, isActiveList, bridgeTokenListMap } = useTokenLists();
 const {
   getToken,
   searchTokens,
@@ -64,7 +61,6 @@ const {
   balanceFor,
   dynamicDataLoading,
   nativeAsset,
-  injectTokens,
 } = useTokens();
 const { t } = useI18n();
 const { resolve } = useUrls();
@@ -79,7 +75,7 @@ const title = computed(() => {
 
 const tokenLists = computed<Record<string, TokenList>>(() => {
   const query = state.query.toLowerCase();
-  const tokenListArray = Object.entries(approvedTokenLists.value);
+  const tokenListArray = Object.entries(bridgeTokenListMap.value);
   const results = tokenListArray.filter(([, tokenList]) =>
     tokenList.name.toLowerCase().includes(query)
   );
@@ -109,7 +105,6 @@ const excludedTokens = computed(() => [
 ]);
 
 const focussedTokenAddress = computed((): string => {
-  console.log(state.results, state.focussedToken);
   const key = Object.keys(tokens.value)[state.focussedToken];
   return tokens.value[key].address;
 });
@@ -119,7 +114,7 @@ const focussedTokenAddress = computed((): string => {
  */
 async function onSelectToken(token: string): Promise<void> {
   if (!getToken(token)) {
-    await injectTokens([token]);
+    return;
   }
 
   emit('select', token);
@@ -130,7 +125,6 @@ async function onToggleList(uri: string): Promise<void> {
   toggleTokenList(uri);
   state.results = await searchTokens(state.query, {
     excluded: excludedTokens.value,
-    disableInjection: props.disableInjection,
     subset: props.subset,
   });
 }
@@ -154,7 +148,6 @@ watch(
     state.loading = true;
     state.results = await searchTokens(newQuery, {
       excluded: excludedTokens.value,
-      disableInjection: props.disableInjection,
       subset: props.subset,
     }).finally(() => {
       state.loading = false;
@@ -206,7 +199,7 @@ watchEffect(() => {
           <div class="flex items-center ml-2">
             <span class="mr-1">
               <img
-                v-for="(tokenlist, i) in activeTokenLists"
+                v-for="(tokenlist, i) in bridgeTokenListMap"
                 :key="i"
                 :src="resolve(tokenlist.logoURI || '/images/pixel.png')"
                 class="inline-block w-6 h-6 bg-white rounded-full shadow"

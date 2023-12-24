@@ -4,16 +4,22 @@ import { buildNetworkIconURL } from '@/lib/utils/urls';
 import { configService } from '@/services/config/config.service';
 import { computed } from 'vue';
 
-const { networkId, networkSlug } = useNetwork();
+const { networkId } = useNetwork();
+
+const bridgeUrl = computed((): string => {
+  return configService.network.bridgeUrl;
+});
 
 const label = computed((): string => {
-  return `Bridge assets to ${configService.network.chainName}`;
+  return `Bridge assets to ${configService.network.chainName} via ${bridgeUrl.value}`;
 });
 </script>
 
 <template>
-  <router-link
-    :to="{ name: 'bridge', params: { networkSlug } }"
+  <BalLink
+    :href="bridgeUrl"
+    external
+    noStyle
     class="flex items-center p-4 text-sm dark:bg-gray-850 rounded-lg border dark:border-0"
   >
     <img
@@ -23,9 +29,9 @@ const label = computed((): string => {
     />
     {{ label }}
     <BalIcon
-      name="repeat"
+      name="arrow-up-right"
       size="sm"
       class="ml-2 text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
     />
-  </router-link>
+  </BalLink>
 </template>
