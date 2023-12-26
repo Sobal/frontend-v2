@@ -10,8 +10,10 @@ export default class BridgeTokenService {
   constructor(
     readonly balancesConcernClass = BalancesConcern,
     readonly rpcProviderService = new Connection(
-      'https://go.getblock.io/a0b3db7b68e948cbb1c05192a6ab77ee',
-      'finalized'
+      'https://mainnet.helius-rpc.com/?api-key=804a681b-735c-4970-bbcc-b64e84575d24',
+      {
+        commitment: 'confirmed',
+      }
     ),
     readonly configService = _configService
   ) {
