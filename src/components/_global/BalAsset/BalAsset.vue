@@ -11,7 +11,7 @@ type Props = {
   size?: number;
   button?: boolean;
   disabled?: boolean;
-  showBg: boolean;
+  showBg?: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
