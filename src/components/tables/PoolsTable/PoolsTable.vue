@@ -310,16 +310,16 @@ function iconAddresses(pool: Pool) {
             :src="TokensWhite"
             alt="token"
             loading="lazy"
-            width="24"
-            height="15"
+            width="29"
+            height="18"
           />
           <img
             v-else
             :src="TokensBlack"
             alt="token"
             loading="lazy"
-            width="24"
-            height="15"
+            width="29"
+            height="18"
           />
         </div>
       </template>
