@@ -1,6 +1,5 @@
 import { reactive, toRefs } from 'vue';
 import { WalletType, WalletTypes } from '@/types/wallet';
-
 // globals
 const bridgeState = reactive({
   initialized: false,
@@ -10,6 +9,10 @@ const bridgeState = reactive({
   tokenOutAmount: '',
   walletInAddress: '',
   walletOutAddress: '',
+  walletInBalance: '',
+  walletOutBalance: '',
+  walletInSymbol: '',
+  walletOutSymbol: '',
   walletInType: WalletTypes.EVM as WalletType,
   walletOutType: WalletTypes.Solana as WalletType,
   walletInConnected: false,
@@ -23,6 +26,7 @@ function setInitialized(val: boolean) {
 function setTokenInAddress(address: string) {
   bridgeState.tokenInAddress = address;
 }
+
 function setTokenOutAddress(address: string) {
   bridgeState.tokenOutAddress = address;
 }
@@ -56,6 +60,23 @@ function setWalletInAddress(address: string) {
 function setWalletOutAddress(address: string) {
   bridgeState.walletOutAddress = address;
 }
+
+function setWalletInSymbol(symbol: string) {
+  bridgeState.walletInSymbol = symbol;
+}
+
+function setWalletOutSymbol(symbol: string) {
+  bridgeState.walletOutSymbol = symbol;
+}
+
+function setWalletInBalance(balance: string) {
+  bridgeState.walletInBalance = balance;
+}
+
+function setWalletOutBalance(balance: string) {
+  bridgeState.walletOutBalance = balance;
+}
+
 export function useBridgeState() {
   return {
     // can't set to read only refs as these vars are used as
@@ -72,5 +93,9 @@ export function useBridgeState() {
     setWalletOutConnected,
     setWalletInAddress,
     setWalletOutAddress,
+    setWalletInSymbol,
+    setWalletOutSymbol,
+    setWalletInBalance,
+    setWalletOutBalance,
   };
 }
