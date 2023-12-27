@@ -5,20 +5,28 @@ import BridgePairToggle from '@/components/bridge/BridgePairToggle.vue';
 import { ref, watchEffect } from 'vue';
 import { WalletType, WalletTypes } from '@/types/wallet';
 
+import { useBridgeTokens } from '@/providers/bridge-tokens.provider';
+import { overflowProtected } from '@/components/_global/BalTextInput/helpers';
+
+const { getToken } = useBridgeTokens();
+
 /**
  * TYPES
  */
 type Props = {
   tokenInAmount: string;
-  tokenInAddress: string;
+  evmTokenAddress: string;
+  solanaTokenAddress: string;
   walletInType: WalletType;
   walletInConnected: boolean;
   walletInAddress: string;
-  tokenOutAmount: string;
-  tokenOutAddress: string;
   walletOutType: WalletType;
   walletOutConnected: boolean;
   walletOutAddress: string;
+  walletOutSymbol: string;
+  walletInSymbol: string;
+  walletInBalance: string;
+  walletOutBalance: string;
 };
 
 /**
@@ -28,9 +36,8 @@ const props = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'update:tokenInAmount', value: string): void;
-  (e: 'update:tokenInAddress', value: string): void;
-  (e: 'update:tokenOutAmount', value: string): void;
-  (e: 'update:tokenOutAddress', value: string): void;
+  (e: 'update:evmTokenAddress', value: string): void;
+  (e: 'update:solanaTokenAddress', value: string): void;
   (e: 'update:walletInType', value: WalletType): void;
   (e: 'update:walletOutType', value: WalletType): void;
   (e: 'update:walletInAddress', value: string): void;
@@ -44,15 +51,18 @@ const emit = defineEmits<{
 }>();
 
 const _tokenInAmount = ref<string>('');
-const _tokenInAddress = ref<string>('');
+const _evmTokenAddress = ref<string>('');
+const _solanaTokenAddress = ref<string>('');
 const _walletInType = ref<WalletType>(WalletTypes.EVM);
 const _walletInConnected = ref<boolean>(false);
-const _tokenOutAmount = ref<string>('');
-const _tokenOutAddress = ref<string>('');
 const _walletOutType = ref<WalletType>(WalletTypes.Solana);
 const _walletOutConnected = ref<boolean>(false);
 const _walletInAddress = ref<string>('');
 const _walletOutAddress = ref<string>('');
+const _walletInBalance = ref<string>('');
+const _walletOutBalance = ref<string>('');
+const _walletInSymbol = ref<string>('');
+const _walletOutSymbol = ref<string>('');
 
 /**
  * METHODS
@@ -63,17 +73,7 @@ function handleInAmountChange(value: string): void {
   emit('amountChange');
 }
 
-function handleOutAmountChange(value: string): void {
-  emit('update:exactIn', false);
-  emit('update:tokenOutAmount', value);
-  emit('amountChange');
-}
-
 function handleTokenSwitch(): void {
-  emit('update:tokenInAmount', _tokenOutAmount.value);
-  emit('update:tokenInAddress', _tokenOutAddress.value);
-  emit('update:tokenOutAmount', _tokenInAmount.value);
-  emit('update:tokenOutAddress', _tokenInAddress.value);
   emit('update:walletInType', _walletOutType.value as WalletType);
   emit('update:walletOutType', _walletInType.value as WalletType);
   emit('update:walletInAddress', _walletOutAddress.value);
@@ -84,8 +84,21 @@ function handleTokenSwitch(): void {
 }
 
 async function handleInputTokenChange(newTokenIn: string) {
-  emit('update:tokenInAddress', newTokenIn);
-  emit('update:tokenOutAddress', newTokenIn);
+  emit('update:evmTokenAddress', newTokenIn);
+
+  const tokenInfo = getToken(newTokenIn);
+  tokenInfo.address_spl
+    ? emit('update:solanaTokenAddress', tokenInfo.address_spl)
+    : '';
+
+  const updatedInputAmount = overflowProtected(
+    _tokenInAmount.value,
+    tokenInfo.decimals
+  );
+
+  emit('update:tokenInAmount', updatedInputAmount);
+
+  // emit('update:solanaTokenAddress', newTokenIn);
 }
 
 async function handleInWalletConnection() {
@@ -104,28 +117,28 @@ async function handleOutWalletDisconnection() {
   emit('action:disconnectWallet', _walletOutType.value);
 }
 
-// async function handleOutputTokenChange(newTokenOut: string) {
-//   if (newTokenOut === _tokenInAddress.value) {
-//     handleTokenSwitch();
-//     return;
-//   }
-//   emit('update:tokenOutAddress', newTokenOut);
-// }
 /**
  * CALLBACKS
  */
 watchEffect(() => {
   _tokenInAmount.value = props.tokenInAmount;
-  _tokenInAddress.value = props.tokenInAddress;
-  _tokenOutAmount.value = props.tokenOutAmount;
-  _tokenOutAddress.value = props.tokenOutAddress;
+  _solanaTokenAddress.value = props.solanaTokenAddress;
+  _evmTokenAddress.value = props.evmTokenAddress;
   _walletInType.value = props.walletInType;
   _walletOutType.value = props.walletOutType;
   _walletInConnected.value = props.walletInConnected;
   _walletOutConnected.value = props.walletOutConnected;
   _walletInAddress.value = props.walletInAddress;
   _walletOutAddress.value = props.walletOutAddress;
+  _walletInBalance.value = props.walletInBalance;
+  _walletOutBalance.value = props.walletOutBalance;
+  _walletInSymbol.value = props.walletInSymbol;
+  _walletOutSymbol.value = props.walletOutSymbol;
 });
+
+const tokenDecimals = computed(() =>
+  props.evmTokenAddress ? getToken(props.evmTokenAddress).decimals : 18
+); // Set default decimals to 18 when no token selected
 </script>
 
 <template>
@@ -136,8 +149,11 @@ watchEffect(() => {
       :walletType="_walletInType"
       :isWalletConnected="_walletInConnected"
       :amount="_tokenInAmount"
-      :address="_tokenInAddress"
+      :decimalLimit="tokenDecimals"
+      :address="_evmTokenAddress"
       :walletAddress="_walletInAddress"
+      :balance="_walletInBalance"
+      :symbol="_walletInSymbol"
       @update:amount="handleInAmountChange"
       @update:address="handleInputTokenChange"
       @action:connect-wallet="handleInWalletConnection"
@@ -153,10 +169,13 @@ watchEffect(() => {
       :disableToken="true"
       :walletType="_walletOutType"
       :isWalletConnected="_walletOutConnected"
-      :amount="_tokenOutAmount"
-      :address="_tokenOutAddress"
+      :amount="_tokenInAmount"
+      :decimalLimit="tokenDecimals"
+      :address="_evmTokenAddress"
       :walletAddress="_walletOutAddress"
-      @update:amount="handleOutAmountChange"
+      :balance="_walletOutBalance"
+      :symbol="_walletOutSymbol"
+      @update:amount="handleInAmountChange"
       @action:connect-wallet="handleOutWalletConnection"
       @action:disconnect-wallet="handleOutWalletDisconnection"
     />
