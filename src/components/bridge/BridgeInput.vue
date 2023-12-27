@@ -9,6 +9,7 @@ import { computed, ref, watchEffect } from 'vue';
 import { isPositive } from '@/lib/utils/validations';
 import useWeb3 from '@/services/web3/useWeb3';
 import BridgeSelectInput from '@/components/bridge/BridgeSelectInput.vue';
+import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 
 type Props = {
   name: string;
@@ -19,6 +20,9 @@ type Props = {
   address?: string;
   walletAddress?: string;
   disableToken?: boolean;
+  decimalLimit?: number;
+  balance?: string;
+  symbol?: string;
 };
 
 /**
@@ -28,7 +32,10 @@ const props = withDefaults(defineProps<Props>(), {
   fixedToken: false,
   amount: '',
   address: '',
+  balance: '',
+  symbol: '',
   walletAddress: '',
+  decimalLimit: 18,
 });
 
 const emit = defineEmits<{
@@ -47,8 +54,13 @@ const emit = defineEmits<{
  */
 const _amount = ref<InputValue>('');
 const _address = ref<string>('');
+const _balance = ref<string>('');
+const _balanceFormatted = ref<string>('');
+const _symbol = ref<string>('');
+const _isMaxed = ref<boolean>(false);
 
 const { isWalletReady } = useWeb3();
+const { fNum } = useNumbers();
 
 const hasToken = computed(() => !!_address.value);
 
@@ -69,8 +81,11 @@ const inputRules = computed(() => {
  */
 watchEffect(() => {
   _amount.value = props.amount;
-  //TODO: TokenInput doesn't support solana
   _address.value = props.address;
+  _balance.value = props.balance;
+  _symbol.value = props.symbol;
+  _isMaxed.value = props.balance === props.amount;
+  _balanceFormatted.value = fNum(props.balance, FNumFormats.token);
 });
 </script>
 
@@ -97,7 +112,7 @@ watchEffect(() => {
       name="bridgeInput"
       placeholder="0.0"
       type="number"
-      :decimalLimit="18"
+      :decimalLimit="decimalLimit"
       :rules="inputRules"
       validateOn="input"
       autocomplete="off"
@@ -120,6 +135,26 @@ watchEffect(() => {
             @update:model-value="emit('update:address', $event)"
           />
         </slot>
+      </template>
+      <template #footer>
+        <div class="text-sm">
+          {{ _balanceFormatted }} {{ symbol }}
+          <template v-if="balance > 0 && !disableToken">
+            <span
+              v-if="!_isMaxed"
+              class="text-blue-600 hover:text-purple-600 focus:text-purple-600 dark:text-blue-400 dark:hover:text-yellow-500 dark:focus:text-yellow-500 transition-colors"
+              @click="emit('update:amount', _balance)"
+            >
+              {{ $t('max') }}
+            </span>
+            <span
+              v-else
+              class="text-gray-400 dark:text-gray-600 cursor-not-allowed"
+            >
+              {{ $t('maxed') }}
+            </span>
+          </template>
+        </div>
       </template>
     </BalTextInput>
   </div>
