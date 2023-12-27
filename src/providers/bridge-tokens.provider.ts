@@ -3,25 +3,18 @@ import { compact, pick } from 'lodash';
 import {
   computed,
   InjectionKey,
-  nextTick,
   onBeforeMount,
   provide,
   reactive,
-  toRef,
   toRefs,
 } from 'vue';
-import useAllowancesQuery from '@/composables/queries/useAllowancesQuery';
-import useBalancesQuery from '@/composables/queries/useBalancesQuery';
 import useBridgeBalancesQuery from '@/composables/queries/useBridgeBalancesQuery';
-import useTokenPricesQuery, {
-  TokenPrices,
-} from '@/composables/queries/useTokenPricesQuery';
+import { TokenPrices } from '@/composables/queries/useTokenPricesQuery';
 import useConfig from '@/composables/useConfig';
 import symbolKeys from '@/constants/symbol.keys';
 import { TOKENS } from '@/constants/tokens';
 import {
   bnum,
-  forChange,
   getAddressFromPoolId,
   includesAddress,
   isSameAddress,
@@ -31,7 +24,6 @@ import { safeInject } from '@/providers/inject';
 import { UserSettingsResponse } from '@/providers/user-settings.provider';
 import { TokenListsResponse } from '@/providers/token-lists.provider';
 import { configService } from '@/services/config/config.service';
-import { ContractAllowancesMap } from '@/services/token/concerns/allowances.concern';
 import { BalanceMap } from '@/services/token/concerns/balances.concern';
 import {
   NativeAsset,
@@ -40,8 +32,6 @@ import {
   TokenListMap,
 } from '@/types/TokenList';
 import useWeb3 from '@/services/web3/useWeb3';
-import { AmountToApprove } from '@/composables/approvals/useTokenApprovalActions';
-import BigNumber from 'bignumber.js';
 
 /**
  * TYPES
@@ -123,23 +113,6 @@ export const tokensProvider = (
    * The prices, balances and allowances maps provide dynamic
    * metadata for each token in the tokens state array.
    ****************************************************************/
-  const {
-    data: priceData,
-    isSuccess: priceQuerySuccess,
-    isInitialLoading: priceQueryLoading,
-    isRefetching: priceQueryRefetching,
-    isError: priceQueryError,
-    refetch: refetchPrices,
-  } = useTokenPricesQuery(toRef(state, 'injectedPrices'));
-
-  const {
-    data: balanceData,
-    isSuccess: balanceQuerySuccess,
-    isInitialLoading: balanceQueryLoading,
-    isRefetching: balanceQueryRefetching,
-    isError: balancesQueryError,
-    refetch: refetchBalances,
-  } = useBalancesQuery({ tokens, isEnabled: queriesEnabled });
 
   const {
     data: bridgeBalanceData,
@@ -150,64 +123,21 @@ export const tokensProvider = (
     refetch: refetchBridgeBalances,
   } = useBridgeBalancesQuery({ tokens, isEnabled: queriesEnabled });
 
-  const {
-    data: allowanceData,
-    isSuccess: allowanceQuerySuccess,
-    isInitialLoading: allowanceQueryLoading,
-    isRefetching: allowanceQueryRefetching,
-    isError: allowancesQueryError,
-    refetch: refetchAllowances,
-  } = useAllowancesQuery({
-    tokens,
-    contractAddresses: toRef(state, 'spenders'),
-    isEnabled: queriesEnabled,
-  });
-
-  const prices = computed(
-    (): TokenPrices => (priceData.value ? priceData.value : {})
-  );
-
-  const preBalances = computed(
-    (): BalanceMap => (balanceData.value ? balanceData.value : {})
-  );
-
-  const bridgePreBalances = computed(
+  const balances = computed(
     (): BalanceMap => (bridgeBalanceData.value ? bridgeBalanceData.value : {})
-  );
-
-  const balances = { ...preBalances, ...bridgePreBalances };
-
-  console.log('balbalbal', balances.value);
-  const allowances = computed(
-    (): ContractAllowancesMap =>
-      allowanceData.value ? allowanceData.value : {}
   );
 
   const onchainDataLoading = computed(
     (): boolean =>
       isWalletReady.value &&
-      (balanceQueryLoading.value ||
-        balanceQueryRefetching.value ||
-        allowanceQueryLoading.value ||
-        allowanceQueryRefetching.value ||
-        bridgeBalanceQueryRefetching.value ||
-        bridgeBalanceQueryLoading.value)
+      (bridgeBalanceQueryRefetching.value || bridgeBalanceQueryLoading.value)
   );
 
   const dynamicDataLoaded = computed(
-    (): boolean =>
-      priceQuerySuccess.value &&
-      balanceQuerySuccess.value &&
-      bridgeBalanceQuerySuccess.value &&
-      allowanceQuerySuccess.value
+    (): boolean => bridgeBalanceQuerySuccess.value
   );
 
-  const dynamicDataLoading = computed(
-    (): boolean =>
-      priceQueryLoading.value ||
-      priceQueryRefetching.value ||
-      onchainDataLoading.value
-  );
+  const dynamicDataLoading = computed((): boolean => onchainDataLoading.value);
 
   /**
    * METHODS
@@ -240,21 +170,6 @@ export const tokensProvider = (
   }
 
   /**
-   * Injects contract addresses that could possibly spend the users tokens into
-   * the spenders map. E.g. This is used for injecting gauges into the map as they
-   * must be allowed to spend a users BPT in order to stake the BPT in the gauge.
-   */
-  async function injectSpenders(addresses: string[]): Promise<void> {
-    addresses = addresses.filter(a => a).map(getAddress);
-
-    state.spenders = [...new Set(state.spenders.concat(addresses))];
-
-    // Wait for balances/allowances to be fetched for newly injected tokens.
-    await nextTick();
-    await forChange(onchainDataLoading, false);
-  }
-
-  /**
    * Given query, filters tokens map by name, symbol or address.
    * If address is provided, search for address in tokens or injectToken
    */
@@ -279,7 +194,8 @@ export const tokensProvider = (
       const results = tokensArray.filter(
         ([, token]) =>
           token.name?.toLowerCase().includes(query.toLowerCase()) ||
-          token.symbol?.toLowerCase().includes(query.toLowerCase())
+          token.symbol?.toLowerCase().includes(query.toLowerCase()) ||
+          token.address_spl?.toLowerCase().includes(query.toLowerCase())
       );
       return removeExcluded(Object.fromEntries(results), excluded);
     }
@@ -301,75 +217,11 @@ export const tokensProvider = (
   }
 
   /**
-   * Check if approval is required for given contract address
-   * for a token and amount.
-   */
-  function approvalRequired(
-    tokenAddress: string,
-    amount: string,
-    spenderAddress = networkConfig.addresses.vault
-  ): boolean {
-    if (!amount || bnum(amount).eq(0)) return false;
-    if (!spenderAddress) return false;
-    if (isSameAddress(tokenAddress, nativeAsset.address)) return false;
-
-    const allowance = allowanceFor(tokenAddress, spenderAddress);
-    return allowance.lt(amount);
-  }
-
-  /**
-   * Check which tokens/amounts require approvals for the spender.
-   *
-   * @param {AmountToApprove[]} amountsToApprove - array of token addresses and amounts to check.
-   * @param {string} spender - Contract address of spender to check approvals against.
-   * @returns a subset of the amountsToApprove array.
-   */
-  function approvalsRequired(
-    amountsToApprove: AmountToApprove[],
-    spender: string
-  ): AmountToApprove[] {
-    return amountsToApprove.filter(({ address, amount }) => {
-      if (!spender) return false;
-
-      return approvalRequired(address, amount, spender);
-    });
-  }
-
-  /**
-   * Returns the allowance for a token, scaled by token decimals
-   *  (so 1 ETH = 1, 1 GWEI = 0.000000001)
-   */
-  function allowanceFor(
-    tokenAddress: string,
-    spenderAddress: string
-  ): BigNumber {
-    return bnum(
-      (allowances.value[getAddress(spenderAddress)] || {})[
-        getAddress(tokenAddress)
-      ]
-    );
-  }
-
-  /**
-   * Fetch price for a token
-   */
-  function priceFor(address: string): number {
-    try {
-      const price = selectByAddressFast(prices.value, getAddress(address));
-      if (!price) {
-        return 0;
-      }
-      return price;
-    } catch {
-      return 0;
-    }
-  }
-
-  /**
    * Fetch balance for a token
    */
-  function balanceFor(address: string): string {
+  function bridgeBalanceFor(address: string, solana?: boolean): string {
     try {
+      if (solana) return selectByAddressFast(balances.value, address) || '0';
       return selectByAddressFast(balances.value, getAddress(address)) || '0';
     } catch {
       return '0';
@@ -402,28 +254,16 @@ export const tokensProvider = (
   }
 
   /**
-   * Injects prices for tokens where the pricing provider
-   * may have not found a valid price for provided tokens
-   * @param pricesToInject A map of <address, price> to inject
-   */
-  function injectPrices(pricesToInject: TokenPrices) {
-    state.injectedPrices = {
-      ...state.injectedPrices,
-      ...pricesToInject,
-    };
-  }
-
-  /**
    * Get max balance of token
    * @param tokenAddress
    * @param disableNativeAssetBuffer Optionally disable native asset buffer
    */
-  function getMaxBalanceFor(
+  function getMaxBridgeBalanceFor(
     tokenAddress,
     disableNativeAssetBuffer = false
   ): string {
     let maxAmount;
-    const tokenBalance = balanceFor(tokenAddress) || '0';
+    const tokenBalance = bridgeBalanceFor(tokenAddress) || '0';
     const tokenBalanceBN = bnum(tokenBalance);
 
     if (tokenAddress === nativeAsset.address && !disableNativeAssetBuffer) {
@@ -462,34 +302,18 @@ export const tokensProvider = (
     // computed
     tokens,
     wrappedNativeAsset,
-    prices,
     balances,
-    allowances,
-    balanceQueryLoading,
     dynamicDataLoaded,
     dynamicDataLoading,
-    priceQueryError,
-    priceQueryLoading,
-    balancesQueryError,
     bridgeBalancesQueryError,
-    allowancesQueryError,
     // methods
-    refetchPrices,
-    refetchBalances,
     refetchBridgeBalances,
-    refetchAllowances,
-    injectSpenders,
     searchTokens,
     hasBalance,
-    approvalRequired,
-    approvalsRequired,
-    allowanceFor,
-    priceFor,
-    balanceFor,
+    bridgeBalanceFor,
     getTokens,
     getToken,
-    injectPrices,
-    getMaxBalanceFor,
+    getMaxBridgeBalanceFor,
     isWethOrEth,
   };
 };
@@ -508,7 +332,6 @@ export function bridgeProvideTokens(
   return tokensResponse;
 }
 
-export const useTokens = (): TokensResponse => {
-  console.log(TokensProviderSymbol);
+export const useBridgeTokens = (): TokensResponse => {
   return safeInject(TokensProviderSymbol);
 };
