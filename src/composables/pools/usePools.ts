@@ -1,11 +1,13 @@
 import { flatten } from 'lodash';
 import { computed, Ref, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import usePoolsQuery from '@/composables/queries/usePoolsQuery';
 import { isQueryLoading } from '@/composables/queries/useQueryHelpers';
 import { useTokens } from '@/providers/tokens.provider';
 import { Pool } from '@/services/pool/types';
 import { tokenTreeLeafs } from '../usePoolHelpers';
+import useAlerts, { AlertPriority, AlertType } from '@/composables/useAlerts';
 
 export default function usePools(
   filterTokens: Ref<string[]> = ref([]),
@@ -22,6 +24,9 @@ export default function usePools(
   );
 
   const { injectTokens } = useTokens();
+  const { t } = useI18n();
+
+  const { addAlert } = useAlerts();
 
   /**
    * COMPUTED
@@ -36,6 +41,8 @@ export default function usePools(
 
   const isLoading = computed(() => isQueryLoading(poolsQuery));
 
+  const poolQueryError = computed(() => poolsQuery.isError);
+
   const poolsHasNextPage = computed(() => poolsQuery.hasNextPage?.value);
   const poolsIsFetchingNextPage = computed(
     () => poolsQuery.isFetchingNextPage?.value
@@ -46,6 +53,10 @@ export default function usePools(
    */
   function loadMorePools() {
     poolsQuery.fetchNextPage();
+  }
+
+  function refetchPools() {
+    poolsQuery.refetch();
   }
 
   /**
@@ -62,6 +73,21 @@ export default function usePools(
     await injectTokens(tokens);
   });
 
+  watch(poolQueryError, () => {
+    console.log('error?', poolQueryError.value);
+    if (poolQueryError.value) {
+      addAlert({
+        id: 'pools-fetch-error',
+        label: t('alerts.pools-fetch-error'),
+        type: AlertType.ERROR,
+        persistent: true,
+        action: refetchPools,
+        actionLabel: t('alerts.retry-label'),
+        priority: AlertPriority.MEDIUM,
+      });
+    }
+  });
+
   return {
     pools,
     isLoading,
@@ -69,5 +95,7 @@ export default function usePools(
     poolsIsFetchingNextPage,
     // methods
     loadMorePools,
+    refetchPools,
+    poolQueryError,
   };
 }
