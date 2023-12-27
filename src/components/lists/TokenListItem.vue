@@ -21,24 +21,46 @@
       :class="['flex-auto', { 'text-blue-500 dark:text-blue-200': focussed }]"
     >
       {{ token.symbol }}
-      <div class="w-40 md:w-60 text-sm truncate text-gray">
+      <div class="w-40 md:w-56 text-sm truncate text-gray">
         {{ token.name }}
       </div>
     </div>
     <span
       v-if="!hideBalance"
-      class="flex flex-col items-end font-medium text-right"
+      class="flex flex-row items-end font-medium text-right"
     >
       <BalLoadingBlock v-if="balanceLoading" class="w-14 h-4" />
       <template v-else>
-        <template v-if="balance > 0">
-          <template v-if="balance >= 0.0001">
-            {{ fNum(balance, FNumFormats.token) }}
+        <div class="flex flex-row">
+          <template v-if="solanaBalance > 0">
+            <div class="flex flex-col pr-4">
+              <span class="font-semibold">{{ $t('solana') }}</span>
+              <template v-if="solanaBalance >= 0.0001">
+                {{ fNum(solanaBalance, FNumFormats.token) }}
+              </template>
+              <template v-else> &#60; 0.0001 </template>
+              <div
+                v-if="solanaValue > 0"
+                class="text-sm font-normal text-secondary"
+              >
+                {{ fNum(solanaValue, FNumFormats.fiat) }}
+              </div>
+            </div>
           </template>
-          <template v-else> &#60; 0.0001 </template>
-        </template>
-        <div v-if="value > 0" class="text-sm font-normal text-secondary">
-          {{ fNum(value, FNumFormats.fiat) }}
+          <template v-if="balance > 0">
+            <div class="flex flex-col">
+              <span v-if="solana" class="font-semibold">{{
+                network.chainName
+              }}</span>
+              <template v-if="balance >= 0.0001">
+                {{ fNum(balance, FNumFormats.token) }}
+              </template>
+              <template v-else> &#60; 0.0001 </template>
+              <div v-if="value > 0" class="text-sm font-normal text-secondary">
+                {{ fNum(value, FNumFormats.fiat) }}
+              </div>
+            </div>
+          </template>
         </div>
       </template>
     </span>
@@ -50,8 +72,8 @@ import anime from 'animejs';
 import { computed, onMounted, onUnmounted, PropType, ref } from 'vue';
 
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
-import { useTokens } from '@/providers/tokens.provider';
 import { TokenInfo } from '@/types/TokenList';
+import { configService } from '@/services/config/config.service';
 
 export default {
   name: 'TokenListItem',
@@ -61,6 +83,7 @@ export default {
     balanceLoading: { type: Boolean, default: true },
     hideBalance: { type: Boolean, default: false },
     focussed: { type: Boolean, default: false },
+    solana: { type: Boolean, default: false },
   },
 
   setup(props) {
@@ -69,13 +92,19 @@ export default {
      */
     const { fNum } = useNumbers();
     const animateRef = ref();
-    const { priceFor, balanceFor } = useTokens();
 
     /**
      * COMPUTED
      */
-    const balance = computed(() => Number(balanceFor(props.token.address)));
-    const value = computed(() => balance.value * priceFor(props.token.address));
+    const balance = computed(() => Number(props.token.balance));
+    const solanaBalance = computed(() =>
+      props.token.address_spl ? Number(props.token.solanaBalance) : 0
+    );
+    const value = computed(() => balance.value * (props.token.price || 0));
+    const solanaValue = computed(
+      () => solanaBalance.value * (props.token.price || 0)
+    );
+    const { network } = configService;
 
     /**
      * CALLBACKS
@@ -100,7 +129,10 @@ export default {
       FNumFormats,
       animateRef,
       balance,
+      solanaBalance,
       value,
+      solanaValue,
+      network,
     };
   },
 };

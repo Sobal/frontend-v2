@@ -6,7 +6,8 @@ import { useI18n } from 'vue-i18n';
 import TokenListItem from '@/components/lists/TokenListItem.vue';
 import TokenListsListItem from '@/components/lists/TokenListsListItem.vue';
 import { useTokenLists } from '@/providers/token-lists.provider';
-import { useTokens } from '@/providers/bridge-tokens.provider';
+import { useTokens } from '@/providers/tokens.provider';
+import { useBridgeTokens } from '@/providers/bridge-tokens.provider';
 import useUrls from '@/composables/useUrls';
 import { TokenInfoMap, TokenList } from '@/types/TokenList';
 import { useMagicKeys } from '@vueuse/core';
@@ -57,11 +58,13 @@ const { toggleTokenList, isActiveList, bridgeTokenListMap } = useTokenLists();
 const {
   getToken,
   searchTokens,
-  priceFor,
-  balanceFor,
-  dynamicDataLoading,
+  bridgeBalanceFor,
+  dynamicDataLoading: solanaDynamicDataLoading,
   nativeAsset,
-} = useTokens();
+} = useBridgeTokens();
+
+const { balanceFor, dynamicDataLoading, priceFor } = useTokens();
+
 const { t } = useI18n();
 const { resolve } = useUrls();
 
@@ -85,13 +88,17 @@ const tokenLists = computed<Record<string, TokenList>>(() => {
 const tokens = computed(() => {
   const tokensWithValues = Object.values(state.results).map(token => {
     const balance = balanceFor(token.address);
+    const solanaBalance = token.address_spl
+      ? bridgeBalanceFor(token.address_spl, true)
+      : 0;
+
     const price = priceFor(token.address);
-    const value = Number(balance) * price;
+
     return {
       ...token,
       price,
       balance,
-      value,
+      solanaBalance,
     };
   });
 
@@ -283,8 +290,9 @@ watchEffect(() => {
             <TokenListItem
               :token="token"
               :hideBalance="ignoreBalances"
-              :balanceLoading="dynamicDataLoading"
+              :balanceLoading="dynamicDataLoading && solanaDynamicDataLoading"
               :focussed="index == state.focussedToken"
+              solana
               tabIndex="0"
             />
           </a>
