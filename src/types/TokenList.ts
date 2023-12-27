@@ -7,6 +7,9 @@ export interface TokenInfo {
   readonly symbol: string;
   readonly logoURI?: string;
   readonly tags?: string[];
+  readonly balance?: string;
+  readonly solanaBalance?: string;
+  readonly price?: number;
   readonly extensions?: {
     readonly [key: string]: string | number | boolean | null;
   };
