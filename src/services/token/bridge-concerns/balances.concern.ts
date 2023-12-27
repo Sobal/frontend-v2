@@ -29,10 +29,12 @@ export default class BalancesConcern {
       this.service.configService.network.nativeAsset.decimals;
   }
 
-  async get(account: string, tokens: string[]): Promise<BalanceMap> {
-    console.log('getting for', account);
-    console.log('tokens obj', tokens);
-
+  //TODO: Make address_spl required and extend original type for all bridge lists
+  async get(
+    account: string,
+    tokens: (string | undefined)[]
+  ): Promise<BalanceMap> {
+    if (!tokens) return {};
     const multicalls: Promise<any>[] = [];
 
     tokens.forEach(address => {
@@ -44,6 +46,7 @@ export default class BalancesConcern {
     const validPages = paginatedBalances.filter(
       page => Object.keys(page).length > 0
     );
+    console.log(validPages);
 
     return validPages.reduce((result, current) =>
       Object.assign(result, current)
@@ -52,8 +55,9 @@ export default class BalancesConcern {
 
   private async fetchBalances(
     account: string,
-    address: string
+    address: string | undefined
   ): Promise<BalanceMap> {
+    if (!address) return {};
     try {
       const balanceMap = {};
 
@@ -82,8 +86,8 @@ export default class BalancesConcern {
         ...balanceMap,
       };
     } catch (error) {
-      console.error('Failed to fetch balances for:', address);
-      return {};
+      console.error('Could not fetch a balance for:', address);
+      return { [address]: '0' };
     }
   }
 
