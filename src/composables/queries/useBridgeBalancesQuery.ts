@@ -52,9 +52,7 @@ export default function useBalancesQuery({
   );
 
   const queryFn = async () => {
-    console.log('Fetching', tokenAddresses.value.length, 'Bridge balances');
-    console.log(tokens.value);
-    console.log(tokenAddresses.value);
+    console.log('Fetching', tokenAddresses.value.length, 'solana balances');
     return await new BridgeTokenService().balances.get(
       publicKeyTrimmed.value,
       tokenAddresses.value
