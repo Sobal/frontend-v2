@@ -1,4 +1,5 @@
 {
+  "solana": "Solana",
   "landingNavBar": {
     "invest": "Invest",
     "trade": "Swap",
@@ -108,6 +109,7 @@
   "alerts": {
     "allowances-fetch-error": "Failed to fetch token allowances.",
     "balances-fetch-error": "Failed to fetch token balances.",
+    "solana-balances-fetch-error": "Failed to fetch Solana token balances.",
     "pool-fetch-error": "Failed to fetch pool.",
     "pools-fetch-error": "Failed to fetch pools.",
     "price-fetch-error": "Our pricing provider is currently down.",
@@ -1035,6 +1037,7 @@
   "seeV1BalancerInvestments": "Want to see your funds on Balancer V1?",
   "select": "Select",
   "selectToken": "Select token",
+  "selectTokenAbove": "Select token above",
   "sell": "Sell",
   "send": "Send",
   "services": {
@@ -1720,6 +1723,11 @@
     "errors": {
       "SINGLE_ASSET_WITHDRAWAL_MIN_BPT_LIMIT": "You can only withdraw 30% of the pool's value in single asset withdrawals"
     }
+  },
+  "bridgeModal": {
+    "title": "Bridging Preview",
+    "transferringDetail": "You are now transferring {0} {1} from {2} to {3}.",
+    "confirmNotice": "Please confirm the amounts and destination before continuing."
   },
   "youProvide": "You provide",
   "youReceive": "You receive",
