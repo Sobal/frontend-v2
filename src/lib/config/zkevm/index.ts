@@ -29,6 +29,7 @@ const config: Config = {
     'https://api.studio.thegraph.com/query/24660/balancer-polygon-zk-v2/version/latest',
   balancerApi: 'https://api.sobal.fi',
   poolsUrlV2: '',
+  bridgeRpc: '',
   subgraphs: {
     main: [
       'https://api.studio.thegraph.com/query/24660/balancer-polygon-zk-v2/version/latest',

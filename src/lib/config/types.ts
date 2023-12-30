@@ -130,6 +130,7 @@ export interface Config {
   pools: Pools;
   tokens: TokenConstants;
   keys: Keys;
+  bridgeRpc: string;
   gauges: {
     type: number;
     weight: number;

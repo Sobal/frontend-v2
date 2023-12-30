@@ -28,6 +28,7 @@ const config: Config = {
     'https://api.studio.thegraph.com/query/50526/sobal-base-goerli/version/latest',
   balancerApi: 'https://api.sobal.fi',
   poolsUrlV2: '',
+  bridgeRpc: '',
   subgraphs: {
     main: [
       'https://api.studio.thegraph.com/query/50526/sobal-base-goerli/version/latest',

@@ -35,6 +35,8 @@ const config: Config = {
   },
   blockTime: 4,
   bridgeUrl: 'https://neonpass.live',
+  bridgeRpc:
+    'https://mainnet.helius-rpc.com/?api-key=804a681b-735c-4970-bbcc-b64e84575d24',
   bridgeUi: true,
   supportsEIP1559: false,
   supportsElementPools: false,

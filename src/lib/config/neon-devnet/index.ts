@@ -30,6 +30,8 @@ const config: Config = {
   subgraph: 'https://ch2-graph.neontest.xyz/subgraphs/name/sobal/sobal-pools',
   balancerApi: 'https://api.sobal.fi',
   poolsUrlV2: '',
+  bridgeRpc: 'https://api.devnet.solana.com',
+  bridgeUi: true,
   subgraphs: {
     main: ['https://ch2-graph.neontest.xyz/subgraphs/name/sobal/sobal-pools'],
     aave: '',
