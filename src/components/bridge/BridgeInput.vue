@@ -6,10 +6,11 @@ import { WalletType } from '@/types/wallet';
 import WalletInfo from '@/components/bridge/WalletInfo.vue';
 import { InputValue } from '@/components/_global/BalTextInput/types';
 import { computed, ref, watchEffect } from 'vue';
-import { isPositive } from '@/lib/utils/validations';
+import { isLessThanOrEqualTo, isPositive } from '@/lib/utils/validations';
 import useWeb3 from '@/services/web3/useWeb3';
 import BridgeSelectInput from '@/components/bridge/BridgeSelectInput.vue';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
+import { useI18n } from 'vue-i18n';
 
 type Props = {
   name: string;
@@ -61,6 +62,7 @@ const _isMaxed = ref<boolean>(false);
 
 const { isWalletReady } = useWeb3();
 const { fNum } = useNumbers();
+const { t } = useI18n();
 
 const hasToken = computed(() => !!_address.value);
 
@@ -70,9 +72,11 @@ const inputRules = computed(() => {
   }
 
   const rules = [isPositive()];
-  // if (!props.ignoreWalletBalance) {
-  //   rules.push(isLessThanOrEqualTo(tokenBalance.value, t('exceedsBalance')));
-  // }
+
+  if (props.bridgeType === 'From') {
+    rules.push(isLessThanOrEqualTo(_balance.value, t('exceedsBalance')));
+  }
+
   return rules;
 });
 
@@ -139,7 +143,7 @@ watchEffect(() => {
       <template #footer>
         <div class="text-sm">
           {{ _balanceFormatted }} {{ symbol }}
-          <template v-if="balance > 0 && !disableToken">
+          <template v-if="Number(balance) > 0 && !disableToken">
             <span
               v-if="!_isMaxed"
               class="text-blue-600 hover:text-purple-600 focus:text-purple-600 dark:text-blue-400 dark:hover:text-yellow-500 dark:focus:text-yellow-500 transition-colors"
