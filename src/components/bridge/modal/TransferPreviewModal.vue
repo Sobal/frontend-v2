@@ -8,31 +8,18 @@ import { WalletType, WalletTypes } from '@/types/wallet';
 import { useBridgeTokens } from '@/providers/bridge-tokens.provider';
 import solanaLogo from '@/assets/images/landing/thirdPartyLogos/solana_wallet_logo.svg';
 import { shorten } from '@/lib/utils';
+import { bridgeToken } from '@/composables/bridge/useBridge';
 
 const {
   tokenInAddress,
-  // tokenOutAddress,
   tokenInAmount,
-  // tokenOutAmount,
   walletInType,
-  // walletOutType,
-  // walletOutConnected,
-  // walletInConnected,
+  walletOutType,
   walletInAddress,
   walletOutAddress,
-  // setTokenInAddress,
-  // setTokenOutAddress,
-  // // setInitialized,
-  // setWalletInType,
-  // setWalletOutType,
-  // setWalletOutConnected,
-  // setWalletInConnected,
-  // setWalletInAddress,
-  // setWalletOutAddress,
 } = useBridgeState();
 
 const { network } = configService;
-
 const { getToken } = useBridgeTokens();
 
 const emit = defineEmits<{
@@ -62,11 +49,56 @@ function handleClose(): void {
   emit('close');
 }
 
+// required to pass through
+
+import useWeb3 from '@/services/web3/useWeb3';
+import useWeb3Solana from '@/services/web3/useWeb3Solana';
+import BridgeTokenService from '@/services/token/bridge-token.service';
+import { Signer } from '@ethersproject/abstract-signer';
+
+const { publicKeyTrimmed, sendTransaction } = useWeb3Solana();
+console.log('publicKeyTrimmed', publicKeyTrimmed.value);
+const { account, getProvider, signer, chainId } = useWeb3();
+
+const connection = new BridgeTokenService().connection;
+
+const provider = getProvider();
+
+function handleSubmit() {
+  bridgeToken(
+    walletInType.value,
+    token,
+    Number(tokenInAmount.value),
+    account.value,
+    provider,
+    connection,
+    publicKeyTrimmed.value,
+    signer.value as Signer,
+    Number(chainId.value),
+    sendTransaction
+  );
+}
+
 const networkIcon = (walletType: WalletType): string => {
   if (walletType === WalletTypes.EVM)
     return buildNetworkIconURL(network.chainId);
   else return solanaLogo;
 };
+
+// const { addTransaction } = useTransactions();
+// const { txListener } = useEthers();
+
+// addTransaction({
+//   id: 'abcdefg',
+//   type: 'tx',
+//   action: 'bridgeTokens',
+//   summary: 'potato2',
+//   details: {
+//     name: 'potato',
+//     tokenInAmount: '123',
+//     tokenOutAmount: '456',
+//   },
+// });
 </script>
 
 <template>
@@ -166,6 +198,9 @@ const networkIcon = (walletType: WalletType): string => {
         </div>
       </div>
     </BalCard>
+    <BalBtn class="w-full" color="gradient" @click="handleSubmit"
+      >Lets Go!</BalBtn
+    >
   </BalModal>
 </template>
 
