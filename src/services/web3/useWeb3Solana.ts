@@ -19,6 +19,7 @@ export default function useWeb3Solana() {
     publicKey,
     disconnect,
     disconnecting,
+    sendTransaction,
   } = useWallet();
 
   const allowedWallets = computed(() => wallets.value);
@@ -59,5 +60,6 @@ export default function useWeb3Solana() {
     connect,
     disconnect,
     select,
+    sendTransaction,
   };
 }
