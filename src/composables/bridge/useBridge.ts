@@ -11,7 +11,7 @@ import {
 } from './functions/transactions';
 import { configService } from '@/services/config/config.service';
 import { TokenInfo } from '@/types/TokenList';
-import { Provider } from '@ethersproject/providers';
+import { JsonRpcProvider } from '@ethersproject/providers';
 import { Signer } from '@ethersproject/abstract-signer';
 import { WalletAdapterProps } from '@solana/wallet-adapter-base';
 
@@ -20,7 +20,7 @@ export async function bridgeToken(
   token: TokenInfo,
   amount: number,
   account: string,
-  provider: Provider,
+  provider: JsonRpcProvider,
   connection: Connection,
   publicKeyTrimmed: string,
   signer: Signer,
@@ -39,10 +39,26 @@ export async function bridgeToken(
 
   const neonProxyStatus = await neonProxyApi.evmParams();
 
+  console.log('neonProxyStatus', neonProxyStatus);
+
   const neonEvmProgram = new PublicKey(neonProxyStatus.NEON_EVM_ID);
 
   if (walletType === WalletTypes.Solana) {
     console.log('SENDING FROM SOLANA');
+
+    console.log(
+      connection,
+      provider,
+      neonProxyApi,
+      neonProxyStatus,
+      neonEvmProgram,
+      solanaWallet,
+      account,
+      token,
+      amount,
+      chainId
+    );
+
     const transaction = await neonTransferMintWeb3Transaction(
       connection,
       provider,
