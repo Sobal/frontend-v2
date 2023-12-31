@@ -377,7 +377,9 @@ export function useErrorMsg() {
     if (isErrorOfType(error, [/UNPREDICTABLE_GAS_LIMIT/i]))
       return cannotEstimateGasError;
 
-    return defaultError();
+    return defaultError(
+      typeof error === 'string' ? error : error.message ?? ''
+    );
   }
 
   return {
