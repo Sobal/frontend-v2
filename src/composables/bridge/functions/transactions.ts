@@ -227,7 +227,10 @@ export async function neonTransferMintTransaction(
     neonEvmProgram,
     chainId
   );
-  console.log('emulateSignerBalanceAddress', emulateSignerBalanceAddress);
+  console.log(
+    'emulateSignerBalanceAddress',
+    emulateSignerBalanceAddress.toString()
+  );
 
   const neonWalletBalanceAccount = await connection.getAccountInfo(
     neonWalletBalanceAddress
