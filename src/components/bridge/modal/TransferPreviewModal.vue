@@ -9,6 +9,12 @@ import { useBridgeTokens } from '@/providers/bridge-tokens.provider';
 import solanaLogo from '@/assets/images/landing/thirdPartyLogos/solana_wallet_logo.svg';
 import { shorten } from '@/lib/utils';
 import { bridgeToken } from '@/composables/bridge/useBridge';
+import useWeb3 from '@/services/web3/useWeb3';
+import useWeb3Solana from '@/services/web3/useWeb3Solana';
+import BridgeTokenService from '@/services/token/bridge-token.service';
+import { captureBalancerException, useErrorMsg } from '@/lib/utils/errors';
+import { TransactionActionState } from '@/types/transactions';
+import { TransactionAction } from '@/composables/useTransactions';
 
 const {
   tokenInAddress,
@@ -26,21 +32,36 @@ const emit = defineEmits<{
   (e: 'close'): void;
 }>();
 
+const defaultActionState: TransactionActionState = {
+  init: false,
+  confirming: false,
+  confirmed: false,
+  confirmedAt: '',
+};
+
+const actions = ['abc', 'def', 'ghi'];
+
 /**
  * STATE
  */
 const withdrawalConfirmed = ref(false);
+const currentActionIndex = ref(0);
+const primaryActionType: Ref<TransactionAction> = ref('bridgeTokens');
 
 /**
  * COMPOSABLES
  */
 const { t } = useI18n();
 const token = getToken(tokenInAddress.value);
+const actionStates = ref<TransactionActionState[]>([]);
 
 /**
  * COMPUTED
  */
 const title = computed((): string => t('bridgeModal.title'));
+const currentActionState = computed(
+  (): TransactionActionState => actionStates.value[currentActionIndex.value]
+);
 
 /**
  * METHODS
@@ -49,35 +70,77 @@ function handleClose(): void {
   emit('close');
 }
 
-// required to pass through
-
-import useWeb3 from '@/services/web3/useWeb3';
-import useWeb3Solana from '@/services/web3/useWeb3Solana';
-import BridgeTokenService from '@/services/token/bridge-token.service';
-import { Signer } from '@ethersproject/abstract-signer';
+/**
+ * LIFECYCLE
+ */
+onBeforeMount(() => {
+  actionStates.value = actions.map(() => ({
+    ...defaultActionState,
+  }));
+});
 
 const { publicKeyTrimmed, sendTransaction } = useWeb3Solana();
 console.log('publicKeyTrimmed', publicKeyTrimmed.value);
-const { account, getProvider, signer, chainId } = useWeb3();
+const { account, getProvider, chainId, getSigner } = useWeb3();
+
+const { formatErrorMsg } = useErrorMsg();
+
+const signer = getSigner();
 
 const connection = new BridgeTokenService().connection;
 
 const provider = getProvider();
 
-function handleSubmit() {
-  bridgeToken(
-    walletInType.value,
-    token,
-    Number(tokenInAmount.value),
-    account.value,
-    provider,
-    connection,
-    publicKeyTrimmed.value,
-    signer.value as Signer,
-    Number(chainId.value),
-    sendTransaction
-  );
+async function handleSubmit(state: TransactionActionState) {
+  console.log(actionStates);
+
+  try {
+    state.init = true;
+    state.error = null;
+
+    await bridgeToken(
+      walletInType.value,
+      token,
+      Number(tokenInAmount.value),
+      account.value,
+      provider,
+      connection,
+      publicKeyTrimmed.value,
+      signer,
+      Number(chainId.value),
+      sendTransaction
+    );
+
+    state.init = false;
+    state.confirming = true;
+  } catch (error) {
+    state.init = false;
+    state.confirming = false;
+    state.error = formatErrorMsg(error);
+    captureBalancerException({
+      error: (error as Error)?.cause || error,
+      action: primaryActionType.value,
+      context: { level: 'fatal' },
+    });
+  }
 }
+
+// function handleSignAction(state: TransactionActionState) {
+//   currentActionIndex.value += 1;
+//   state.confirming = false;
+//   state.confirmed = true;
+// }
+
+// function getStepState(
+//   actionState: TransactionActionState,
+//   index: number
+// ): StepState {
+//   if (currentActionIndex.value < index) return StepState.Todo;
+//   else if (actionState.confirming) return StepState.Pending;
+//   else if (actionState.init) return StepState.WalletOpen;
+//   else if (actionState.confirmed) return StepState.Success;
+//   return StepState.Active;
+// }
 
 const networkIcon = (walletType: WalletType): string => {
   if (walletType === WalletTypes.EVM)
@@ -196,9 +259,20 @@ const networkIcon = (walletType: WalletType): string => {
           />{{ shorten(walletOutAddress)
           }}<BalTooltip width="auto" iconSize="sm" :text="walletOutAddress" />
         </div>
-      </div>
-    </BalCard>
-    <BalBtn class="w-full" color="gradient" @click="handleSubmit"
+      </div> </BalCard
+    ><BalAlert
+      v-if="currentActionState.error"
+      type="error"
+      :title="currentActionState?.error?.title"
+      :description="currentActionState?.error?.description"
+      block
+      class="mb-4"
+    />
+    <BalBtn
+      class="w-full"
+      color="gradient"
+      :loading="currentActionState.init || currentActionState.confirming"
+      @click="handleSubmit(currentActionState)"
       >Lets Go!</BalBtn
     >
   </BalModal>
