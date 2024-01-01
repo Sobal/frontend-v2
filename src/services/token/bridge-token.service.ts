@@ -3,7 +3,7 @@ import { Connection } from '@solana/web3.js';
 import { configService as _configService } from '@/services/config/config.service';
 import BalancesConcern from './bridge-concerns/balances.concern';
 
-const bridgeRpc = _configService.network.bridgeRpc;
+const solanaRpc = _configService.network.solanaRpc;
 
 export default class BridgeTokenService {
   connection: Connection;
@@ -11,7 +11,7 @@ export default class BridgeTokenService {
 
   constructor(
     readonly balancesConcernClass = BalancesConcern,
-    readonly rpcProviderService = new Connection(bridgeRpc, {
+    readonly rpcProviderService = new Connection(solanaRpc, {
       commitment: 'confirmed',
     }),
     readonly configService = _configService
