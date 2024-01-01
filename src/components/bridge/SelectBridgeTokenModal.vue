@@ -290,7 +290,11 @@ watchEffect(() => {
             <TokenListItem
               :token="token"
               :hideBalance="ignoreBalances"
-              :balanceLoading="dynamicDataLoading && solanaDynamicDataLoading"
+              :balanceLoading="
+                dynamicDataLoading == false && solanaDynamicDataLoading == false
+                  ? false
+                  : true
+              "
               :focussed="index == state.focussedToken"
               solana
               tabIndex="0"
