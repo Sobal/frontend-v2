@@ -13,11 +13,13 @@ import {
   SolflareWalletAdapter,
 } from '@solana/wallet-adapter-wallets';
 
+// TODO: Add more wallet options such as walletconnect, ledger
 const walletOptions = {
   wallets: [
     new PhantomWalletAdapter(),
-    new SolflareWalletAdapter({ network: WalletAdapterNetwork.Devnet }),
+    new SolflareWalletAdapter({ network: WalletAdapterNetwork.Mainnet }),
   ],
+
   autoConnect: true,
 };
 
