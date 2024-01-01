@@ -2,26 +2,11 @@ import { App } from 'vue';
 import i18n from '@/plugins/i18n';
 import router from '@/plugins/router';
 import blocknative from '@/plugins/blocknative';
+import { SolanaWalletOptions } from '@/plugins/solanawallets';
 import VueVirtualScroller from 'vue3-virtual-scroller';
 import { VueQueryPlugin } from '@tanstack/vue-query';
 import VueSafeTeleport from 'vue-safe-teleport';
 import SolanaWallets from 'solana-wallets-vue';
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-
-import {
-  PhantomWalletAdapter,
-  SolflareWalletAdapter,
-} from '@solana/wallet-adapter-wallets';
-
-// TODO: Add more wallet options such as walletconnect, ledger
-const walletOptions = {
-  wallets: [
-    new PhantomWalletAdapter(),
-    new SolflareWalletAdapter({ network: WalletAdapterNetwork.Mainnet }),
-  ],
-
-  autoConnect: true,
-};
 
 export function registerPlugins(app: App) {
   app
@@ -31,6 +16,6 @@ export function registerPlugins(app: App) {
     .use(blocknative)
     .use(VueVirtualScroller)
     .use(VueSafeTeleport)
-    .use(SolanaWallets, walletOptions);
+    .use(SolanaWallets, SolanaWalletOptions);
   return app;
 }
