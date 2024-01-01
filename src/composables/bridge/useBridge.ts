@@ -8,6 +8,7 @@ import {
   neonTransferMintWeb3Transaction,
   sendNeonTransaction,
   sendSolanaTransaction,
+  simulateTransaction,
 } from './functions/transactions';
 import { configService } from '@/services/config/config.service';
 import { TokenInfo } from '@/types/TokenList';
@@ -38,14 +39,9 @@ export async function bridgeToken(
   });
 
   const neonProxyStatus = await neonProxyApi.evmParams();
-
-  console.log('neonProxyStatus', neonProxyStatus);
-
   const neonEvmProgram = new PublicKey(neonProxyStatus.NEON_EVM_ID);
 
   if (walletType === WalletTypes.Solana) {
-    console.log('SENDING FROM SOLANA');
-
     console.log(
       connection,
       provider,
@@ -76,6 +72,13 @@ export async function bridgeToken(
       await connection.getLatestBlockhash()
     ).blockhash;
 
+    const simulatedTx = await simulateTransaction(
+      connection,
+      transaction,
+      'finalized'
+    );
+    console.log(simulatedTx);
+
     const signature = await sendSolanaTransaction(
       connection,
       transaction,
@@ -83,7 +86,7 @@ export async function bridgeToken(
       sendTransaction,
       { skipPreflight: false }
     );
-    console.log('signature', signature);
+    console.log('Solana Transaction Hash', signature);
   } else {
     const mintPubkey = new PublicKey(token.address_spl ?? '');
     const associatedToken = getAssociatedTokenAddressSync(
@@ -106,6 +109,13 @@ export async function bridgeToken(
       token,
       amount
     );
+
+    const simulatedTx = await simulateTransaction(
+      connection,
+      solanaTransaction,
+      'finalized'
+    );
+    console.log(simulatedTx);
     const signedSolanaTransaction = await sendSolanaTransaction(
       connection,
       solanaTransaction,
@@ -113,11 +123,11 @@ export async function bridgeToken(
       sendTransaction,
       { skipPreflight: false }
     );
-    console.log('signedSolanaTransaction', signedSolanaTransaction);
+    console.log('Solana Transaction Hash', signedSolanaTransaction);
     const signedNeonTransaction = await sendNeonTransaction(
       neonTransaction,
       signer
     );
-    console.log('signedNeonTransaction', signedNeonTransaction);
+    console.log('Neon Transaction Hash', signedNeonTransaction);
   }
 }
