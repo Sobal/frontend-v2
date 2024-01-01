@@ -30,7 +30,7 @@ const config: Config = {
   subgraph:
     'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-gnosis-chain-v2',
   poolsUrlV2: '',
-  bridgeRpc: '',
+  solanaRpc: '',
   subgraphs: {
     main: [
       'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-gnosis-chain-v2',

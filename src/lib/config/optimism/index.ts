@@ -28,7 +28,7 @@ const config: Config = {
   subgraph:
     'https://api.thegraph.com/subgraphs/name/beethovenxfi/beethovenx-v2-optimism',
   poolsUrlV2: '',
-  bridgeRpc: '',
+  solanaRpc: '',
   showLatestArticles: false,
   subgraphs: {
     main: [

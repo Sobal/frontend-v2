@@ -27,7 +27,7 @@ const config: Config = {
   analyticsUrl: '',
   subgraph: 'https://api.thegraph.com/subgraphs/name/sobal/sobal-goerli',
   poolsUrlV2: '',
-  bridgeRpc: '',
+  solanaRpc: '',
   subgraphs: {
     main: ['https://api.thegraph.com/subgraphs/name/sobal/sobal-goerli'],
     aave: '',

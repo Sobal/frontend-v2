@@ -27,7 +27,7 @@ const config: Config = {
   explorer: 'https://polygonscan.com',
   explorerName: 'Polygonscan',
   analyticsUrl: '',
-  bridgeRpc: '',
+  solanaRpc: '',
   subgraph:
     'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-polygon-prune-v2',
   balancerApi: 'https://api.sobal.fi',

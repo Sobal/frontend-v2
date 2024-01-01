@@ -130,7 +130,8 @@ export interface Config {
   pools: Pools;
   tokens: TokenConstants;
   keys: Keys;
-  bridgeRpc: string;
+  solanaRpc: string;
+  solanaRpcName?: string;
   gauges: {
     type: number;
     weight: number;

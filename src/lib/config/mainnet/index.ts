@@ -26,7 +26,7 @@ const config: Config = {
   subgraph: 'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-v2',
   balancerApi: 'https://api.sobal.fi',
   analyticsUrl: '',
-  bridgeRpc: '',
+  solanaRpc: '',
   poolsUrlV2:
     'https://storageapi.fleek.co/johngrantuk-team-bucket/poolsV2.json',
   subgraphs: {
