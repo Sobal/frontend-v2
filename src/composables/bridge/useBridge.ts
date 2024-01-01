@@ -77,7 +77,7 @@ export async function bridgeToken(
       transaction,
       'finalized'
     );
-    console.log(simulatedTx);
+    console.log('Solana Simulated Transaction', simulatedTx);
 
     const signature = await sendSolanaTransaction(
       connection,
@@ -115,7 +115,7 @@ export async function bridgeToken(
       solanaTransaction,
       'finalized'
     );
-    console.log(simulatedTx);
+    console.log('Solana Simulated Transaction', simulatedTx);
     const signedSolanaTransaction = await sendSolanaTransaction(
       connection,
       solanaTransaction,
