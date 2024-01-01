@@ -1,8 +1,11 @@
 import {
   AccountMeta,
+  Commitment,
   Connection,
   PublicKey,
+  RpcResponseAndContext,
   SendOptions,
+  SimulatedTransactionResponse,
   SystemProgram,
   Transaction,
   TransactionInstruction,
@@ -116,10 +119,9 @@ export async function neonClaimTransactionFromSigner(
     data: claimData,
     gasLimit: `0x5F5E100`, // 100000000
     gasPrice: `0x0`,
-    // from: neonWallet,
     to: splToken.address, // contract address
   };
-  console.log('wallet signer address', await walletSigner.getAddress());
+  transaction.nonce = await walletSigner.getTransactionCount();
   return await walletSigner.signTransaction(transaction);
 }
 
@@ -131,7 +133,6 @@ export function solanaWalletSigner(
   const emulateSignerPrivateKey = `0x${SHA256(
     solanaWallet.toBase58() + neonWallet
   ).toString()}`;
-  console.log('emulateSignerPrivateKey', emulateSignerPrivateKey);
   const wallet = new Wallet(emulateSignerPrivateKey, provider);
   return wallet;
 }
@@ -149,7 +150,6 @@ export async function createClaimInstruction(
       const { accounts = [], solana_accounts = [] } = neonEmulate;
       for (const account of accounts) {
         const key = account['account'];
-        console.log('instruction', account, solana_accounts);
         accountsMap.set(key, {
           pubkey: new PublicKey(key),
           isSigner: false,
@@ -204,14 +204,11 @@ export async function neonTransferMintTransaction(
   chainId: number
 ): Promise<Transaction> {
   const computedBudgetProgram = new PublicKey(COMPUTE_BUDGET_ID);
-  console.log('computedBudgetProgram', computedBudgetProgram);
   const [delegatePDA] = authAccountAddress(
     emulateSigner.address,
     neonEvmProgram,
     splToken
   );
-
-  console.log('params', neonWallet, neonEvmProgram, chainId);
 
   const [neonWalletBalanceAddress] = neonBalanceProgramAddress(
     neonWallet,
@@ -219,37 +216,26 @@ export async function neonTransferMintTransaction(
     chainId
   );
 
-  console.log(neonWallet, neonEvmProgram, chainId);
-
-  console.log('neonWalletBalanceAddress', neonWalletBalanceAddress.toString());
   const [emulateSignerBalanceAddress] = neonBalanceProgramAddress(
     emulateSigner.address,
     neonEvmProgram,
     chainId
   );
-  console.log(
-    'emulateSignerBalanceAddress',
-    emulateSignerBalanceAddress.toString()
-  );
 
   const neonWalletBalanceAccount = await connection.getAccountInfo(
     neonWalletBalanceAddress
   );
-  console.log('neonWalletBalanceAccount', neonWalletBalanceAccount);
 
   const emulateSignerBalanceAccount = await connection.getAccountInfo(
     emulateSignerBalanceAddress
   );
-  console.log('emulateSignerBalanceAccount', emulateSignerBalanceAccount);
 
   const associatedTokenAddress = getAssociatedTokenAddressSync(
     new PublicKey(splToken.address_spl ?? ''),
     solanaWallet
   );
-  console.log('associatedTokenAddress', associatedTokenAddress.toString());
 
   const transaction = new Transaction({ feePayer: solanaWallet });
-  console.log('feepayer', transaction.feePayer);
   transaction.add(
     createComputeBudgetHeapFrameInstruction(computedBudgetProgram, proxyStatus)
   );
@@ -538,4 +524,26 @@ export function createMintNeonTransaction(
   data: string
 ): TransactionRequest {
   return { data, from: neonWallet, to: splToken.address, value: `0x0` };
+}
+
+export async function simulateTransaction(
+  connection: Connection,
+  transaction: Transaction,
+  commitment: Commitment
+): Promise<RpcResponseAndContext<SimulatedTransactionResponse>> {
+  const { blockhash } = await connection.getLatestBlockhash(commitment);
+  transaction.recentBlockhash = blockhash;
+  const signData = transaction.serializeMessage();
+  // @ts-ignore
+  const wireTransaction = transaction._serialize(signData);
+  const encodedTransaction = wireTransaction.toString('base64');
+  const config: any = { encoding: 'base64', commitment };
+  const args = [encodedTransaction, config];
+
+  // @ts-ignore
+  const res = await connection._rpcRequest('simulateTransaction', args);
+  if (res.error) {
+    throw new Error(`failed to simulate transaction: ${res.error.message}`);
+  }
+  return res.result;
 }
