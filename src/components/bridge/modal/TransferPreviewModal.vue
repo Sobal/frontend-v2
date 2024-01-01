@@ -112,7 +112,9 @@ async function handleSubmit(state: TransactionActionState) {
     );
 
     state.init = false;
-    state.confirming = true;
+    state.confirming = false;
+    state.confirmed = true;
+    state.confirmedAt = new Date().toString();
   } catch (error) {
     state.init = false;
     state.confirming = false;
@@ -272,8 +274,13 @@ const networkIcon = (walletType: WalletType): string => {
       class="w-full"
       color="gradient"
       :loading="currentActionState.init || currentActionState.confirming"
+      :disabled="currentActionState.confirmed"
       @click="handleSubmit(currentActionState)"
-      >Lets Go!</BalBtn
+      >{{
+        currentActionState.confirmed
+          ? 'Transaction Submitted!'
+          : 'Submit Transaction'
+      }}</BalBtn
     >
   </BalModal>
 </template>
