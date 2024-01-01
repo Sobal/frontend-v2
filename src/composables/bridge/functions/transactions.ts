@@ -4,6 +4,7 @@ import {
   Connection,
   PublicKey,
   RpcResponseAndContext,
+  SYSVAR_RENT_PUBKEY,
   SendOptions,
   SimulatedTransactionResponse,
   SystemProgram,
@@ -30,12 +31,17 @@ import {
 } from '@ethersproject/providers';
 import { SHA256 } from 'crypto-js';
 import {
+  ASSOCIATED_TOKEN_PROGRAM_ID,
+  TOKEN_PROGRAM_ID,
   createApproveInstruction,
-  createAssociatedTokenAccountInstruction,
   getAssociatedTokenAddressSync,
 } from '@solana/spl-token';
 import { erc20ForSPLContract } from './contracts';
-import { COMPUTE_BUDGET_ID, NEON_HEAP_FRAME } from '../constants/addresses';
+import {
+  COMPUTE_BUDGET_ID,
+  NEON_COMPUTE_UNITS,
+  NEON_HEAP_FRAME,
+} from '../constants/addresses';
 import {
   authAccountAddress,
   collateralPoolAddress,
@@ -312,6 +318,19 @@ export function createComputeBudgetHeapFrameInstruction(
   return new TransactionInstruction({ programId, data, keys: [] });
 }
 
+export function createComputeBudgetUtilsInstruction(
+  programId: PublicKey,
+  proxyStatus: NeonProgramStatus
+): TransactionInstruction {
+  const a = Buffer.from([0x00]);
+  const b = Buffer.from(
+    toBytesInt32(parseInt(proxyStatus.NEON_COMPUTE_UNITS ?? NEON_COMPUTE_UNITS))
+  );
+  const c = Buffer.from(toBytesInt32(0));
+  const data = Buffer.concat([a, b, c]);
+  return new TransactionInstruction({ programId, data, keys: [] });
+}
+
 export function createExecFromDataInstructionV2(
   solanaWallet: PublicKey,
   neonWallet: string,
@@ -546,4 +565,30 @@ export async function simulateTransaction(
     throw new Error(`failed to simulate transaction: ${res.error.message}`);
   }
   return res.result;
+}
+
+// #region Neon -> Solana
+export function createAssociatedTokenAccountInstruction(
+  tokenMint: PublicKey,
+  associatedAccount: PublicKey,
+  owner: PublicKey,
+  payer: PublicKey,
+  associatedProgramId: PublicKey = ASSOCIATED_TOKEN_PROGRAM_ID,
+  programId: PublicKey = TOKEN_PROGRAM_ID
+) {
+  const data = Buffer.from([0x01]);
+  const keys = [
+    { pubkey: payer, isSigner: true, isWritable: true },
+    { pubkey: associatedAccount, isSigner: false, isWritable: true },
+    { pubkey: owner, isSigner: false, isWritable: false },
+    { pubkey: tokenMint, isSigner: false, isWritable: false },
+    { pubkey: SystemProgram.programId, isSigner: false, isWritable: false },
+    { pubkey: programId, isSigner: false, isWritable: false },
+    { pubkey: SYSVAR_RENT_PUBKEY, isSigner: false, isWritable: false },
+  ];
+  return new TransactionInstruction({
+    programId: associatedProgramId,
+    keys,
+    data,
+  });
 }
