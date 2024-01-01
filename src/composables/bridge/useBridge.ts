@@ -31,7 +31,7 @@ export async function bridgeToken(
   const solanaWallet = new PublicKey(publicKeyTrimmed);
 
   const neonNeonEvmUrl = configService.network.rpc;
-  const solanaUrl = configService.network.bridgeRpc;
+  const solanaUrl = configService.network.solanaRpc;
 
   const neonProxyApi = new NeonProxyRpcApi({
     neonProxyRpcApi: neonNeonEvmUrl,
@@ -87,6 +87,7 @@ export async function bridgeToken(
       { skipPreflight: false }
     );
     console.log('Solana Transaction Hash', signature);
+    return signature;
   } else {
     const mintPubkey = new PublicKey(token.address_spl ?? '');
     const associatedToken = getAssociatedTokenAddressSync(
@@ -129,5 +130,6 @@ export async function bridgeToken(
       signer
     );
     console.log('Neon Transaction Hash', signedNeonTransaction);
+    return signedNeonTransaction;
   }
 }
