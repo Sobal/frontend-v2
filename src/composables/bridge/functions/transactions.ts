@@ -213,7 +213,7 @@ export async function neonTransferMintTransaction(
   neonKeys: AccountMeta[],
   legacyAccounts: SolanaAccount[],
   neonTransaction: string,
-  splToken: Config['nativeAsset'],
+  splToken: Config['nativeAsset'] | TokenInfo,
   amount: BigNumber,
   chainId: number
 ): Promise<Transaction> {
