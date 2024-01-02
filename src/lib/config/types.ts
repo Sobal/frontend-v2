@@ -103,14 +103,27 @@ export interface Config {
   };
   bridgeUrl: string;
   bridgeUi?: boolean;
+  bridgeNativeTransferContract?: string;
   supportsEIP1559: boolean;
   supportsElementPools: boolean;
   showLatestArticles: boolean;
   supportsVeBalSync?: boolean;
   blockTime: number;
+  bridgeUnwrapOut?: string[];
   nativeAsset: {
     name: string;
     address: string;
+    address_spl?: string;
+    symbol: string;
+    decimals: number;
+    deeplinkId: string;
+    logoURI: string;
+    minTransactionBuffer: string;
+  };
+  solanaNativeAsset?: {
+    name: string;
+    address: string;
+    address_spl: string;
     symbol: string;
     decimals: number;
     deeplinkId: string;
