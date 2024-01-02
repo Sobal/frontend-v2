@@ -24,9 +24,9 @@ export default class BalancesConcern {
     this.network = this.service.configService.network.key;
     this.provider = this.service.rpcProviderService;
     this.nativeAssetAddress =
-      this.service.configService.network.nativeAsset.address;
+      this.service.configService.network.solanaNativeAsset?.address_spl ?? '';
     this.nativeAssetDecimals =
-      this.service.configService.network.nativeAsset.decimals;
+      this.service.configService.network.solanaNativeAsset?.decimals ?? 9;
   }
 
   //TODO: Make address_spl required and extend original type for all bridge lists
@@ -43,10 +43,10 @@ export default class BalancesConcern {
     });
 
     const paginatedBalances = await Promise.all<BalanceMap>(multicalls);
+
     const validPages = paginatedBalances.filter(
       page => Object.keys(page).length > 0
     );
-    console.log(validPages);
 
     return validPages.reduce((result, current) =>
       Object.assign(result, current)
@@ -56,35 +56,34 @@ export default class BalancesConcern {
   private async fetchBalances(
     account: string,
     address: string | undefined
-  ): Promise<BalanceMap> {
+  ): Promise<BalanceMap | undefined> {
     if (!address) return {};
     try {
       const balanceMap = {};
 
       // If native asset included in addresses, filter out for
       // multicall, but fetch indpendently and inject.
+
       if (address.toLowerCase() === this.nativeAssetAddress.toLowerCase()) {
-        balanceMap[this.nativeAssetAddress] = await this.fetchNativeBalance(
-          account
+        balanceMap[address] = await this.fetchNativeBalance(account);
+        return {
+          ...balanceMap,
+        };
+      } else {
+        const mintAccount = new PublicKey(address);
+        const walletPubkey = new PublicKey(account);
+
+        const assocTokenAccountAddress = await getAssociatedTokenAddress(
+          mintAccount,
+          walletPubkey
         );
+
+        const response = await this.provider.getTokenAccountBalance(
+          assocTokenAccountAddress
+        );
+
+        return this.associateBalances(response, address);
       }
-
-      const mintAccount = new PublicKey(address);
-      const walletPubkey = new PublicKey(account);
-
-      const assocTokenAccountAddress = await getAssociatedTokenAddress(
-        mintAccount,
-        walletPubkey
-      );
-
-      const response = await this.provider.getTokenAccountBalance(
-        assocTokenAccountAddress
-      );
-
-      return {
-        ...this.associateBalances(response, address),
-        ...balanceMap,
-      };
     } catch (error) {
       console.error('Could not fetch a balance for:', address);
       return { [address]: '0' };
