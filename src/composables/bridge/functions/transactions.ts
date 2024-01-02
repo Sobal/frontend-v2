@@ -752,7 +752,10 @@ export function neonNeonTransaction(
   amount: Amount,
   data: string
 ): TransactionRequest {
-  const value = `0x${parseUnits(amount.toString(), 'ether')
+  const value = `0x${parseUnits(
+    Number(amount).toFixed(NEON_TOKEN_DECIMALS).toString(),
+    'ether'
+  )
     .toBigInt()
     .toString(16)}`;
   return { from, to, value, data };
@@ -870,14 +873,14 @@ export async function createWrapAndTransferSOLTransactionWeb3(
     solanaWallet
   );
   const wSOLAccount = await connection.getAccountInfo(associatedTokenAddress);
-  const climeData = claimTransactionData(
+  const claimData = claimTransactionData(
     associatedTokenAddress,
     neonWallet,
     fullAmount
   );
   const walletSigner = solanaWalletSigner(provider, solanaWallet, neonWallet);
   const signedTransaction = await neonClaimTransactionFromSigner(
-    climeData,
+    claimData,
     walletSigner,
     splToken.address
   );
