@@ -38,7 +38,11 @@ import {
   createSyncNativeInstruction,
   getAssociatedTokenAddressSync,
 } from '@solana/spl-token';
-import { erc20ForSPLContract, neonWrapperContract } from './contracts';
+import {
+  erc20ForSPLContract,
+  neonWrapper2Contract,
+  neonWrapperContract,
+} from './contracts';
 import {
   COMPUTE_BUDGET_ID,
   NEON_COMPUTE_UNITS,
@@ -916,4 +920,17 @@ export async function createWrapAndTransferSOLTransactionWeb3(
   transaction.add(...instructions);
   transaction.add(...mintTransaction.instructions);
   return transaction;
+}
+
+export async function unwrapNeonWeb3(
+  signer: Signer,
+  token: TokenInfo,
+  amount: Amount
+): Promise<TransactionResponse> {
+  const contract = neonWrapper2Contract(signer, token.address);
+  const unwrapTx = await contract.withdraw(
+    parseUnits(amount.toString(), token.decimals)
+  );
+  console.log('unwrap TX', unwrapTx);
+  return unwrapTx;
 }

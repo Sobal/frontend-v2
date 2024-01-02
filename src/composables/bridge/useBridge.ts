@@ -13,6 +13,7 @@ import {
   sendSolanaTransaction,
   simulateTransaction,
   solanaNEONTransferTransaction,
+  unwrapNeonWeb3,
 } from './functions/transactions';
 import { configService } from '@/services/config/config.service';
 import { TokenInfo } from '@/types/TokenList';
@@ -36,6 +37,7 @@ export async function bridgeToken(
   neonProxyStatus: NeonProgramStatus
 ) {
   const solanaWallet = new PublicKey(publicKeyTrimmed);
+  const nativeOverride = ref(false);
 
   const neonEvmProgram = new PublicKey(neonProxyStatus.NEON_EVM_ID);
 
@@ -154,10 +156,29 @@ export async function bridgeToken(
     }
     // EVM to Solana
   } else {
-    if (!token.address_spl) throw 'No SPL token address for this token';
-    const mintPubkey = new PublicKey(token.address_spl);
+    if (
+      configService.network.tokens.Addresses.wNativeAsset.toLowerCase() ===
+      token.address.toLowerCase()
+    ) {
+      const unwrapTx = await unwrapNeonWeb3(signer, token, amount);
+      console.log('unwrapTx', unwrapTx);
+      nativeOverride.value = true;
+    }
 
-    if (token.address === configService.network.nativeAsset.address) {
+    if (!token.address_spl && !nativeOverride)
+      throw 'No SPL token address for this token';
+    const tokenOverride: TokenInfo = nativeOverride
+      ? { ...configService.network.nativeAsset, chainId }
+      : { ...token };
+    const mintPubkey = new PublicKey(
+      nativeOverride ? tokenOverride.address_spl ?? '' : token.address_spl ?? ''
+    );
+
+    if (
+      nativeOverride
+        ? tokenOverride.address === configService.network.nativeAsset.address
+        : token.address === configService.network.nativeAsset.address
+    ) {
       console.log('sending native neon to solana');
       if (!configService.network.bridgeNativeTransferContract)
         throw 'No bridge native transfer contract';
@@ -174,6 +195,8 @@ export async function bridgeToken(
         signer
       );
       console.log('Neon Transaction Hash', signedNeonTransaction);
+
+      nativeOverride.value = false;
 
       return signedNeonTransaction;
     } else {
