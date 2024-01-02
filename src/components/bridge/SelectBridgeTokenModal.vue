@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
   open: false,
   excludedTokens: () => [],
   subset: () => [],
-  includeEther: false,
+  includeEther: true,
   hideTokenLists: true,
   ignoreBalances: false,
 });
