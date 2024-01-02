@@ -3,7 +3,6 @@ import { Buffer } from 'buffer';
 import { isValidHex } from './utils/hex';
 import { toBytesInt32, toU256BE } from './utils/addresses';
 import { AccountHex } from '../constants/instructions';
-import { TokenInfo } from '@/types/TokenList';
 
 export function neonWalletProgramAddress(
   etherKey: string,
@@ -41,7 +40,7 @@ export function neonBalanceProgramAddress(
 export function authAccountAddress(
   neonWallet: string,
   neonEvmProgram: PublicKey,
-  splToken: TokenInfo
+  address: string
 ): [PublicKey, number] {
   const neonAccountAddressBytes = Buffer.concat([
     Buffer.alloc(12),
@@ -51,9 +50,7 @@ export function authAccountAddress(
     ),
   ]);
   const neonContractAddressBytes = Buffer.from(
-    isValidHex(splToken.address)
-      ? splToken.address.replace(/^0x/i, '')
-      : splToken.address,
+    isValidHex(address) ? address.replace(/^0x/i, '') : address,
     'hex'
   );
   const seed = [
