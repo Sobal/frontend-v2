@@ -15,6 +15,7 @@ import BridgeTokenService from '@/services/token/bridge-token.service';
 import { captureBalancerException, useErrorMsg } from '@/lib/utils/errors';
 import { TransactionActionState } from '@/types/transactions';
 import { TransactionAction } from '@/composables/useTransactions';
+import { NeonProxyRpcApi } from '@/composables/bridge/classes/api';
 
 const {
   tokenInAddress,
@@ -55,6 +56,14 @@ const { t } = useI18n();
 const token = getToken(tokenInAddress.value);
 const actionStates = ref<TransactionActionState[]>([]);
 
+const neonNeonEvmUrl = configService.network.rpc;
+const solanaUrl = configService.network.solanaRpc;
+
+const neonProxyApi = new NeonProxyRpcApi({
+  neonProxyRpcApi: neonNeonEvmUrl,
+  solanaRpcApi: solanaUrl,
+});
+
 /**
  * COMPUTED
  */
@@ -94,6 +103,8 @@ const provider = getProvider();
 async function handleSubmit(state: TransactionActionState) {
   console.log(actionStates);
 
+  const neonProxyStatus = await neonProxyApi.evmParams();
+
   try {
     state.init = true;
     state.error = null;
@@ -108,7 +119,9 @@ async function handleSubmit(state: TransactionActionState) {
       publicKeyTrimmed.value,
       signer,
       Number(chainId.value),
-      sendTransaction
+      sendTransaction,
+      neonProxyApi,
+      neonProxyStatus
     );
 
     state.init = false;
@@ -116,6 +129,7 @@ async function handleSubmit(state: TransactionActionState) {
     state.confirmed = true;
     state.confirmedAt = new Date().toString();
   } catch (error) {
+    console.log(error);
     state.init = false;
     state.confirming = false;
     state.error = formatErrorMsg(error);
