@@ -165,20 +165,14 @@ export async function bridgeToken(
       nativeOverride.value = true;
     }
 
-    if (!token.address_spl && !nativeOverride)
+    if (!token.address_spl && !nativeOverride.value)
       throw 'No SPL token address for this token';
-    const tokenOverride: TokenInfo = nativeOverride
+    const tokenOverride: TokenInfo = nativeOverride.value
       ? { ...configService.network.nativeAsset, chainId }
       : { ...token };
-    const mintPubkey = new PublicKey(
-      nativeOverride ? tokenOverride.address_spl ?? '' : token.address_spl ?? ''
-    );
+    const mintPubkey = new PublicKey(tokenOverride.address_spl ?? '');
 
-    if (
-      nativeOverride
-        ? tokenOverride.address === configService.network.nativeAsset.address
-        : token.address === configService.network.nativeAsset.address
-    ) {
+    if (tokenOverride.address === configService.network.nativeAsset.address) {
       console.log('sending native neon to solana');
       if (!configService.network.bridgeNativeTransferContract)
         throw 'No bridge native transfer contract';
@@ -195,8 +189,6 @@ export async function bridgeToken(
         signer
       );
       console.log('Neon Transaction Hash', signedNeonTransaction);
-
-      nativeOverride.value = false;
 
       return signedNeonTransaction;
     } else {
@@ -217,7 +209,7 @@ export async function bridgeToken(
         provider,
         account,
         associatedToken,
-        token,
+        tokenOverride,
         amount
       );
 
@@ -250,7 +242,7 @@ export async function bridgeToken(
         const unwrapTransaction = await createUnwrapSOLTransaction(
           connection,
           solanaWallet,
-          token
+          tokenOverride
         );
         unwrapTransaction.recentBlockhash = (
           await connection.getLatestBlockhash()
