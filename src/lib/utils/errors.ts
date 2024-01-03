@@ -370,7 +370,7 @@ export function useErrorMsg() {
   }
 
   function formatErrorMsg(error): TransactionError | null {
-    if (isUserError(error)) return null;
+    // if (isUserError(error)) return null;
     if (isErrorOfType(error, [/-32010/])) return gasTooLowError;
     if (isErrorOfType(error, [/BAL#507/i])) return slippageError;
     if (isErrorOfType(error, [/BAL#505/i])) return slippageError;
