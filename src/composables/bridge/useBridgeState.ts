@@ -1,5 +1,7 @@
 import { reactive, toRefs } from 'vue';
 import { WalletType, WalletTypes } from '@/types/wallet';
+import { NeonProgramStatus } from './interfaces/api';
+import { NeonProxyRpcApi } from './classes/api';
 // globals
 const bridgeState = reactive({
   initialized: false,
@@ -17,6 +19,9 @@ const bridgeState = reactive({
   walletOutType: WalletTypes.Solana as WalletType,
   walletInConnected: false,
   walletOutConnected: false,
+  bridgeApiData: undefined as NeonProgramStatus | undefined,
+  bridgeApiLoading: true,
+  bridgeApi: undefined as NeonProxyRpcApi | undefined,
 });
 
 function setInitialized(val: boolean) {
@@ -77,6 +82,18 @@ function setWalletOutBalance(balance: string) {
   bridgeState.walletOutBalance = balance;
 }
 
+function setBridgeApiData(data: NeonProgramStatus | undefined) {
+  bridgeState.bridgeApiData = data;
+}
+
+function setBridgeApiLoading(val: boolean) {
+  bridgeState.bridgeApiLoading = val;
+}
+
+function setBridgeApi(api: NeonProxyRpcApi | undefined) {
+  bridgeState.bridgeApi = api;
+}
+
 export function useBridgeState() {
   return {
     // can't set to read only refs as these vars are used as
@@ -97,5 +114,8 @@ export function useBridgeState() {
     setWalletOutSymbol,
     setWalletInBalance,
     setWalletOutBalance,
+    setBridgeApiData,
+    setBridgeApiLoading,
+    setBridgeApi,
   };
 }
