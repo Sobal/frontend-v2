@@ -278,13 +278,11 @@ const networkIcon = (walletType: WalletType): string => {
         bridgeApiLoading
       "
       :disabled="currentActionState.confirmed"
-      :loadingLabel="
-        bridgeApiLoading ? 'Loading API...' : 'Loading Transaction...'
-      "
+      :loadingLabel="bridgeApiLoading ? 'Loading API...' : 'Please Wait...'"
       @click="handleSubmit(currentActionState)"
       >{{
         currentActionState.confirmed
-          ? 'Transaction Submitted!'
+          ? 'Bridging Completed!'
           : 'Submit Transaction'
       }}</BalBtn
     >
