@@ -823,7 +823,6 @@ export async function createWrapSOLTransaction(
     solanaWallet
   );
   const wSOLAccount = await connection.getAccountInfo(associatedToken);
-  console.log('wSOLAccount', wSOLAccount);
   const transaction = new Transaction({ feePayer: solanaWallet });
   const instructions: TransactionInstruction[] = [];
 
@@ -934,6 +933,5 @@ export async function unwrapNeonWeb3(
   const unwrapTx = await contract.withdraw(
     parseUnits(amount.toString(), token.decimals)
   );
-  console.log('unwrap TX', unwrapTx);
   return unwrapTx;
 }
