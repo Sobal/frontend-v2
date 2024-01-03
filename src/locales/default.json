@@ -1592,6 +1592,7 @@
     "increaseLock": "Increase lock",
     "unlock": "Unlock",
     "sync": "Sync",
+    "bridgeTokens": "Bridge",
     "userGaugeCheckpoint": "Pool gauge veBAL update"
   },
   "transactionDeadline": "Transaction deadline",
