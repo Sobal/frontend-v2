@@ -157,8 +157,8 @@ watchEffect(() => {
 });
 
 onBeforeMount(() => {
-  setWalletInType(WalletTypes.EVM);
-  setWalletOutType(WalletTypes.Solana);
+  setWalletInType(WalletTypes.Solana);
+  setWalletOutType(WalletTypes.EVM);
 });
 
 onMounted(() => {
