@@ -18,6 +18,7 @@ import { TransactionActionState } from '@/types/transactions';
 import useTransactions, {
   TransactionAction,
 } from '@/composables/useTransactions';
+import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 
 const {
   tokenInAddress,
@@ -34,6 +35,7 @@ const {
 const { network } = configService;
 const { getToken, refetchBridgeBalances } = useBridgeTokens();
 const { refetchBalances } = useTokens();
+const { fNum } = useNumbers();
 
 const emit = defineEmits<{
   (e: 'close'): void;
@@ -213,11 +215,11 @@ const networkIcon = (walletType: WalletType): string => {
       </div>
       <div class="flex relative z-10 justify-between pt-2 text-sm">
         <div>
-          {{ tokenInAmount }}
+          {{ fNum(tokenInAmount, FNumFormats.token) }}
           <span class="font-semibold">{{ token.symbol }}</span>
         </div>
         <div>
-          {{ tokenInAmount }}
+          {{ fNum(tokenInAmount, FNumFormats.token) }}
           <span class="font-semibold">{{ token.symbol }}</span>
         </div>
       </div>
@@ -226,7 +228,7 @@ const networkIcon = (walletType: WalletType): string => {
       <div>
         {{
           $t('bridgeModal.transferringDetail', [
-            tokenInAmount,
+            fNum(tokenInAmount, FNumFormats.token),
             token.symbol,
             walletInType === WalletTypes.EVM ? network.chainName : walletInType,
             walletOutType === WalletTypes.EVM
