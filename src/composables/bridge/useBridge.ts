@@ -76,14 +76,22 @@ export async function bridgeToken(
 
       transaction.recentBlockhash = (
         await connection.getLatestBlockhash('finalized')
-      ).blockhash; // Network blockhash
+      ).blockhash;
+
+      const simulatedTx = await simulateTransaction(
+        connection,
+        transaction,
+        'finalized'
+      );
+      console.log('Solana Simulated Transaction', simulatedTx);
+
       const signature = await sendSolanaTransaction(
         connection,
         transaction,
         true,
         sendTransaction,
         { skipPreflight: false }
-      ); // method for sign and send transaction to network
+      );
 
       addTransaction({
         id: signature,
@@ -331,6 +339,14 @@ export async function bridgeToken(
         unwrapTransaction.recentBlockhash = (
           await connection.getLatestBlockhash()
         ).blockhash;
+
+        const simulatedTx = await simulateTransaction(
+          connection,
+          unwrapTransaction,
+          'finalized'
+        );
+        console.log('Solana Simulated Transaction', simulatedTx);
+
         const signature = await sendSolanaTransaction(
           connection,
           unwrapTransaction,
