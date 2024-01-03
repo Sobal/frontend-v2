@@ -14,8 +14,9 @@ import useWeb3Solana from '@/services/web3/useWeb3Solana';
 import BridgeTokenService from '@/services/token/bridge-token.service';
 import { captureBalancerException, useErrorMsg } from '@/lib/utils/errors';
 import { TransactionActionState } from '@/types/transactions';
-import { TransactionAction } from '@/composables/useTransactions';
-import { NeonProxyRpcApi } from '@/composables/bridge/classes/api';
+import useTransactions, {
+  TransactionAction,
+} from '@/composables/useTransactions';
 
 const {
   tokenInAddress,
@@ -24,6 +25,9 @@ const {
   walletOutType,
   walletInAddress,
   walletOutAddress,
+  bridgeApi,
+  bridgeApiData,
+  bridgeApiLoading,
 } = useBridgeState();
 
 const { network } = configService;
@@ -52,17 +56,18 @@ const primaryActionType: Ref<TransactionAction> = ref('bridgeTokens');
 /**
  * COMPOSABLES
  */
+
+const { publicKeyTrimmed, sendTransaction } = useWeb3Solana();
+const { account, getProvider, chainId, getSigner } = useWeb3();
+const { addTransaction } = useTransactions();
+const { formatErrorMsg } = useErrorMsg();
+const provider = getProvider();
+const signer = getSigner();
 const { t } = useI18n();
 const token = getToken(tokenInAddress.value);
 const actionStates = ref<TransactionActionState[]>([]);
 
-const neonNeonEvmUrl = configService.network.rpc;
-const solanaUrl = configService.network.solanaRpc;
-
-const neonProxyApi = new NeonProxyRpcApi({
-  neonProxyRpcApi: neonNeonEvmUrl,
-  solanaRpcApi: solanaUrl,
-});
+const connection = new BridgeTokenService().connection;
 
 /**
  * COMPUTED
@@ -88,23 +93,7 @@ onBeforeMount(() => {
   }));
 });
 
-const { publicKeyTrimmed, sendTransaction } = useWeb3Solana();
-console.log('publicKeyTrimmed', publicKeyTrimmed.value);
-const { account, getProvider, chainId, getSigner } = useWeb3();
-
-const { formatErrorMsg } = useErrorMsg();
-
-const signer = getSigner();
-
-const connection = new BridgeTokenService().connection;
-
-const provider = getProvider();
-
 async function handleSubmit(state: TransactionActionState) {
-  console.log(actionStates);
-
-  const neonProxyStatus = await neonProxyApi.evmParams();
-
   try {
     state.init = true;
     state.error = null;
@@ -120,8 +109,9 @@ async function handleSubmit(state: TransactionActionState) {
       signer,
       Number(chainId.value),
       sendTransaction,
-      neonProxyApi,
-      neonProxyStatus
+      bridgeApi.value,
+      bridgeApiData.value,
+      addTransaction
     );
 
     state.init = false;
@@ -287,8 +277,15 @@ const networkIcon = (walletType: WalletType): string => {
     <BalBtn
       class="w-full"
       color="gradient"
-      :loading="currentActionState.init || currentActionState.confirming"
+      :loading="
+        currentActionState.init ||
+        currentActionState.confirming ||
+        bridgeApiLoading
+      "
       :disabled="currentActionState.confirmed"
+      :loadingLabel="
+        bridgeApiLoading ? 'Loading API...' : 'Loading Transaction...'
+      "
       @click="handleSubmit(currentActionState)"
       >{{
         currentActionState.confirmed
