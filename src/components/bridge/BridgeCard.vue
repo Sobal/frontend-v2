@@ -8,6 +8,8 @@ import { useBridgeState } from '@/composables/bridge/useBridgeState';
 import TransferPreviewModal from '@/components/bridge/modal/TransferPreviewModal.vue';
 import { useBridgeTokens } from '@/providers/bridge-tokens.provider';
 import { useTokens } from '@/providers/tokens.provider';
+import { NeonProxyRpcApi } from '@/composables/bridge/classes/api';
+import { configService } from '@/services/config/config.service';
 
 /**
  * STATE
@@ -29,9 +31,7 @@ const {
   walletOutSymbol,
   walletInBalance,
   walletOutBalance,
-  // setTokenInAddress,
-  // setTokenOutAddress,
-  // setInitialized,
+  bridgeApiLoading,
   setWalletInType,
   setWalletOutType,
   setWalletOutConnected,
@@ -42,6 +42,9 @@ const {
   setWalletOutSymbol,
   setWalletInBalance,
   setWalletOutBalance,
+  setBridgeApiData,
+  setBridgeApiLoading,
+  setBridgeApi,
 } = useBridgeState();
 
 const {
@@ -134,6 +137,14 @@ const swapDisabled = computed(() => {
   );
 });
 
+const neonNeonEvmUrl = configService.network.rpc;
+const solanaUrl = configService.network.solanaRpc;
+
+const neonProxyApi = new NeonProxyRpcApi({
+  neonProxyRpcApi: neonNeonEvmUrl,
+  solanaRpcApi: solanaUrl,
+});
+
 watchEffect(() => {
   setWalletInAddress(setAddress(walletInType.value));
   setWalletInConnected(setConnected(walletInType.value));
@@ -149,6 +160,17 @@ onBeforeMount(() => {
   setWalletInType(WalletTypes.EVM);
   setWalletOutType(WalletTypes.Solana);
 });
+
+onMounted(() => {
+  getApiData();
+});
+
+async function getApiData() {
+  setBridgeApi(neonProxyApi);
+  const evmParams = await neonProxyApi.evmParams();
+  setBridgeApiData(evmParams);
+  setBridgeApiLoading(false);
+}
 </script>
 
 
@@ -205,6 +227,8 @@ onBeforeMount(() => {
         class="mt-5"
         color="gradient"
         block
+        :loading="bridgeApiLoading"
+        :loadingLabel="bridgeApiLoading ? 'Loading API...' : 'loading...'"
         @click="showPreview = true"
       />
     </div>
