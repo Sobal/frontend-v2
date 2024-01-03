@@ -21,6 +21,7 @@ import { JsonRpcProvider } from '@ethersproject/providers';
 import { Signer } from '@ethersproject/abstract-signer';
 import { WalletAdapterProps } from '@solana/wallet-adapter-base';
 import { NeonProgramStatus } from './interfaces/api';
+import { NewTransaction } from '../useTransactions';
 
 export async function bridgeToken(
   walletType: WalletType,
@@ -33,9 +34,12 @@ export async function bridgeToken(
   signer: Signer,
   chainId: number,
   sendTransaction: WalletAdapterProps['sendTransaction'],
-  neonProxyApi: NeonProxyRpcApi,
-  neonProxyStatus: NeonProgramStatus
+  neonProxyApi: NeonProxyRpcApi | undefined,
+  neonProxyStatus: NeonProgramStatus | undefined,
+  addTransaction: (newTransaction: NewTransaction) => void
 ) {
+  if (!neonProxyStatus || !neonProxyApi) throw 'API not available';
+
   const solanaWallet = new PublicKey(publicKeyTrimmed);
   const nativeOverride = ref(false);
 
@@ -78,6 +82,7 @@ export async function bridgeToken(
         { skipPreflight: false }
       ); // method for sign and send transaction to network
 
+      // TX Type: Solana
       return signature;
     } else if (
       configService.network.solanaNativeAsset &&
@@ -118,6 +123,7 @@ export async function bridgeToken(
         { skipPreflight: false }
       ); // method for sign and send transaction to network
 
+      // TX Type: Solana
       return signature;
     } else {
       const transaction = await neonTransferMintWeb3Transaction(
@@ -151,7 +157,8 @@ export async function bridgeToken(
         sendTransaction,
         { skipPreflight: false }
       );
-      console.log('Solana Transaction Hash', signature);
+
+      // TX Type: Solana
       return signature;
     }
     // EVM to Solana
@@ -173,7 +180,6 @@ export async function bridgeToken(
     const mintPubkey = new PublicKey(tokenOverride.address_spl ?? '');
 
     if (tokenOverride.address === configService.network.nativeAsset.address) {
-      console.log('sending native neon to solana');
       if (!configService.network.bridgeNativeTransferContract)
         throw 'No bridge native transfer contract';
       const neonTransaction = await neonNeonWeb3Transaction(
@@ -190,6 +196,14 @@ export async function bridgeToken(
       );
       console.log('Neon Transaction Hash', signedNeonTransaction);
 
+      addTransaction({
+        id: signedNeonTransaction.hash,
+        type: 'tx',
+        action: `bridgeTokens`,
+        summary: `Transfer ${amount} ${token.symbol} from ${configService.network.chainName} to Solana`,
+      });
+
+      // TX Type: EVM
       return signedNeonTransaction;
     } else {
       const associatedToken = getAssociatedTokenAddressSync(
@@ -226,11 +240,23 @@ export async function bridgeToken(
         sendTransaction,
         { skipPreflight: false }
       );
+
+      // TX Type: Solana
       console.log('Solana Transaction Hash', signedSolanaTransaction);
+
       const signedNeonTransaction = await sendNeonTransaction(
         neonTransaction,
         signer
       );
+
+      addTransaction({
+        id: signedNeonTransaction.hash,
+        type: 'tx',
+        action: `bridgeTokens`,
+        summary: `Transfer ${amount} ${token.symbol} from ${configService.network.chainName} to Solana`,
+      });
+
+      // TX Type: EVM
       console.log('Neon Transaction Hash', signedNeonTransaction);
 
       if (
@@ -254,6 +280,8 @@ export async function bridgeToken(
           sendTransaction,
           { skipPreflight: false }
         );
+
+        // TX Type: Solana
         console.log('Unwrap Tx Hash', signature);
       }
       return signedNeonTransaction;
