@@ -87,9 +87,7 @@ async function handleInputTokenChange(newTokenIn: string) {
   emit('update:evmTokenAddress', newTokenIn);
 
   const tokenInfo = getToken(newTokenIn);
-  tokenInfo.address_spl
-    ? emit('update:solanaTokenAddress', tokenInfo.address_spl)
-    : '';
+  emit('update:solanaTokenAddress', tokenInfo.address_spl ?? '');
 
   const updatedInputAmount = overflowProtected(
     _tokenInAmount.value,
