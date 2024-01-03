@@ -14,6 +14,7 @@ import { cowswapExplorer } from '@/services/cowswap/explorer.service';
 import { cowswapProtocolService } from '@/services/cowswap/cowswapProtocol.service';
 import { OrderMetaData } from '@/services/cowswap/types';
 import useWeb3 from '@/services/web3/useWeb3';
+import useWeb3Solana from '@/services/web3/useWeb3Solana';
 
 import { CowswapTransactionDetails } from './swap/useCowswap';
 import { processedTxs } from './useEthers';
@@ -284,6 +285,7 @@ export default function useTransactions() {
     getProvider: getWeb3Provider,
     blockNumber,
   } = useWeb3();
+  const { solanaExplorerLinks } = useWeb3Solana();
   const { addNotification } = useNotifications();
   const { t } = useI18n();
   const { fNum } = useNumbers();
@@ -412,6 +414,36 @@ export default function useTransactions() {
     }
   }
 
+  function addNotificationForSolanaTransaction(
+    id: string,
+    type: TransactionType
+  ) {
+    const updates: Partial<Transaction> = {
+      finalizedTime: Date.now(),
+    };
+    updates.status = 'fulfilled';
+    const updateSuccessful = updateTransaction(id, type, updates);
+
+    if (updateSuccessful) {
+      const transaction = getTransaction(id, type);
+
+      if (transaction != null) {
+        addNotification({
+          type: 'success',
+          title: `${t(`transactionAction.${transaction.action}`)} ${t(
+            `transactionStatus.fulfilled`
+          )}`,
+          message: transaction.summary,
+          transactionMetadata: {
+            id: transaction.id,
+            status: transaction.status,
+            explorerLink: getExplorerLink(transaction.id, 'tx'),
+          },
+        });
+      }
+    }
+  }
+
   function checkOrderActivity(transaction: Transaction) {
     cowswapProtocolService
       .getOrder(transaction.id)
@@ -468,6 +500,7 @@ export default function useTransactions() {
   }
 
   function getExplorerLink(id: string, type: TransactionType) {
+    if (id.slice(0, 2) !== '0x') return solanaExplorerLinks.txLink(id);
     if (type === 'tx') {
       return explorerLinks.txLink(id);
     }
@@ -486,6 +519,7 @@ export default function useTransactions() {
     isSuccessfulTransaction,
     isPendingTransactionStatus,
     updateTransaction,
+    addNotificationForSolanaTransaction,
 
     // computed
     pendingTransactions,
