@@ -29,42 +29,38 @@
       v-if="!hideBalance"
       class="flex flex-row items-end font-medium text-right"
     >
-      <BalLoadingBlock v-if="balanceLoading" class="w-14 h-4" />
-      <template v-else>
-        <div class="flex flex-row">
-          <template v-if="solanaBalance > 0">
-            <div class="flex flex-col pr-4">
-              <span class="w-14 font-semibold truncate">{{
-                $t('solana')
-              }}</span>
-              <template v-if="solanaBalance >= 0.0001">
-                {{ fNum(solanaBalance, FNumFormats.token) }}
-              </template>
-              <template v-else> &#60; 0.0001 </template>
-              <div
-                v-if="solanaValue > 0"
-                class="text-sm font-normal text-secondary"
-              >
-                {{ fNum(solanaValue, FNumFormats.fiat) }}
-              </div>
+      <div class="flex flex-row">
+        <template v-if="solanaBalance > 0">
+          <div class="flex flex-col pr-4">
+            <span class="w-14 font-semibold truncate">{{ $t('solana') }}</span>
+            <template v-if="solanaBalance >= 0.0001">
+              {{ fNum(solanaBalance, FNumFormats.token) }}
+            </template>
+            <template v-else> &#60; 0.0001 </template>
+            <div
+              v-if="solanaValue > 0"
+              class="text-sm font-normal text-secondary"
+            >
+              {{ fNum(solanaValue, FNumFormats.fiat) }}
             </div>
-          </template>
-          <template v-if="balance > 0">
-            <div class="flex flex-col">
-              <span v-if="solana" class="w-14 font-semibold truncate">{{
-                network.chainName
-              }}</span>
-              <template v-if="balance >= 0.0001">
-                {{ fNum(balance, FNumFormats.token) }}
-              </template>
-              <template v-else> &#60; 0.0001 </template>
-              <div v-if="value > 0" class="text-sm font-normal text-secondary">
-                {{ fNum(value, FNumFormats.fiat) }}
-              </div>
+          </div>
+        </template>
+        <template v-if="balance > 0">
+          <div class="flex flex-col">
+            <span v-if="solana" class="w-14 font-semibold truncate">{{
+              network.chainName
+            }}</span>
+            <template v-if="balance >= 0.0001">
+              {{ fNum(balance, FNumFormats.token) }}
+            </template>
+            <template v-else> &#60; 0.0001 </template>
+            <div v-if="value > 0" class="text-sm font-normal text-secondary">
+              {{ fNum(value, FNumFormats.fiat) }}
             </div>
-          </template>
-        </div>
-      </template>
+          </div>
+        </template>
+        <BalLoadingBlock v-if="balanceLoading" class="w-14 h-4" />
+      </div>
     </span>
   </div>
 </template>
