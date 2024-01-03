@@ -371,6 +371,7 @@ export function useErrorMsg() {
 
   function formatErrorMsg(error): TransactionError | null {
     // if (isUserError(error)) return null;
+    if (isUserNotEnoughGas(error)) return gasTooLowError;
     if (isErrorOfType(error, [/-32010/])) return gasTooLowError;
     if (isErrorOfType(error, [/BAL#507/i])) return slippageError;
     if (isErrorOfType(error, [/BAL#505/i])) return slippageError;
@@ -378,7 +379,7 @@ export function useErrorMsg() {
       return cannotEstimateGasError;
 
     return defaultError(
-      typeof error === 'string' ? error : error.message ?? ''
+      typeof error === 'string' ? error.trim() : error.message ?? ''
     );
   }
 
