@@ -145,6 +145,8 @@ export interface Config {
   keys: Keys;
   solanaRpc: string;
   solanaRpcName?: string;
+  solanaExplorer?: string;
+  solanaExplorerSuffix?: string;
   gauges: {
     type: number;
     weight: number;

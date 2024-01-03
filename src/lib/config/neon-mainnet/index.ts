@@ -38,6 +38,8 @@ const config: Config = {
   solanaRpc:
     'https://mainnet.helius-rpc.com/?api-key=804a681b-735c-4970-bbcc-b64e84575d24',
   solanaRpcName: 'mainnet-beta',
+  solanaExplorer: 'https://solscan.io',
+  solanaExplorerSuffix: '',
   bridgeUi: true,
   supportsEIP1559: false,
   supportsElementPools: false,

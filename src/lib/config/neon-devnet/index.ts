@@ -68,6 +68,8 @@ const config: Config = {
       'https://github.com/Sobal/tokenlists/blob/main/src/assets/images/tokens/0x5f38248f339bf4e84a2caf4e4c0552862dc9f82a.png?raw=true',
     minTransactionBuffer: '0.1',
   },
+  solanaExplorer: 'https://solscan.io',
+  solanaExplorerSuffix: '?cluster=devnet',
   bridgeNativeTransferContract: '0x5238c694a8db837fff8c4068859e765b978a7607',
   thirdParty: {
     coingecko: {
