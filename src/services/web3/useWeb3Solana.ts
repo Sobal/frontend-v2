@@ -1,5 +1,6 @@
 import { useWallet } from 'solana-wallets-vue';
 import { computed, ref } from 'vue';
+import { configService } from '../config/config.service';
 
 /** STATE */
 const isSolanaWalletSelectVisible = ref(false);
@@ -46,6 +47,15 @@ export default function useWeb3Solana() {
     return connecting.value && !wallet.value;
   });
 
+  const solanaExplorerLinks = {
+    txLink: (txHash: string) =>
+      `${configService.network.solanaExplorer}/tx/${txHash}/${configService.network.solanaExplorerSuffix}`,
+    addressLink: (address: string) =>
+      `${configService.network.solanaExplorer}/address/${address}/${configService.network.solanaExplorerSuffix}`,
+    tokenLink: (address: string) =>
+      `${configService.network.solanaExplorer}/token/${address}/${configService.network.solanaExplorerSuffix}`,
+  };
+
   return {
     content,
     publicKeyTrimmed,
@@ -54,6 +64,7 @@ export default function useWeb3Solana() {
     isConnected,
     isSolanaWalletSelectVisible,
     isConnecting,
+    solanaExplorerLinks,
 
     //methods
     toggleSolanaWalletSelectModal,
