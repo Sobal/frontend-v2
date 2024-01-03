@@ -21,7 +21,8 @@ import { JsonRpcProvider } from '@ethersproject/providers';
 import { Signer } from '@ethersproject/abstract-signer';
 import { WalletAdapterProps } from '@solana/wallet-adapter-base';
 import { NeonProgramStatus } from './interfaces/api';
-import { NewTransaction } from '../useTransactions';
+import { NewTransaction, TransactionType } from '../useTransactions';
+import { sleep } from '@/lib/utils';
 
 export async function bridgeToken(
   walletType: WalletType,
@@ -36,7 +37,11 @@ export async function bridgeToken(
   sendTransaction: WalletAdapterProps['sendTransaction'],
   neonProxyApi: NeonProxyRpcApi | undefined,
   neonProxyStatus: NeonProgramStatus | undefined,
-  addTransaction: (newTransaction: NewTransaction) => void
+  addTransaction: (newTransaction: NewTransaction) => void,
+  addNotificationForSolanaTransaction: (
+    id: string,
+    type: TransactionType
+  ) => void
 ) {
   if (!neonProxyStatus || !neonProxyApi) throw 'API not available';
 
@@ -77,10 +82,21 @@ export async function bridgeToken(
       const signature = await sendSolanaTransaction(
         connection,
         transaction,
-        false,
+        true,
         sendTransaction,
         { skipPreflight: false }
       ); // method for sign and send transaction to network
+
+      addTransaction({
+        id: signature,
+        type: 'tx',
+        action: `bridgeTokens`,
+        summary: `Transfer ${amount} ${token.symbol} to ${configService.network.chainName}`,
+      });
+
+      await sleep(1000);
+
+      addNotificationForSolanaTransaction(signature, 'tx');
 
       // TX Type: Solana
       return signature;
@@ -118,10 +134,21 @@ export async function bridgeToken(
       const signature = await sendSolanaTransaction(
         connection,
         transaction,
-        false,
+        true,
         sendTransaction,
         { skipPreflight: false }
-      ); // method for sign and send transaction to network
+      );
+
+      addTransaction({
+        id: signature,
+        type: 'tx',
+        action: `bridgeTokens`,
+        summary: `Transfer ${amount} ${token.symbol} to ${configService.network.chainName}`,
+      });
+
+      await sleep(1000);
+
+      addNotificationForSolanaTransaction(signature, 'tx');
 
       // TX Type: Solana
       return signature;
@@ -158,6 +185,17 @@ export async function bridgeToken(
         { skipPreflight: false }
       );
 
+      addTransaction({
+        id: signature,
+        type: 'tx',
+        action: `bridgeTokens`,
+        summary: `Transfer ${amount} ${token.symbol} to ${configService.network.chainName}`,
+      });
+
+      await sleep(1000);
+
+      addNotificationForSolanaTransaction(signature, 'tx');
+
       // TX Type: Solana
       return signature;
     }
@@ -170,6 +208,16 @@ export async function bridgeToken(
       const unwrapTx = await unwrapNeonWeb3(signer, token, amount);
       console.log('unwrapTx', unwrapTx);
       nativeOverride.value = true;
+
+      addTransaction({
+        id: unwrapTx.hash,
+        type: 'tx',
+        action: `bridgeTokens`,
+        summary: `Unwrap ${amount} ${token.symbol}`,
+      });
+
+      // TX Type: EVM
+      await unwrapTx.wait();
     }
 
     if (!token.address_spl && !nativeOverride.value)
@@ -241,6 +289,17 @@ export async function bridgeToken(
         { skipPreflight: false }
       );
 
+      addTransaction({
+        id: signedSolanaTransaction,
+        type: 'tx',
+        action: `bridgeTokens`,
+        summary: `Prepare to receive ${amount} ${token.symbol} on Solana`,
+      });
+
+      await sleep(1000);
+
+      addNotificationForSolanaTransaction(signedSolanaTransaction, 'tx');
+
       // TX Type: Solana
       console.log('Solana Transaction Hash', signedSolanaTransaction);
 
@@ -258,6 +317,8 @@ export async function bridgeToken(
 
       // TX Type: EVM
       console.log('Neon Transaction Hash', signedNeonTransaction);
+
+      await signedNeonTransaction.wait();
 
       if (
         configService.network.bridgeUnwrapOut &&
@@ -280,6 +341,15 @@ export async function bridgeToken(
           sendTransaction,
           { skipPreflight: false }
         );
+
+        addTransaction({
+          id: signature,
+          type: 'tx',
+          action: `bridgeTokens`,
+          summary: `Unwrap ${token.symbol} on Solana`,
+        });
+
+        addNotificationForSolanaTransaction(signature, 'tx');
 
         // TX Type: Solana
         console.log('Unwrap Tx Hash', signature);
