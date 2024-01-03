@@ -5,9 +5,10 @@ import { useBridgeState } from '@/composables/bridge/useBridgeState';
 import { configService } from '@/services/config/config.service';
 import { buildNetworkIconURL } from '@/lib/utils/urls';
 import { WalletType, WalletTypes } from '@/types/wallet';
+import { useTokens } from '@/providers/tokens.provider';
 import { useBridgeTokens } from '@/providers/bridge-tokens.provider';
 import solanaLogo from '@/assets/images/landing/thirdPartyLogos/solana_wallet_logo.svg';
-import { shorten } from '@/lib/utils';
+import { shorten, sleep } from '@/lib/utils';
 import { bridgeToken } from '@/composables/bridge/useBridge';
 import useWeb3 from '@/services/web3/useWeb3';
 import useWeb3Solana from '@/services/web3/useWeb3Solana';
@@ -31,7 +32,8 @@ const {
 } = useBridgeState();
 
 const { network } = configService;
-const { getToken } = useBridgeTokens();
+const { getToken, refetchBridgeBalances } = useBridgeTokens();
+const { refetchBalances } = useTokens();
 
 const emit = defineEmits<{
   (e: 'close'): void;
@@ -59,7 +61,8 @@ const primaryActionType: Ref<TransactionAction> = ref('bridgeTokens');
 
 const { publicKeyTrimmed, sendTransaction } = useWeb3Solana();
 const { account, getProvider, chainId, getSigner } = useWeb3();
-const { addTransaction } = useTransactions();
+const { addTransaction, addNotificationForSolanaTransaction } =
+  useTransactions();
 const { formatErrorMsg } = useErrorMsg();
 const provider = getProvider();
 const signer = getSigner();
@@ -111,13 +114,17 @@ async function handleSubmit(state: TransactionActionState) {
       sendTransaction,
       bridgeApi.value,
       bridgeApiData.value,
-      addTransaction
+      addTransaction,
+      addNotificationForSolanaTransaction
     );
 
     state.init = false;
     state.confirming = false;
     state.confirmed = true;
     state.confirmedAt = new Date().toString();
+    await sleep(3000);
+    await refetchBridgeBalances();
+    await refetchBalances();
   } catch (error) {
     console.log(error);
     state.init = false;
@@ -128,6 +135,9 @@ async function handleSubmit(state: TransactionActionState) {
       action: primaryActionType.value,
       context: { level: 'fatal' },
     });
+    await sleep(3000);
+    await refetchBridgeBalances();
+    await refetchBalances();
   }
 }
 
@@ -153,21 +163,6 @@ const networkIcon = (walletType: WalletType): string => {
     return buildNetworkIconURL(network.chainId);
   else return solanaLogo;
 };
-
-// const { addTransaction } = useTransactions();
-// const { txListener } = useEthers();
-
-// addTransaction({
-//   id: 'abcdefg',
-//   type: 'tx',
-//   action: 'bridgeTokens',
-//   summary: 'potato2',
-//   details: {
-//     name: 'potato',
-//     tokenInAmount: '123',
-//     tokenOutAmount: '456',
-//   },
-// });
 </script>
 
 <template>
