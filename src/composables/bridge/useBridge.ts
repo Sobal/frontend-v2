@@ -59,13 +59,11 @@ export async function bridgeToken(
       configService.network.nativeAsset.address_spl
     );
 
-    if (token.address === configService.network.nativeAsset.address) {
-      console.log(
-        'neonEvmProgram,neonTokenMint',
-        neonEvmProgram,
-        neonTokenMint
-      );
-
+    if (
+      token.address === configService.network.nativeAsset.address ||
+      configService.network.tokens.Addresses.wNativeAsset.toLowerCase() ===
+        token.address.toLowerCase()
+    ) {
       const transaction = await solanaNEONTransferTransaction(
         solanaWallet,
         account,
@@ -206,7 +204,6 @@ export async function bridgeToken(
       token.address.toLowerCase()
     ) {
       const unwrapTx = await unwrapNeonWeb3(signer, token, amount);
-      console.log('unwrapTx', unwrapTx);
       nativeOverride.value = true;
 
       addTransaction({
