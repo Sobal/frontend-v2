@@ -71,7 +71,8 @@ export async function bridgeToken(
         neonTokenMint,
         configService.network.nativeAsset,
         amount,
-        chainId
+        chainId,
+        configService.network.solanaLegacy
       );
 
       transaction.recentBlockhash = (
@@ -123,7 +124,8 @@ export async function bridgeToken(
         account,
         configService.network.solanaNativeAsset,
         amount,
-        chainId
+        chainId,
+        configService.network.solanaLegacy
       );
 
       transaction.recentBlockhash = (
@@ -169,7 +171,8 @@ export async function bridgeToken(
         account,
         token,
         amount,
-        chainId
+        chainId,
+        configService.network.solanaLegacy
       );
 
       transaction.recentBlockhash = (
