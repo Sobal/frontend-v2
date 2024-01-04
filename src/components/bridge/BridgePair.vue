@@ -7,8 +7,13 @@ import { WalletType, WalletTypes } from '@/types/wallet';
 
 import { useBridgeTokens } from '@/providers/bridge-tokens.provider';
 import { overflowProtected } from '@/components/_global/BalTextInput/helpers';
+import useBreakpoints from '@/composables/useBreakpoints';
+import { networkConfig } from '@/composables/useNetwork';
+import { useI18n } from 'vue-i18n';
 
 const { getToken } = useBridgeTokens();
+const { bp } = useBreakpoints();
+const { t } = useI18n();
 
 /**
  * TYPES
@@ -137,10 +142,33 @@ watchEffect(() => {
 const tokenDecimals = computed(() =>
   props.evmTokenAddress ? getToken(props.evmTokenAddress).decimals : 18
 ); // Set default decimals to 18 when no token selected
+
+const swapCardShadow = computed(() => {
+  switch (bp.value) {
+    case 'xs':
+      return 'none';
+    case 'sm':
+      return 'lg';
+    default:
+      return 'xl';
+  }
+});
+
+const title = computed(() => {
+  return `${t('bridgeCard.title')} ${
+    props.walletInType === WalletTypes.EVM
+      ? WalletTypes.Solana
+      : networkConfig.chainName
+  }`;
+});
 </script>
 
 <template>
-  <div class="flex flex-col">
+  <BalCard class="relative card-container" :shadow="swapCardShadow" noBorder>
+    <template #header>
+      <h4>{{ title }}</h4>
+    </template>
+
     <BridgeInput
       name="bridgeIn"
       bridgeType="From"
@@ -157,9 +185,10 @@ const tokenDecimals = computed(() =>
       @action:connect-wallet="handleInWalletConnection"
       @action:disconnect-wallet="handleInWalletDisconnection"
     />
-    <div class="flex items-center my-4">
+    <div class="flex items-center my-2">
+      <div class="mx-2 h-px bg-gray-100 dark:bg-gray-700 grow" />
       <BridgePairToggle gle turnFully @toggle="handleTokenSwitch" />
-      <div class="flex-grow mx-2 h-px bg-gray-900 dark:bg-gray-900" />
+      <div class="mx-2 h-px bg-gray-100 dark:bg-gray-700 grow" />
     </div>
     <BridgeInput
       name="bridgeOut"
@@ -177,5 +206,5 @@ const tokenDecimals = computed(() =>
       @action:connect-wallet="handleOutWalletConnection"
       @action:disconnect-wallet="handleOutWalletDisconnection"
     />
-  </div>
+  </BalCard>
 </template>
