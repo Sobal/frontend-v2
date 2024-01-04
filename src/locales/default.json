@@ -197,6 +197,15 @@
   "bugBounty": "Bug bounty",
   "bridge": "Bridge",
   "bridgeOn": "Bridge tokens on",
+  "bridgeCard": {
+    "title": "Bridge to",
+    "neonpass": "Seamless bridging in collaboration with",
+    "poweredBy": "Bridging powered directly by Neon EVM and Solana VM",
+    "warnings": {
+      "notSupported": "We do not support this network for bridging, please use the external service provider below.",
+      "noService": "This network does not have a bridge service."
+    }
+  },
   "builtOnSobal": "Available on the Sobal Protocol",
   "boosted": "Boosted",
   "incentivized": "Incentivized",
