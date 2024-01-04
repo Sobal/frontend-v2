@@ -40,6 +40,7 @@ const config: Config = {
   solanaRpcName: 'mainnet-beta',
   solanaExplorer: 'https://solscan.io',
   solanaExplorerSuffix: '',
+  solanaLegacy: true,
   bridgeUi: true,
   supportsEIP1559: false,
   supportsElementPools: false,
