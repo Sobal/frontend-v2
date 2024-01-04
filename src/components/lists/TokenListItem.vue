@@ -31,8 +31,8 @@
     >
       <div class="flex flex-row">
         <template v-if="solanaBalance > 0">
-          <div class="flex flex-col pr-4">
-            <span class="w-14 font-semibold truncate">{{ $t('solana') }}</span>
+          <div class="flex flex-col pr-2">
+            <span class="text-xs font-semibold">{{ $t('solana') }}</span>
             <template v-if="solanaBalance >= 0.0001">
               {{ fNum(solanaBalance, FNumFormats.token) }}
             </template>
@@ -47,7 +47,7 @@
         </template>
         <template v-if="balance > 0">
           <div class="flex flex-col">
-            <span v-if="solana" class="w-14 font-semibold truncate">{{
+            <span v-if="solana" class="text-xs font-semibold truncate">{{
               network.chainName
             }}</span>
             <template v-if="balance >= 0.0001">
