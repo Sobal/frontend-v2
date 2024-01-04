@@ -45,13 +45,13 @@ onMounted(() => {
       <BridgeCard />
       <div class="flex flex-col">
         <p class="self-center mt-5 text-center">
-          Seamless bridging in collaboration with
+          {{ $t('bridgeCard.neonpass') }}
         </p>
         <img class="self-center mt-2" width="150" :src="neonPassLogo" />
       </div>
-      <div class="mt-10 bg-green-600 bg-opacity-20 rounded-xl">
-        <p class="p-5 text-xs text-center text-green-600">
-          Bridging powered directly by Neon EVM and Solana VM
+      <div class="mt-10 bg-green-600 bg-opacity-5 rounded-xl">
+        <p class="p-5 text-sm font-medium text-center text-green-700">
+          {{ $t('bridgeCard.poweredBy') }}
         </p>
       </div></Col3Layout
     >
@@ -60,16 +60,12 @@ onMounted(() => {
     <BalAlert
       block
       type="warning"
-      title="We do not support this network for bridging, please use the external service provider below."
+      :title="$t('bridgeCard.warnings.notSupported')"
     />
     <BridgeLinkExternal />
   </div>
   <div v-else>
-    <BalAlert
-      block
-      type="error"
-      title="This network does not have a bridge service."
-    />
+    <BalAlert block type="error" :title="$t('bridgeCard.warnings.noService')" />
   </div>
 </template>
 
