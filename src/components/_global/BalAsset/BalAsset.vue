@@ -11,6 +11,7 @@ type Props = {
   size?: number;
   button?: boolean;
   disabled?: boolean;
+  showBg?: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
@@ -19,6 +20,7 @@ const props = withDefaults(defineProps<Props>(), {
   size: 24,
   button: false,
   disabled: false,
+  showBg: false,
 });
 
 /**
@@ -79,7 +81,7 @@ watch(iconSRC, newURL => {
       alt="icon"
       :width="size"
       :height="size"
-      class="bg-white rounded-full"
+      :class="[{ 'bg-white': showBg }, 'rounded-full']"
       loading="lazy"
       @error="error = true"
     />

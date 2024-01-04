@@ -6,21 +6,21 @@ import { Connector, ConnectorId } from '../connector';
 import { Network } from '@/lib/config';
 import useDarkMode from '@/composables/useDarkMode';
 
-const { MAINNET, POLYGON, ARBITRUM, GNOSIS, ZKEVM } = Network;
+const { MAINNET, NEON_MAINNET, NEON_DEVNET, BASE, BASE_GOERLI } = Network;
 
 export class WalletConnectConnector extends Connector {
   id = ConnectorId.WalletConnect;
   async connect() {
     const provider = await EthereumProvider.init({
-      projectId: 'ee9c0c7e1b8b86ebdfb8fd93bb116ca8',
+      projectId: '96ec07ab805a6abb425fb22135bd41a1',
       chains: [MAINNET],
-      optionalChains: [POLYGON, ARBITRUM, GNOSIS],
+      optionalChains: [NEON_MAINNET, NEON_DEVNET, BASE, BASE_GOERLI],
       rpcMap: {
-        [MAINNET]: configService.getNetworkRpc(MAINNET),
-        [POLYGON]: configService.getNetworkRpc(POLYGON),
-        [ARBITRUM]: configService.getNetworkRpc(ARBITRUM),
-        [GNOSIS]: configService.getNetworkRpc(GNOSIS),
-        [ZKEVM]: configService.getNetworkRpc(ZKEVM),
+        [MAINNET]: configService.getNetworkRpc(NEON_MAINNET),
+        [NEON_MAINNET]: configService.getNetworkRpc(NEON_MAINNET),
+        [NEON_DEVNET]: configService.getNetworkRpc(NEON_DEVNET),
+        [BASE]: configService.getNetworkRpc(BASE),
+        [BASE_GOERLI]: configService.getNetworkRpc(BASE_GOERLI),
       },
       showQrModal: true,
       qrModalOptions: { themeMode: useDarkMode().darkMode ? 'dark' : 'light' },

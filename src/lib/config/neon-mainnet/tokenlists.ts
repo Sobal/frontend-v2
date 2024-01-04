@@ -5,7 +5,8 @@ const tokenlists: TokenListURLMap = {
     Allowlisted:
       'https://raw.githubusercontent.com/Sobal/tokenlists/main/generated/sobal.tokenlist.json',
   },
-  External: [
+  External: [],
+  Bridge: [
     'https://raw.githubusercontent.com/neonlabsorg/token-list/main/tokenlist.json',
   ],
 };

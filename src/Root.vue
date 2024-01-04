@@ -7,6 +7,7 @@ import App from './App.vue';
 import { provideUserSettings } from '@/providers/user-settings.provider';
 import { provideTokenLists } from '@/providers/token-lists.provider';
 import { provideTokens } from '@/providers/tokens.provider';
+import { bridgeProvideTokens } from '@/providers/bridge-tokens.provider';
 import { provideUserData } from '@/providers/user-data.provider';
 import { provideWallets } from './providers/wallet.provider';
 import { createProviderComponent } from './providers/createProviderComponent';
@@ -18,6 +19,7 @@ const GlobalProvider = createProviderComponent(() => {
   const userSettings = provideUserSettings();
   const tokenLists = provideTokenLists();
   provideTokens(userSettings, tokenLists);
+  bridgeProvideTokens(userSettings, tokenLists);
   provideUserData();
   provideCrossChainSync();
 });

@@ -36,6 +36,8 @@ export default function usePools(
 
   const isLoading = computed(() => isQueryLoading(poolsQuery));
 
+  const poolQueryError = computed(() => poolsQuery.isError);
+
   const poolsHasNextPage = computed(() => poolsQuery.hasNextPage?.value);
   const poolsIsFetchingNextPage = computed(
     () => poolsQuery.isFetchingNextPage?.value
@@ -69,5 +71,6 @@ export default function usePools(
     poolsIsFetchingNextPage,
     // methods
     loadMorePools,
+    poolQueryError,
   };
 }

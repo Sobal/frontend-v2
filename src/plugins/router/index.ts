@@ -3,11 +3,9 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { isGoerli } from '@/composables/useNetwork';
 import { applyNavGuards } from './nav-guards';
 
-const ClaimPage = () => import('@/pages/claim/index.vue');
-const LegacyClaimPage = () => import('@/pages/claim/legacy.vue');
 const CookiesPolicyPage = () => import('@/pages/cookies-policy.vue');
-const GetVeBalPage = () => import('@/pages/get-vebal.vue');
 const HomePage = () => import('@/pages/index.vue');
+const Landing = () => import('@/pages/landing.vue');
 const PoolPage = () =>
   import(/* webpackPrefetch: true */ '@/pages/pool/_id.vue');
 const CreatePoolPage = () => import('@/pages/pool/create.vue');
@@ -17,16 +15,19 @@ const PrivacyPolicyPage = () => import('@/pages/privacy-policy.vue');
 const TermsOfUsePage = () => import('@/pages/terms-of-use.vue');
 const RisksPage = () => import('@/pages/risks.vue');
 const SwapPage = () => import('@/pages/swap.vue');
+const FaucetPage = () => import('@/pages/faucet.vue');
+const PortfolioPage = () => import('@/pages/portfolio.vue');
+const BridgePage = () => import('@/pages/bridge.vue');
 
 export const SwapPagePrefetchLinks = async () =>
   import('@/pages/swap.vue').toString();
 
-const UnlockVeBalPage = () => import('@/pages/unlock-vebal.vue');
-const VeBalPage = () => import('@/pages/vebal.vue');
-const FaucetPage = () => import('@/pages/faucet.vue');
-const BalancesPage = () => import('@/pages/balances.vue');
-
-const PortfolioPage = () => import('@/pages/portfolio.vue');
+// const ClaimPage = () => import('@/pages/claim/index.vue');
+// const LegacyClaimPage = () => import('@/pages/claim/legacy.vue');
+// const GetVeBalPage = () => import('@/pages/get-vebal.vue');
+// const UnlockVeBalPage = () => import('@/pages/unlock-vebal.vue');
+// const VeBalPage = () => import('@/pages/vebal.vue');
+// const BalancesPage = () => import('@/pages/balances.vue');
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -40,9 +41,15 @@ declare module 'vue-router' {
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/',
+    path: '/pools',
     name: 'home',
     component: HomePage,
+  },
+  {
+    path: '/:networkSlug?',
+    name: 'landing',
+    component: Landing,
+    meta: { layout: 'LandingLayout' },
   },
   {
     path: '/terms-of-use',
@@ -72,6 +79,11 @@ const routes: RouteRecordRaw[] = [
     path: '/:networkSlug/swap/:assetIn?/:assetOut?',
     name: 'swap',
     component: SwapPage,
+  },
+  {
+    path: '/:networkSlug/bridge/:assetIn?/:assetOut?',
+    name: 'bridge',
+    component: BridgePage,
   },
   {
     path: '/:networkSlug/trade/:assetIn?/:assetOut?',
@@ -111,45 +123,45 @@ const routes: RouteRecordRaw[] = [
     component: PoolWithdrawPage,
     meta: { layout: 'PoolLayout' },
   },
-  {
-    path: '/:networkSlug/vebal',
-    name: 'vebal',
-    component: VeBalPage,
-  },
-  {
-    path: '/:networkSlug/get-vebal',
-    name: 'get-vebal',
-    component: GetVeBalPage,
-    meta: { layout: 'FocussedLayout' },
-  },
-  {
-    path: '/:networkSlug/unlock',
-    name: 'unlock',
-    component: UnlockVeBalPage,
-    meta: { layout: 'FocussedLayout' },
-  },
-  {
-    path: '/:networkSlug/claim',
-    name: 'claim',
-    component: ClaimPage,
-  },
-  {
-    path: '/:networkSlug/claim/legacy',
-    name: 'legacy-claim',
-    component: LegacyClaimPage,
-  },
+  // {
+  //   path: '/:networkSlug/vebal',
+  //   name: 'vebal',
+  //   component: VeBalPage,
+  // },
+  // {
+  //   path: '/:networkSlug/get-vebal',
+  //   name: 'get-vebal',
+  //   component: GetVeBalPage,
+  //   meta: { layout: 'FocussedLayout' },
+  // },
+  // {
+  //   path: '/:networkSlug/unlock',
+  //   name: 'unlock',
+  //   component: UnlockVeBalPage,
+  //   meta: { layout: 'FocussedLayout' },
+  // },
+  // {
+  //   path: '/:networkSlug/claim',
+  //   name: 'claim',
+  //   component: ClaimPage,
+  // },
+  // {
+  //   path: '/:networkSlug/claim/legacy',
+  //   name: 'legacy-claim',
+  //   component: LegacyClaimPage,
+  // },
+  // {
+  //   path: '/:networkSlug/balances',
+  //   name: 'balances',
+  //   component: BalancesPage,
+  // },
   {
     path: '/:networkSlug/portfolio',
     name: 'portfolio',
     component: PortfolioPage,
   },
   {
-    path: '/:networkSlug/balances',
-    name: 'balances',
-    component: BalancesPage,
-  },
-  {
-    path: '/:networkSlug?',
+    path: '/:networkSlug?/pools',
     name: 'home',
     component: HomePage,
     beforeEnter: (to, from, next) => {

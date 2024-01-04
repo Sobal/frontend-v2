@@ -91,7 +91,7 @@ onMounted(async () => {
   >
     <template #header>
       <div
-        class="grid p-4 w-full text-base font-semibold border-b dark:border-gray-900"
+        class="grid p-4 w-full text-base font-semibold rounded-md border-t border-r border-l dark:border-gray-800"
         :class="[isWeighted ? 'grid-cols-5' : 'grid-cols-4']"
       >
         <div>{{ $t('token') }}</div>
@@ -110,7 +110,7 @@ onMounted(async () => {
       </div>
     </template>
 
-    <div class="grid">
+    <div class="grid rounded-md border-r border-l dark:border-gray-800 striped">
       <div
         v-for="token in rootPool.tokens"
         :key="token.address"
@@ -133,5 +133,13 @@ onMounted(async () => {
 
 .nested-group:has(.level-2) {
   @apply dark:border-gray-900 border-t first:border-0;
+}
+
+.striped div:nth-child(odd) {
+  @apply dark:bg-gray-900;
+}
+
+.striped div:last-child {
+  @apply border-b border-gray-800 rounded-md;
 }
 </style>

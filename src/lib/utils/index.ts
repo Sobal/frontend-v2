@@ -8,8 +8,8 @@ import pkg from '@/../package.json';
 import { NATIVE_ASSET_ADDRESS } from '@/constants/tokens';
 import { POOLS } from '@/constants/pools';
 
-export function shorten(str = '') {
-  return `${str.slice(0, 6)}...${str.slice(str.length - 4)}`;
+export function shorten(str = '', slice1 = 6, slice2 = 4) {
+  return `${str.slice(0, slice1)}...${str.slice(str.length - slice2)}`;
 }
 
 export async function sleep(time) {

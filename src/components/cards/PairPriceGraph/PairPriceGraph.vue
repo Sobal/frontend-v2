@@ -84,25 +84,44 @@ async function getPairPriceData(
 const chartTimespans = [
   {
     option: '1d',
+    fulltext: 'day',
     value: 1,
   },
   {
     option: '1w',
+    fulltext: 'week',
     value: 7,
   },
   {
     option: '1m',
+    fulltext: 'month',
     value: 30,
   },
   {
     option: '1y',
+    fulltext: '1 day',
     value: 365,
   },
   {
     option: 'All',
+    fulltext: '&infin;',
     value: 4000,
   },
 ];
+
+type Props = {
+  landing?: boolean;
+  chain?: string;
+  height?: string;
+  hideTooltip?: boolean;
+};
+
+const props = withDefaults(defineProps<Props>(), {
+  landing: false,
+  chain: '',
+  height: '120',
+  hideTooltip: false,
+});
 
 const { upToLargeBreakpoint } = useBreakpoints();
 const { t } = useI18n();
@@ -111,8 +130,8 @@ const { tokenInAddress, tokenOutAddress, initialized } = useSwapState();
 const tailwind = useTailwind();
 const { chainId: userNetworkId, appNetworkConfig } = useWeb3();
 
-const chartHeight = ref(upToLargeBreakpoint ? 75 : 100);
-const activeTimespan = ref(chartTimespans[0]);
+const chartHeight = ref(Number(props.height));
+const activeTimespan = ref(chartTimespans[1]);
 
 const inputSym = computed(() => {
   if (tokenInAddress.value === '') return 'Unknown';
@@ -189,10 +208,7 @@ const chartBlankText = computed(() => {
 const isNegativeTrend = computed(() => {
   const _priceData = priceData.value || [];
   if (_priceData.length > 2) {
-    if (
-      _priceData[_priceData.length - 1][1] <
-      _priceData[_priceData.length - 2][1]
-    ) {
+    if (_priceData[_priceData.length - 1][1] < _priceData[0][1]) {
       return true;
     }
   }
@@ -217,8 +233,8 @@ const chartGrid = computed(() => {
 </script>
 
 <template>
-  <div class="h-40 lg:h-56">
-    <BalLoadingBlock v-if="isLoadingPriceData" class="h-56" />
+  <div>
+    <BalLoadingBlock v-if="isLoadingPriceData" class="h-40" />
     <BalCard
       v-else
       :square="upToLargeBreakpoint"
@@ -226,20 +242,13 @@ const chartGrid = computed(() => {
       hFull
       growContent
       noPad
+      :background="false"
       :noBorder="upToLargeBreakpoint"
     >
-      <div class="relative p-4 h-full bg-transparent">
-        <div v-if="!failedToLoadPriceData && !isLoadingPriceData" class="flex">
-          <h6 class="font-medium">{{ outputSym }}/{{ inputSym }}</h6>
-          <BalTooltip class="ml-2" :text="$t('coingeckoPricingTooltip')">
-            <template #activator>
-              <img class="h-5" src="@/assets/images/icons/coingecko.svg" />
-            </template>
-          </BalTooltip>
-        </div>
+      <div class="relative p-4 lg:p-0 h-full bg-transparent">
         <div
           v-if="failedToLoadPriceData && tokenOutAddress"
-          class="flex justify-center items-center w-full h-full"
+          class="flex justify-center items-center w-full h-40"
         >
           <span class="text-sm text-gray-400">{{
             $t('insufficientData')
@@ -272,17 +281,35 @@ const chartGrid = computed(() => {
                 yAxis: { maximumSignificantDigits: 6, fixedFormat: true },
               }"
               wrapperClass="flex flex-row lg:flex-col flex-row"
-              :showTooltip="!upToLargeBreakpoint"
+              :showTooltip="!upToLargeBreakpoint && !landing"
               chartType="line"
               hideYAxis
               hideXAxis
               showHeader
               useMinMax
+              :inputSym="inputSym"
+              :outputSym="outputSym"
+              :timespan="activeTimespan.fulltext"
+              :landing="landing"
             />
             <div class="-mt-2 lg:mt-2">
-              <span class="flex justify-end w-full text-sm text-gray-500">{{
-                activeTimespan.option
-              }}</span>
+              <span
+                class="flex justify-end w-full text-sm text-gray-500"
+                :class="{ 'pr-4': landing }"
+                >{{ activeTimespan.option }}
+                <BalTooltip
+                  v-if="!hideTooltip"
+                  class="ml-2"
+                  :text="$t('coingeckoPricingTooltip')"
+                >
+                  <template #activator>
+                    <img
+                      class="h-5"
+                      src="@/assets/images/icons/coingecko.svg"
+                    />
+                  </template>
+                </BalTooltip>
+              </span>
             </div>
           </template>
         </div>

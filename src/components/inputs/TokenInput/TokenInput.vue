@@ -190,7 +190,7 @@ const bufferPercentage = computed(() => {
 });
 
 const barColor = computed(() =>
-  amountExceedsTokenBalance.value ? 'red' : 'green'
+  amountExceedsTokenBalance.value ? 'red' : 'blue'
 );
 
 const priceImpactSign = computed(() => (props.priceImpact >= 0 ? '-' : '+'));

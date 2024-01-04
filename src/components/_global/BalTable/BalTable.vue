@@ -214,7 +214,7 @@ watch(
 <template>
   <div
     :class="[
-      'max-w-full whitespace-nowrap overflow-hidden',
+      'max-w-full whitespace-nowrap overflow-hidden border border-gray-800',
       { 'rounded-lg': !square },
     ]"
   >
@@ -299,7 +299,7 @@ watch(
       >
         {{ noResultsLabel || $t('noResults') }}
       </div>
-      <table v-else class="w-full whitespace-normal table-fixed">
+      <table v-else class="w-full whitespace-normal table-fixed striped">
         <colgroup>
           <col
             v-for="column in filteredColumns"
@@ -431,10 +431,15 @@ watch(
   @apply bg-white dark:bg-gray-850 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ease-in duration-300;
 }
 
+.striped tr:nth-child(odd) {
+  @apply dark:bg-gray-900 dark:hover:bg-gray-800;
+}
+
 .bal-table-pagination-btn {
   @apply flex items-center justify-center h-16 transition-all;
-  @apply font-medium hover:text-purple-600 dark:hover:text-yellow-500;
+  @apply font-medium hover:text-purple-600 dark:hover:text-blue-500;
   @apply border-t dark:border-gray-900 rounded-b-lg;
   @apply hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer;
+  @apply bg-gray-900 bg-gradient-to-r from-transparent via-gray-850 to-transparent;
 }
 </style>

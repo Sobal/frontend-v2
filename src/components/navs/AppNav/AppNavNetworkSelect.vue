@@ -21,6 +21,20 @@ export interface NetworkOption {
   testNetwork: boolean;
 }
 
+type Props = {
+  hideLabel?: boolean;
+  alignMenu?: string;
+  noBg?: boolean;
+  noPadding?: boolean;
+};
+
+withDefaults(defineProps<Props>(), {
+  alignMenu: 'right',
+  hideLabel: false,
+  noBg: false,
+  noPadding: false,
+});
+
 // COMPOSABLES
 const { upToLargeBreakpoint } = useBreakpoints();
 const { networkId, networkConfig } = useNetwork();
@@ -73,7 +87,7 @@ onMounted(async () => {
       title: '',
       message: `${t('poolDoesntExist')} ${networkConfig.chainName}`,
     });
-    router.replace({ query: {} });
+    router.replace({ name: 'home', query: {} });
   }
 });
 
@@ -107,6 +121,7 @@ function getNetworkChangeUrl(network: NetworkOption): string {
   }
 
   const currentRoute = router.currentRoute.value;
+
   return router.resolve({
     name: currentRoute.name ?? 'home',
     params: { ...currentRoute.params, networkSlug: network.networkSlug },
@@ -121,19 +136,27 @@ function isActive(network: NetworkOption): boolean {
 </script>
 
 <template>
-  <BalPopover noPad>
+  <BalPopover noPad :align="alignMenu">
     <template #activator>
-      <BalBtn color="white" :size="upToLargeBreakpoint ? 'md' : 'sm'">
+      <BalBtn
+        :color="noBg ? 'transparent' : 'white'"
+        :size="noPadding ? 'base-noPad' : upToLargeBreakpoint ? 'md' : 'sm'"
+      >
         <template v-if="activeNetwork">
           <img
             :src="buildNetworkIconURL(activeNetwork.id)"
             :alt="activeNetwork.name"
-            class="w-6 h-6 rounded-full"
+            class="rounded-full h-[22px] w-[22px]"
           />
-          <span class="ml-2">
+          <span v-if="!hideLabel" class="ml-2">
             {{ activeNetwork.name }}
           </span>
-          <BalIcon name="chevron-down" size="sm" class="ml-2" />
+          <BalIcon
+            name="chevron-down"
+            size="sm"
+            :class="{ 'ml-2': !hideLabel, 'ml-0': hideLabel }"
+            :color="noBg ? 'white' : ''"
+          />
         </template>
       </BalBtn>
     </template>

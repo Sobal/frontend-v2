@@ -8,6 +8,10 @@ const tokens: TokenConstants = {
     input: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
     output: '0x512E48836Cd42F3eB6f50CEd9ffD81E0a7F15103', // USDC
   },
+  FeaturedSwapTokens: {
+    input: '',
+    output: '',
+  },
   Addresses: {
     nativeAsset: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
     wNativeAsset: '0x11adC2d986E334137b9ad0a0F290771F31e9517F', // WNEON

@@ -3,6 +3,7 @@ import { useI18n } from 'vue-i18n';
 
 import useAlerts, { AlertPriority, AlertType } from '@/composables/useAlerts';
 import { useTokens } from '@/providers/tokens.provider';
+import { useBridgeTokens } from '@/providers/bridge-tokens.provider';
 
 export default function useGlobalQueryWatchers() {
   const {
@@ -13,6 +14,9 @@ export default function useGlobalQueryWatchers() {
     allowancesQueryError,
     refetchAllowances,
   } = useTokens();
+
+  const { bridgeBalancesQueryError, refetchBridgeBalances } = useBridgeTokens();
+
   const { addAlert, removeAlert } = useAlerts();
   const { t } = useI18n();
 
@@ -45,6 +49,22 @@ export default function useGlobalQueryWatchers() {
       });
     } else {
       removeAlert('balances-fetch-error');
+    }
+  });
+
+  watch(bridgeBalancesQueryError, () => {
+    if (bridgeBalancesQueryError.value) {
+      addAlert({
+        id: 'bridge-balances-fetch-error',
+        label: t('alerts.solana-balances-fetch-error'),
+        type: AlertType.ERROR,
+        persistent: true,
+        action: refetchBridgeBalances,
+        actionLabel: t('alerts.retry-label'),
+        priority: AlertPriority.MEDIUM,
+      });
+    } else {
+      removeAlert('bridge-balances-fetch-error');
     }
   });
 

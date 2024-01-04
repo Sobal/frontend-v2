@@ -51,7 +51,7 @@ const avatarSize = computed(() => {
         <span
           v-else
           class="hidden lg:inline-block pl-2 eth-address"
-          v-text="shorten(account)"
+          v-text="shorten(account, 4, 4)"
         />
       </BalBtn>
     </template>

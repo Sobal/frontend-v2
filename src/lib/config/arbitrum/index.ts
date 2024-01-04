@@ -26,6 +26,7 @@ const config: Config = {
   publicRpc: 'https://arb1.arbitrum.io/rpc',
   explorer: 'https://arbiscan.io',
   analyticsUrl: '',
+  solanaRpc: '',
   explorerName: 'Arbiscan',
   subgraph:
     'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-arbitrum-v2',

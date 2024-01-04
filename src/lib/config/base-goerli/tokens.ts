@@ -8,6 +8,10 @@ const tokens: TokenConstants = {
     input: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
     output: '0x174956bDfbCEb6e53089297cce4fE2825E58d92C', // DAI
   },
+  FeaturedSwapTokens: {
+    input: '',
+    output: '',
+  },
   Addresses: {
     nativeAsset: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
     wNativeAsset: '0x4200000000000000000000000000000000000006', // WETH

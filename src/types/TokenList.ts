@@ -1,11 +1,15 @@
 export interface TokenInfo {
   readonly chainId: number;
   readonly address: string;
+  readonly address_spl?: string;
   readonly name: string;
   readonly decimals: number;
   readonly symbol: string;
   readonly logoURI?: string;
   readonly tags?: string[];
+  readonly balance?: string;
+  readonly solanaBalance?: string;
+  readonly price?: number;
   readonly extensions?: {
     readonly [key: string]: string | number | boolean | null;
   };
@@ -47,4 +51,5 @@ export interface TokenListURLMap {
     Allowlisted: string;
   };
   External: string[];
+  Bridge: string[];
 }

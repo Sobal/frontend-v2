@@ -8,6 +8,7 @@ const tokenlists: TokenListURLMap = {
   External: [
     'https://unpkg.com/@1hive/default-token-list@latest/build/honeyswap-default.tokenlist.json',
   ],
+  Bridge: [],
 };
 
 export default tokenlists;

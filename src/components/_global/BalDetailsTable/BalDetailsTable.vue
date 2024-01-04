@@ -50,21 +50,23 @@ const { upToLargeBreakpoint } = useBreakpoints();
 
 <style scoped>
 .table-row {
-  @apply flex border-b dark:border-gray-700;
+  @apply flex border-l border-r border-gray-800;
+}
+
+.table-row:nth-child(even) {
+  @apply dark:bg-gray-900;
 }
 
 .table-row:first-child {
-  @apply font-semibold bg-gray-50 dark:bg-gray-800;
+  @apply font-semibold py-3 bg-gray-50 dark:bg-gray-850 border-t border-gray-800 rounded-md;
 }
 
 .table-row:last-child {
-  @apply border-b-0;
+  @apply border-b border-gray-800 rounded-md;
 }
 
 .table-row-title {
-  @apply flex items-center py-3 px-4 flex-1 dark:border-gray-700;
-
-  border-right-width: 1px;
+  @apply flex items-center py-3 px-4 flex-1;
 }
 
 .table-row-value {

@@ -49,7 +49,11 @@ export default function useValidation(
   });
 
   function isValidTokenAmount(tokenAmount: string) {
-    return bnum(tokenAmount).gt(0) && tokenAmount.trim() !== '';
+    return (
+      bnum(tokenAmount).gt(0) &&
+      tokenAmount.trim() !== '' &&
+      tokenAmount !== 'NaN'
+    );
   }
 
   const errorMessage = computed(() => validationStatus.value);

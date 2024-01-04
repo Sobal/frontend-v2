@@ -64,6 +64,14 @@ const balancerTokenLists = computed(
 );
 
 /**
+ * All NeonPass token lists mapped by URI.
+ */
+
+const bridgeTokenListMap = computed(
+  (): TokenListMap => pick(allTokenLists.value, uris.Bridge)
+);
+
+/**
  * Approved token lists mapped by URI.
  * Approved means tokens are compliant and can be presented in the UI.
  * This excludes lists like the Balancer vetted list.
@@ -124,6 +132,7 @@ export const tokenListsProvider = () => {
     balancerTokenLists,
     approvedTokenLists,
     balancerTokenList,
+    bridgeTokenListMap,
     // methods
     toggleTokenList,
     isActiveList,

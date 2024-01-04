@@ -14,7 +14,7 @@ type Props = {
  */
 const props = withDefaults(defineProps<Props>(), {
   size: '1',
-  color: 'green',
+  color: 'blue',
 });
 
 /**

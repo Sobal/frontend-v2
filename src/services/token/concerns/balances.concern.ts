@@ -40,7 +40,7 @@ export default class BalancesConcern {
 
     const paginatedBalances = await Promise.all<BalanceMap>(multicalls);
     const validPages = paginatedBalances.filter(
-      page => !(page instanceof Error)
+      page => Object.keys(page).length > 0
     );
 
     return validPages.reduce((result, current) =>
@@ -84,7 +84,7 @@ export default class BalancesConcern {
       };
     } catch (error) {
       console.error('Failed to fetch balances for:', addresses);
-      throw error;
+      return {};
     }
   }
 
