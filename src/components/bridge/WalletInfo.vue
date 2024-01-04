@@ -27,7 +27,7 @@ const emit = defineEmits<{
 
 <template>
   <div>
-    <div class="flex flex-row">
+    <div class="flex flex-row place-items-start w-full">
       <img
         v-if="walletType === WalletTypes.EVM"
         class="mr-2"
@@ -49,16 +49,21 @@ const emit = defineEmits<{
       >
         Connect wallet
       </a>
-      <p v-else>
-        {{ walletType === WalletTypes.EVM ? network.chainName : walletType }}
-        ({{ shorten(walletAddress)
-        }}<BalTooltip width="auto" iconSize="sm" :text="walletAddress" />)
-        <a
-          class="font-bold text-green-600 hover:underline"
-          @click="emit('action:disconnectWallet')"
-          >Disconnect</a
-        >
-      </p>
+      <template v-else>
+        <div class="leading-tight">
+          <div>
+            {{
+              walletType === WalletTypes.EVM ? network.chainName : walletType
+            }}
+            ({{ shorten(walletAddress) }})
+          </div>
+          <a
+            class="text-sm font-semibold text-green-600 align-middle"
+            @click="emit('action:disconnectWallet')"
+            ><span class="hover:underline">{{ $t('disconnect') }}</span>
+          </a>
+        </div>
+      </template>
     </div>
   </div>
 </template>
