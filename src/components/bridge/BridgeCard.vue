@@ -228,7 +228,7 @@ async function getApiData() {
         color="gradient"
         block
         :loading="bridgeApiLoading"
-        :loadingLabel="bridgeApiLoading ? 'Loading API...' : 'loading...'"
+        :loadingLabel="bridgeApiLoading ? 'Connecting...' : 'loading...'"
         @click="showPreview = true"
       />
     </div>
