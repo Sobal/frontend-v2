@@ -66,6 +66,16 @@ const { t } = useI18n();
 
 const hasToken = computed(() => !!_address.value);
 
+const maxPercentage = computed(() => {
+  if (!_balance.value || !_amount.value) return '0';
+
+  return ((Number(_amount.value) / Number(_balance.value)) * 100).toFixed(2);
+});
+
+const barColor = computed(() =>
+  _amount.value > _balance.value ? 'red' : 'blue'
+);
+
 const inputRules = computed(() => {
   if (!hasToken.value || !isWalletReady.value) {
     return [isPositive()];
@@ -96,12 +106,12 @@ watchEffect(() => {
 <template>
   <div
     :class="[
-      'flex flex-col p-3 bg-gray-500 rounded-2xl',
+      'flex flex-col p-4 bg-gray-900 rounded-xl relative',
       isWalletConnected ? 'border-0' : 'border-2 border-red-600',
     ]"
   >
-    <div class="flex flex-row mb-3">
-      <p class="pr-3 font-bold">{{ bridgeType }}</p>
+    <div class="flex flex-row place-items-center mb-3">
+      <p class="pr-5 pl-2 text-xl">{{ bridgeType }}</p>
       <WalletInfo
         :walletType="walletType"
         :isWalletConnected="isWalletConnected"
@@ -123,14 +133,15 @@ watchEffect(() => {
       autocorrect="off"
       :disabled="disableToken"
       step="any"
+      inputAlignRight
       v-bind="$attrs"
-      bgColor="dark:bg-gray-900"
+      autoFocus
       @blur="emit('blur', $event)"
       @input="emit('input', $event)"
       @update:model-value="emit('update:amount', $event)"
       @keydown="emit('keydown', $event)"
     >
-      <template #append>
+      <template #prepend>
         <slot name="tokenSelect">
           <BridgeSelectInput
             v-model="_address"
@@ -159,6 +170,13 @@ watchEffect(() => {
             </span>
           </template>
         </div>
+        <BalProgressBar
+          v-if="_balance && !disableToken"
+          bufferWidth="0"
+          :width="maxPercentage"
+          :color="barColor"
+          class="mt-2"
+        />
       </template>
     </BalTextInput>
   </div>
