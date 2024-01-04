@@ -1,6 +1,7 @@
 export const enum EvmInstruction {
   CreateAccountV02 = 0x18, // 24
   CollectTreasure = 0x1e, // 30
+  TransactionExecuteFromData = 0x1f, //  31 - LEGACY
   TransactionStepFromData = 0x20, //  32
   TransactionStepFromAccount = 0x21, //  33
   TransactionStepFromAccountNoChainId = 0x22, //  34
