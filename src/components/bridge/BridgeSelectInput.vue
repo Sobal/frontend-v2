@@ -127,10 +127,10 @@ watchEffect(() => {
 }
 
 .unselected {
-  @apply bg-blue-500 dark:bg-gray-600 text-white rounded-xl;
+  @apply bg-blue-500 dark:bg-gray-700 text-white rounded-lg;
 }
 
 .selected {
-  @apply bg-gray-50 dark:bg-gray-600 text-black dark:text-white rounded-xl;
+  @apply bg-gray-50 dark:bg-gray-700 text-black dark:text-white rounded-lg;
 }
 </style>
