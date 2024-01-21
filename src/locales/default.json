@@ -521,6 +521,7 @@
   "docs": "Docs",
   "earnings": "Earnings",
   "earnBAL": "Earn $BAL when swapping eligible tokens",
+  "ecosystem": "Ecosystem",
   "effectivePrice": "Effective price:",
   "enterAmount": "Enter amount",
   "enterAPrice": "Enter a price",
@@ -1020,6 +1021,7 @@
     "description": "The swap price has updated by more than {0}",
     "title": "Price updated"
   },
+  "privacy": "Privacy",
   "proceed": "Proceed",
   "profit": "Profit (1{0})",
   "proportionalSuggestion": "Proportional suggestion",

@@ -204,7 +204,9 @@ watch(blockNumber, async () => {
     </div>
 
     <div class="grid mt-5 text-sm grid-col-1">
-      <span class="px-4 pb-1 font-medium text-secondary">Ecosystem</span>
+      <span class="px-4 pb-1 font-medium text-secondary">{{
+        t('ecosystem')
+      }}</span>
       <BalLink
         v-for="link in ecosystemLinks"
         :key="link.url"
@@ -218,7 +220,9 @@ watch(blockNumber, async () => {
       </BalLink>
     </div>
     <div class="grid mt-5 text-sm grid-col-1">
-      <span class="px-4 pb-1 font-medium text-secondary">Privacy</span>
+      <span class="px-4 pb-1 font-medium text-secondary">{{
+        t('privacy')
+      }}</span>
       <p>
         <router-link
           v-for="link in privacyLinks"
