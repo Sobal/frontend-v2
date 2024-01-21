@@ -318,6 +318,7 @@ watch(_address, async (newAddress, oldAddress) => {
               </template>
             </button>
             <span
+              v-if="name !== 'tokenOut'"
               class="pl-2"
               :class="[
                 {
