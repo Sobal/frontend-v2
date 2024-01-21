@@ -41,7 +41,8 @@ export async function bridgeToken(
   addNotificationForSolanaTransaction: (
     id: string,
     type: TransactionType
-  ) => void
+  ) => void,
+  setButtonState: (state: string) => void
 ) {
   if (!neonProxyStatus || !neonProxyApi) throw 'API not available';
 
@@ -64,6 +65,8 @@ export async function bridgeToken(
       configService.network.tokens.Addresses.wNativeAsset.toLowerCase() ===
         token.address.toLowerCase()
     ) {
+      setButtonState('Building Solana transaction');
+
       const transaction = await solanaNEONTransferTransaction(
         solanaWallet,
         account,
@@ -79,12 +82,16 @@ export async function bridgeToken(
         await connection.getLatestBlockhash('finalized')
       ).blockhash;
 
+      setButtonState('Simulating Solana transaction on network...');
+
       const simulatedTx = await simulateTransaction(
         connection,
         transaction,
         'finalized'
       );
       console.log('Solana Simulated Transaction', simulatedTx);
+
+      setButtonState('Please confirm transfer transaction on your wallet...');
 
       const signature = await sendSolanaTransaction(
         connection,
@@ -114,6 +121,8 @@ export async function bridgeToken(
     ) {
       if (!token.address_spl) throw 'Solana native SPL token address missing';
 
+      setButtonState('Building Solana transaction');
+
       const transaction = await createWrapAndTransferSOLTransactionWeb3(
         connection,
         provider,
@@ -132,12 +141,16 @@ export async function bridgeToken(
         await connection.getLatestBlockhash('finalized')
       ).blockhash;
 
+      setButtonState('Simulating Solana transaction on network...');
+
       const simulatedTx = await simulateTransaction(
         connection,
         transaction,
         'finalized'
       );
       console.log('Solana Simulated Transaction', simulatedTx);
+
+      setButtonState('Please confirm transfer a transaction on your wallet...');
 
       const signature = await sendSolanaTransaction(
         connection,
@@ -161,6 +174,8 @@ export async function bridgeToken(
       // TX Type: Solana
       return signature;
     } else {
+      setButtonState('Building Solana transaction');
+
       const transaction = await neonTransferMintWeb3Transaction(
         connection,
         provider,
@@ -179,12 +194,16 @@ export async function bridgeToken(
         await connection.getLatestBlockhash()
       ).blockhash;
 
+      setButtonState('Simulating Solana transaction on network...');
+
       const simulatedTx = await simulateTransaction(
         connection,
         transaction,
         'finalized'
       );
       console.log('Solana Simulated Transaction', simulatedTx);
+
+      setButtonState('Please confirm transfer transaction on your wallet...');
 
       const signature = await sendSolanaTransaction(
         connection,
@@ -208,12 +227,14 @@ export async function bridgeToken(
       // TX Type: Solana
       return signature;
     }
-    // EVM to Solana
   } else {
+    // EVM to Solana
     if (
       configService.network.tokens.Addresses.wNativeAsset.toLowerCase() ===
       token.address.toLowerCase()
     ) {
+      setButtonState('Please confirm unwrap transaction on your wallet');
+
       const unwrapTx = await unwrapNeonWeb3(signer, token, amount);
       nativeOverride.value = true;
 
@@ -223,6 +244,10 @@ export async function bridgeToken(
         action: `bridgeTokens`,
         summary: `Unwrap ${amount} ${token.symbol}`,
       });
+
+      setButtonState(
+        'Waiting for unwrap transaction to complete before next step...'
+      );
 
       // TX Type: EVM
       await unwrapTx.wait();
@@ -238,6 +263,9 @@ export async function bridgeToken(
     if (tokenOverride.address === configService.network.nativeAsset.address) {
       if (!configService.network.bridgeNativeTransferContract)
         throw 'No bridge native transfer contract';
+
+      setButtonState('Building transaction data...');
+
       const neonTransaction = await neonNeonWeb3Transaction(
         provider,
         account,
@@ -245,6 +273,8 @@ export async function bridgeToken(
         solanaWallet,
         amount
       );
+
+      setButtonState('Please confirm transfer transaction on your wallet');
 
       const signedNeonTransaction = await sendNeonTransaction(
         neonTransaction,
@@ -266,6 +296,9 @@ export async function bridgeToken(
         mintPubkey,
         solanaWallet
       );
+
+      setButtonState('Building Solana account preparation transaction...');
+
       const solanaTransaction = createMintSolanaTransaction(
         solanaWallet,
         mintPubkey,
@@ -275,13 +308,8 @@ export async function bridgeToken(
       solanaTransaction.recentBlockhash = (
         await connection.getLatestBlockhash()
       ).blockhash;
-      const neonTransaction = await createMintNeonWeb3Transaction(
-        provider,
-        account,
-        associatedToken,
-        tokenOverride,
-        amount
-      );
+
+      setButtonState('Simulating Solana transaction on network...');
 
       const simulatedTx = await simulateTransaction(
         connection,
@@ -289,6 +317,11 @@ export async function bridgeToken(
         'finalized'
       );
       console.log('Solana Simulated Transaction', simulatedTx);
+
+      setButtonState(
+        'Please confirm Solana account preparation transaction on your wallet'
+      );
+
       const signedSolanaTransaction = await sendSolanaTransaction(
         connection,
         solanaTransaction,
@@ -304,12 +337,28 @@ export async function bridgeToken(
         summary: `Prepare to receive ${amount} ${token.symbol} on Solana`,
       });
 
+      setButtonState(
+        'Solana transaction submitted, please wait while transaction is mined for next step...'
+      );
+
       await sleep(1000);
 
       addNotificationForSolanaTransaction(signedSolanaTransaction, 'tx');
 
       // TX Type: Solana
       console.log('Solana Transaction Hash', signedSolanaTransaction);
+
+      setButtonState('Building transaction data...');
+
+      const neonTransaction = await createMintNeonWeb3Transaction(
+        provider,
+        account,
+        associatedToken,
+        tokenOverride,
+        amount
+      );
+
+      setButtonState('Please confirm transfer transaction on your wallet');
 
       const signedNeonTransaction = await sendNeonTransaction(
         neonTransaction,
@@ -326,14 +375,20 @@ export async function bridgeToken(
       // TX Type: EVM
       console.log('Neon Transaction Hash', signedNeonTransaction);
 
-      await signedNeonTransaction.wait();
-
       if (
         configService.network.bridgeUnwrapOut &&
         configService.network.bridgeUnwrapOut.includes(
           mintPubkey.toString().toLowerCase()
         )
       ) {
+        setButtonState(
+          'Transaction submitted, please await transaction confirmation for next step...'
+        );
+
+        await signedNeonTransaction.wait();
+
+        setButtonState('Preparing Solana unwrap transaction...');
+
         const unwrapTransaction = await createUnwrapSOLTransaction(
           connection,
           solanaWallet,
@@ -343,12 +398,18 @@ export async function bridgeToken(
           await connection.getLatestBlockhash()
         ).blockhash;
 
+        setButtonState('Simulating Solana transaction on network...');
+
         const simulatedTx = await simulateTransaction(
           connection,
           unwrapTransaction,
           'finalized'
         );
         console.log('Solana Simulated Transaction', simulatedTx);
+
+        setButtonState(
+          'Please confirm Solana unwrap transaction on your wallet'
+        );
 
         const signature = await sendSolanaTransaction(
           connection,
