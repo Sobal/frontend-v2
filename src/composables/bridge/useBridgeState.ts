@@ -22,6 +22,7 @@ const bridgeState = reactive({
   bridgeApiData: undefined as NeonProgramStatus | undefined,
   bridgeApiLoading: true,
   bridgeApi: undefined as NeonProxyRpcApi | undefined,
+  buttonState: '',
 });
 
 function setInitialized(val: boolean) {
@@ -30,6 +31,10 @@ function setInitialized(val: boolean) {
 
 function setTokenInAddress(address: string) {
   bridgeState.tokenInAddress = address;
+}
+
+function setButtonState(state: string) {
+  bridgeState.buttonState = state;
 }
 
 function setTokenOutAddress(address: string) {
@@ -117,5 +122,6 @@ export function useBridgeState() {
     setBridgeApiData,
     setBridgeApiLoading,
     setBridgeApi,
+    setButtonState,
   };
 }
