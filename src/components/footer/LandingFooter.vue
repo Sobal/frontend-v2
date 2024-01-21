@@ -28,15 +28,15 @@ const { isDesktop } = useBreakpoints();
             {{ $t('landingNavBar.joinCommunity') }}
           </h4>
           <div class="flex flex-row gap-x-3 place-content-center">
-            <BalLink external :href="EXTERNAL_LINKS.Balancer.Social.Medium">
+            <BalLink external :href="EXTERNAL_LINKS.Sobal.Social.Medium">
               <img :src="mediumLogo" class="h-7" />
             </BalLink>
 
-            <BalLink external :href="EXTERNAL_LINKS.Balancer.Social.Discord">
+            <BalLink external :href="EXTERNAL_LINKS.Sobal.Social.Discord">
               <img :src="discordLogo" class="h-7" />
             </BalLink>
 
-            <BalLink external :href="EXTERNAL_LINKS.Balancer.Social.Twitter">
+            <BalLink external :href="EXTERNAL_LINKS.Sobal.Social.Twitter">
               <img :src="twitterLogo" class="h-7" />
             </BalLink>
           </div>

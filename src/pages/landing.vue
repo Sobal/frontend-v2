@@ -141,7 +141,7 @@ const infoCards: Info[] = [
         </div>
         <BalLink
           external
-          :href="EXTERNAL_LINKS.Balancer.Docs"
+          :href="EXTERNAL_LINKS.Sobal.Docs"
           class="self-center h-min"
           noStyle
         >

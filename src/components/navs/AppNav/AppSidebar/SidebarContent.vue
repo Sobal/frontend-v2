@@ -73,9 +73,9 @@ const navLinksSecondary = [
 ];
 
 const ecosystemLinks = [
-  { label: t('blog'), url: EXTERNAL_LINKS.Balancer.Social.Medium },
-  { label: t('docs'), url: EXTERNAL_LINKS.Balancer.Docs },
-  { label: t('governance'), url: EXTERNAL_LINKS.Balancer.Vote },
+  { label: t('blog'), url: EXTERNAL_LINKS.Sobal.Social.Medium },
+  { label: t('docs'), url: EXTERNAL_LINKS.Sobal.Docs },
+  { label: t('governance'), url: EXTERNAL_LINKS.Sobal.Vote },
 ];
 
 const privacyLinks = [
@@ -92,18 +92,18 @@ const privacyLinks = [
 const socialLinks = {
   TwitterIcon: {
     component: TwitterIcon,
-    url: EXTERNAL_LINKS.Balancer.Social.Twitter,
+    url: EXTERNAL_LINKS.Sobal.Social.Twitter,
   },
   DiscordIcon: {
     component: DiscordIcon,
-    url: EXTERNAL_LINKS.Balancer.Social.Discord,
+    url: EXTERNAL_LINKS.Sobal.Social.Discord,
   },
   MediumIcon: {
     component: MediumIcon,
-    url: EXTERNAL_LINKS.Balancer.Social.Medium,
+    url: EXTERNAL_LINKS.Sobal.Social.Medium,
   },
   GithubIcon: {
-    url: EXTERNAL_LINKS.Balancer.Social.Github,
+    url: EXTERNAL_LINKS.Sobal.Social.Github,
     component: GithubIcon,
   },
   // YoutubeIcon: {
@@ -248,7 +248,7 @@ watch(blockNumber, async () => {
         <component :is="getSocialComponent(componentName)" />
       </BalLink>
       <BalLink
-        :href="EXTERNAL_LINKS.Balancer.Social.Mail"
+        :href="EXTERNAL_LINKS.Sobal.Social.Mail"
         class="social-link"
         noStyle
       >

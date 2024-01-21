@@ -32,7 +32,7 @@ const router = useRouter();
           @click="router.push('/pools')"
         />
         <div class="flex flex-col">
-          <BalLink external :href="EXTERNAL_LINKS.Balancer.Docs">
+          <BalLink external :href="EXTERNAL_LINKS.Sobal.Docs">
             <BalBtn
               class="h-12 xl:h-16 md:text-lg xl:text-2xl !text-white !font-semibold xl:!p-8"
               :label="$t('landing.documentation')"

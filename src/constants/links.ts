@@ -1,5 +1,5 @@
 export const EXTERNAL_LINKS = {
-  Balancer: {
+  Sobal: {
     Home: 'https://sobal.fi',
     Analytics: 'https://dune.xyz/sobal',
     BalForGas:
