@@ -1033,6 +1033,8 @@
   "recoveryMode": "Recovery mode",
   "recoveryModeDescription": "This pool is paused and in recovery mode. It does not pay protocol fees and the only available exit is proportional.",
   "redeem": "Redeem",
+  "refresh": "refresh",
+  "refreshing": "loading...",
   "requiresTransactions": "Requires 1 transaction | Requires {txCount} transactions",
   "restoring": "Restoring...",
   "returnToPool": "Return to pool page",

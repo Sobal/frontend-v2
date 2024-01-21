@@ -2,7 +2,7 @@
 /**
  * TYPES
  */
-import { WalletType } from '@/types/wallet';
+import { WalletType, WalletTypes } from '@/types/wallet';
 import WalletInfo from '@/components/bridge/WalletInfo.vue';
 import { InputValue } from '@/components/_global/BalTextInput/types';
 import { computed, ref, watchEffect } from 'vue';
@@ -11,6 +11,8 @@ import useWeb3 from '@/services/web3/useWeb3';
 import BridgeSelectInput from '@/components/bridge/BridgeSelectInput.vue';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import { useI18n } from 'vue-i18n';
+import { useTokens } from '@/providers/tokens.provider';
+import { useBridgeTokens } from '@/providers/bridge-tokens.provider';
 
 type Props = {
   name: string;
@@ -63,6 +65,9 @@ const _isMaxed = ref<boolean>(false);
 const { isWalletReady } = useWeb3();
 const { fNum } = useNumbers();
 const { t } = useI18n();
+const { dynamicDataLoading, refetchBalances } = useTokens();
+const { dynamicDataLoading: solanaDynamicDataLoading, refetchBridgeBalances } =
+  useBridgeTokens();
 
 const hasToken = computed(() => !!_address.value);
 
@@ -90,6 +95,18 @@ const inputRules = computed(() => {
   return rules;
 });
 
+const isLoadingBalances = computed(() => {
+  if (props.walletType === WalletTypes.Solana) return solanaDynamicDataLoading;
+
+  return dynamicDataLoading;
+});
+
+function fetchUpdatedBalance() {
+  if (props.walletType === WalletTypes.Solana) return refetchBridgeBalances();
+
+  return refetchBalances();
+}
+
 /**
  * CALLBACKS
  */
@@ -102,7 +119,6 @@ watchEffect(() => {
   _balanceFormatted.value = fNum(props.balance, FNumFormats.token);
 });
 </script>
-
 <template>
   <div
     :class="[
@@ -151,7 +167,7 @@ watchEffect(() => {
           />
         </slot>
       </template>
-      <template #footer>
+      <template v-if="isWalletConnected && _address" #footer>
         <div class="text-sm">
           {{ _balanceFormatted }} {{ symbol }}
           <template v-if="Number(balance) > 0 && !disableToken">
@@ -169,6 +185,23 @@ watchEffect(() => {
               {{ $t('maxed') }}
             </span>
           </template>
+          <span
+            class="pl-2"
+            :class="[
+              {
+                'cursor-pointer': !isLoadingBalances.value,
+                'cursor-not-allowed': isLoadingBalances.value,
+                'text-blue-600': !isLoadingBalances.value,
+              },
+            ]"
+            @click="isLoadingBalances.value ? null : fetchUpdatedBalance()"
+            ><BalIcon
+              name="refresh-cw"
+              size="xs"
+              :animate="isLoadingBalances.value"
+            />
+            {{ isLoadingBalances.value ? t('refreshing') : t('refresh') }}</span
+          >
         </div>
         <BalProgressBar
           v-if="_balance && !disableToken"

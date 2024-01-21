@@ -102,7 +102,14 @@ const _address = ref<string>('');
 /**
  * COMPOSABLES
  */
-const { getToken, balanceFor, nativeAsset, getMaxBalanceFor } = useTokens();
+const {
+  getToken,
+  balanceFor,
+  nativeAsset,
+  getMaxBalanceFor,
+  refetchBalances,
+  dynamicDataLoading,
+} = useTokens();
 const { fNum, toFiat } = useNumbers();
 const { t } = useI18n();
 const { isWalletReady } = useWeb3();
@@ -285,30 +292,49 @@ watch(_address, async (newAddress, oldAddress) => {
         <div
           class="flex justify-between items-center text-sm leading-none text-gray-600 dark:text-gray-400"
         >
-          <div v-if="!isWalletReady || disableBalance" />
-          <button v-else class="flex items-center" @click="setMax">
-            {{ balanceLabel ? balanceLabel : $t('balance') }}:
+          <div class="flex flex-row">
+            <div v-if="!isWalletReady || disableBalance" />
+            <button v-else class="flex items-center" @click="setMax">
+              {{ balanceLabel ? balanceLabel : $t('balance') }}:
 
-            <BalLoadingBlock v-if="balanceLoading" class="mx-2 w-12 h-4" />
-            <span v-else class="mx-1">
-              {{ fNum(tokenBalance, FNumFormats.token) }}
-            </span>
+              <BalLoadingBlock v-if="balanceLoading" class="mx-2 w-12 h-4" />
+              <span v-else class="mx-1">
+                {{ fNum(tokenBalance, FNumFormats.token) }}
+              </span>
 
-            <template v-if="hasBalance && !noMax && !disableMax">
-              <span
-                v-if="!isMaxed"
-                class="text-blue-600 hover:text-purple-600 focus:text-purple-600 dark:text-blue-400 dark:hover:text-yellow-500 dark:focus:text-yellow-500 transition-colors"
-              >
-                {{ $t('max') }}
-              </span>
-              <span
-                v-else
-                class="text-gray-400 dark:text-gray-600 cursor-not-allowed"
-              >
-                {{ $t('maxed') }}
-              </span>
-            </template>
-          </button>
+              <template v-if="hasBalance && !noMax && !disableMax">
+                <span
+                  v-if="!isMaxed"
+                  class="text-blue-600 hover:text-purple-600 focus:text-purple-600 dark:text-blue-400 dark:hover:text-yellow-500 dark:focus:text-yellow-500 transition-colors"
+                >
+                  {{ $t('max') }}
+                </span>
+                <span
+                  v-else
+                  class="text-gray-400 dark:text-gray-600 cursor-not-allowed"
+                >
+                  {{ $t('maxed') }}
+                </span>
+              </template>
+            </button>
+            <span
+              class="pl-2"
+              :class="[
+                {
+                  'cursor-pointer': !dynamicDataLoading,
+                  'cursor-not-allowed': dynamicDataLoading,
+                  'text-blue-600': !dynamicDataLoading,
+                },
+              ]"
+              @click="dynamicDataLoading ? null : refetchBalances()"
+              ><BalIcon
+                name="refresh-cw"
+                size="xs"
+                :animate="dynamicDataLoading"
+              />
+              {{ dynamicDataLoading ? t('refreshing') : t('refresh') }}</span
+            >
+          </div>
           <div class="pl-2 truncate">
             <template v-if="hasAmount && hasToken">
               <span v-if="!hideFiatValue">

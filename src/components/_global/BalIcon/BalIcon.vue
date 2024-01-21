@@ -9,6 +9,7 @@ type Props = {
   size?: IconSize;
   filled?: boolean;
   color?: string;
+  animate?: boolean;
 };
 
 /**
@@ -41,6 +42,8 @@ const iconSize = computed(() => {
 
 const fill = computed(() => (props.filled ? 'currentColor' : 'none'));
 
+const animated = computed(() => (props.animate ? 'animate-spin' : ''));
+
 /**
  * LIFECYCLE
  */
@@ -51,7 +54,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="inline-block bal-icon">
+  <div class="inline-block bal-icon" :class="animated">
     <i
       :data-feather="name"
       :width="iconSize"
