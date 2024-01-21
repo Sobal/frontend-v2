@@ -30,6 +30,8 @@ const {
   bridgeApi,
   bridgeApiData,
   bridgeApiLoading,
+  buttonState,
+  setButtonState,
 } = useBridgeState();
 
 const { network } = configService;
@@ -117,18 +119,21 @@ async function handleSubmit(state: TransactionActionState) {
       bridgeApi.value,
       bridgeApiData.value,
       addTransaction,
-      addNotificationForSolanaTransaction
+      addNotificationForSolanaTransaction,
+      setButtonState
     );
 
     state.init = false;
     state.confirming = false;
     state.confirmed = true;
     state.confirmedAt = new Date().toString();
+    setButtonState('');
     await sleep(3000);
     await refetchBridgeBalances();
     await refetchBalances();
   } catch (error) {
     console.log(error);
+    setButtonState('');
     state.init = false;
     state.confirming = false;
     state.error = formatErrorMsg(error);
@@ -142,23 +147,6 @@ async function handleSubmit(state: TransactionActionState) {
     await refetchBalances();
   }
 }
-
-// function handleSignAction(state: TransactionActionState) {
-//   currentActionIndex.value += 1;
-//   state.confirming = false;
-//   state.confirmed = true;
-// }
-
-// function getStepState(
-//   actionState: TransactionActionState,
-//   index: number
-// ): StepState {
-//   if (currentActionIndex.value < index) return StepState.Todo;
-//   else if (actionState.confirming) return StepState.Pending;
-//   else if (actionState.init) return StepState.WalletOpen;
-//   else if (actionState.confirmed) return StepState.Success;
-//   return StepState.Active;
-// }
 
 const networkIcon = (walletType: WalletType): string => {
   if (walletType === WalletTypes.EVM)
@@ -272,20 +260,26 @@ const networkIcon = (walletType: WalletType): string => {
       class="mb-4"
     />
     <BalBtn
+      :multiLine="currentActionState.init"
       class="w-full"
-      color="gradient"
+      :class="[{ 'h-16': currentActionState.init }]"
+      :color="currentActionState.init ? 'blue' : 'gradient'"
       :loading="
         currentActionState.init ||
         currentActionState.confirming ||
         bridgeApiLoading
       "
       :disabled="currentActionState.confirmed"
-      :loadingLabel="bridgeApiLoading ? 'Loading API...' : 'Please Wait...'"
+      :loadingLabel="
+        bridgeApiLoading
+          ? 'Loading API...'
+          : buttonState
+          ? buttonState
+          : 'Please wait...'
+      "
       @click="handleSubmit(currentActionState)"
       >{{
-        currentActionState.confirmed
-          ? 'Bridging Completed!'
-          : 'Submit Transaction'
+        currentActionState.confirmed ? 'Bridging completed' : 'Bridge Tokens'
       }}</BalBtn
     >
   </BalModal>
