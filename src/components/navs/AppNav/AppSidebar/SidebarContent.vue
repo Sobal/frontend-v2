@@ -6,17 +6,18 @@ import { useRouter } from 'vue-router';
 import AppLogo from '@/components/images/AppLogo.vue';
 import { version } from '@/composables/useApp';
 import useConfig from '@/composables/useConfig';
-// import useDarkMode from '@/composables/useDarkMode';
 import { sleep } from '@/lib/utils';
 import useWeb3 from '@/services/web3/useWeb3';
 import useNetwork from '@/composables/useNetwork';
 import { Goals, trackGoal } from '@/composables/useFathom';
 import TwitterIcon from '@/components/_global/icons/brands/TwitterIcon.vue';
 import DiscordIcon from '@/components/_global/icons/brands/DiscordIcon.vue';
-// import MediumIcon from '@/components/_global/icons/brands/MediumIcon.vue';
-// import YoutubeIcon from '@/components/_global/icons/brands/YoutubeIcon.vue';
+import MediumIcon from '@/components/_global/icons/brands/MediumIcon.vue';
 import GithubIcon from '@/components/_global/icons/brands/GithubIcon.vue';
+// import YoutubeIcon from '@/components/_global/icons/brands/YoutubeIcon.vue';
 import { configService } from '@/services/config/config.service';
+import { EXTERNAL_LINKS } from '@/constants/links';
+import { useThirdPartyServices } from '@/composables/useThirdPartyServices';
 
 /**
  * PROPS & EMITS
@@ -26,13 +27,13 @@ const emit = defineEmits(['close']);
 /**
  * COMPOSABLES
  */
-// const { darkMode, toggleDarkMode } = useDarkMode();
 const { blockNumber } = useWeb3();
 const { networkConfig } = useConfig();
 const { networkSlug } = useNetwork();
 const { t } = useI18n();
 const router = useRouter();
 const route = useRoute();
+const { handleThirdPartyModalToggle } = useThirdPartyServices();
 
 const analyticsUrl = computed((): string => {
   return configService.network.analyticsUrl;
@@ -46,11 +47,6 @@ const blockIcon = ref<HTMLDivElement>();
 const navLinks = [
   { label: t('pool'), path: '/pools', goal: Goals.ClickNavPools },
   { label: t('swap'), path: `/${networkSlug}/swap`, goal: Goals.ClickNavSwap },
-  // {
-  //   label: t('claim'),
-  //   path: `/${networkSlug}/claim`,
-  //   goal: Goals.ClickNavClaim,
-  // },
   {
     label: t('portfolio'),
     path: `/${networkSlug}/portfolio`,
@@ -61,6 +57,11 @@ const navLinks = [
     path: `/${networkSlug}/bridge`,
     goal: Goals.ClickNavPortfolio,
   },
+  // {
+  //   label: t('claim'),
+  //   path: `/${networkSlug}/claim`,
+  //   goal: Goals.ClickNavClaim,
+  // },
   // { label: 'veBAL', path: `/${networkSlug}/vebal`, goal: Goals.ClickNavVebal },
 ];
 
@@ -72,41 +73,43 @@ const navLinksSecondary = [
 ];
 
 const ecosystemLinks = [
-  // { label: t('build'), url: 'https://balancer.fi/build' },
-  // { label: t('blog'), url: 'https://medium.com/balancer-protocol' },
-  { label: t('docs'), url: 'https://docs.sobal.fi/' },
-  { label: t('governance'), url: 'https://snapshot.org/#/sobal.eth' },
-  // { label: t('analytics'), url: 'https://dune.xyz/balancerlabs' },
-  // { label: t('forum'), url: 'https://forum.balancer.fi/' },
-  // {
-  //   label: t('grants'),
-  //   url: 'http://grants.balancer.community',
-  // },
+  { label: t('blog'), url: EXTERNAL_LINKS.Balancer.Social.Medium },
+  { label: t('docs'), url: EXTERNAL_LINKS.Balancer.Docs },
+  { label: t('governance'), url: EXTERNAL_LINKS.Balancer.Vote },
+];
+
+const privacyLinks = [
+  { label: t('policies.termsOfUse'), name: 'terms-of-use' },
+  { label: t('policies.privacyPolicy'), name: 'privacy-policy' },
+  { label: t('policies.cookiesPolicy'), name: 'cookies-policy' },
+  { label: t('policies.risks'), name: 'risks' },
+  {
+    label: t('policies.thirdPartyServices'),
+    click: handleThirdPartyModalToggle,
+  },
 ];
 
 const socialLinks = {
   TwitterIcon: {
     component: TwitterIcon,
-    url: 'https://twitter.com/sobalfi',
+    url: EXTERNAL_LINKS.Balancer.Social.Twitter,
   },
   DiscordIcon: {
     component: DiscordIcon,
-    url: 'https://discord.sobal.fi/',
+    url: EXTERNAL_LINKS.Balancer.Social.Discord,
   },
-  // MediumIcon: {
-  //   component: MediumIcon,
-  //   url: '',
-  // },
-
+  MediumIcon: {
+    component: MediumIcon,
+    url: EXTERNAL_LINKS.Balancer.Social.Medium,
+  },
+  GithubIcon: {
+    url: EXTERNAL_LINKS.Balancer.Social.Github,
+    component: GithubIcon,
+  },
   // YoutubeIcon: {
   //   component: YoutubeIcon,
   //   url: '',
   // },
-
-  GithubIcon: {
-    url: 'https://github.com/sobal/',
-    component: GithubIcon,
-  },
 };
 
 /**
@@ -214,15 +217,25 @@ watch(blockNumber, async () => {
         <BalIcon name="arrow-up-right" size="sm" class="ml-1 text-secondary" />
       </BalLink>
     </div>
-
-    <!-- <div class="px-4 mt-6">
-      <div class="mt-2 side-bar-btn" @click="toggleDarkMode">
-        <MoonIcon v-if="!darkMode" class="mr-2" />
-        <SunIcon v-else class="mr-2" />
-        <span>{{ darkMode ? 'Light' : 'Dark' }} mode</span>
-      </div>
-    </div> -->
-
+    <div class="grid mt-5 text-sm grid-col-1">
+      <span class="px-4 pb-1 font-medium text-secondary">Privacy</span>
+      <p>
+        <router-link
+          v-for="link in privacyLinks"
+          :key="link.name"
+          class="flex items-center policy side-bar-link"
+          :to="{ name: link.name }"
+          @click="link.click"
+        >
+          {{ link.label }}
+          <BalIcon
+            name="arrow-up-right"
+            size="sm"
+            class="ml-1 text-secondary"
+          />
+        </router-link>
+      </p>
+    </div>
     <div class="grid grid-rows-1 grid-flow-col auto-cols-min gap-2 px-4 mt-4">
       <BalLink
         v-for="(link, componentName) in socialLinks"
@@ -234,7 +247,11 @@ watch(blockNumber, async () => {
       >
         <component :is="getSocialComponent(componentName)" />
       </BalLink>
-      <BalLink href="mailto:hello@sobal.fi" class="social-link" noStyle>
+      <BalLink
+        :href="EXTERNAL_LINKS.Balancer.Social.Mail"
+        class="social-link"
+        noStyle
+      >
         <EmailIcon />
       </BalLink>
     </div>
