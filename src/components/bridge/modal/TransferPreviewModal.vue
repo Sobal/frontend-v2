@@ -128,6 +128,7 @@ async function handleSubmit(state: TransactionActionState) {
     state.confirmed = true;
     state.confirmedAt = new Date().toString();
     setButtonState('');
+    handleClose();
     await sleep(3000);
     await refetchBridgeBalances();
     await refetchBalances();
