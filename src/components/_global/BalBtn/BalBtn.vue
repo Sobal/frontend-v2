@@ -51,6 +51,7 @@ type Props = {
   loading?: boolean;
   loadingLabel?: string;
   disabled?: boolean;
+  multiLine?: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
@@ -66,6 +67,7 @@ const props = withDefaults(defineProps<Props>(), {
   loading: false,
   loadingLabel: 'loading...',
   disabled: false,
+  multiLine: false,
 });
 
 const sizeClasses = computed(() => {
@@ -214,6 +216,7 @@ const btnClasses = computed(() => {
     [shapeClasses.value]: true,
     [shadowClasses.value]: true,
     [cursorClasses.value]: true,
+    ['leading-[0]']: !props.multiLine,
   };
 });
 
@@ -253,7 +256,6 @@ const iconColor = computed(() => {
   font-variation-settings: 'wght' 500;
   transition: all 0.2s ease;
   text-decoration: none !important;
-  line-height: 0;
 }
 
 .bal-btn:focus,
