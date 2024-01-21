@@ -721,8 +721,13 @@ export async function simulateTransaction(
 
   // @ts-ignore
   const res = await connection._rpcRequest('simulateTransaction', args);
-  if (res.error) {
-    throw new Error(`failed to simulate transaction: ${res.error.message}`);
+  if (res.error || res.result.value.err) {
+    console.log(res);
+    throw new Error(
+      `Transaction simulation failed: ${
+        res.error ? res.error.message : Object.keys(res.result.value.err)
+      }. Please try again later.`
+    );
   }
   return res.result;
 }
