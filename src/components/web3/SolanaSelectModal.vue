@@ -13,7 +13,6 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits(['close']);
 
 const { allowedWallets } = useWeb3Solana();
-console.log(allowedWallets.value);
 </script>
 
 <template>
