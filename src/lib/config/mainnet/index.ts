@@ -19,6 +19,8 @@ const config: Config = {
   unknown: false,
   visibleInUI: false,
   testNetwork: false,
+  showLatestArticles: false,
+  ensBatchContract: '0x3671aE578E63FdF66ad4F3E12CC0c0d71Ac7510C',
   rpc: `https://mainnet.infura.io/v3/${keys.infura}`,
   ws: `wss://mainnet.infura.io/ws/v3/${keys.infura}`,
   explorer: 'https://etherscan.io',

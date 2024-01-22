@@ -9,6 +9,7 @@ import {
 } from '../rpc-provider/rpc-provider.service';
 import { TransactionBuilder } from './transactions/transaction.builder';
 import { WalletProvider } from '@/dependencies/wallets/Web3Provider';
+import { Contract } from 'ethers';
 
 interface Web3Profile {
   ens: string | null;
@@ -18,6 +19,7 @@ interface Web3Profile {
 export default class WalletService {
   appProvider: JsonRpcProvider;
   ensProvider: JsonRpcProvider;
+  ensContract: string;
   userProvider!: ComputedRef<WalletProvider>;
   txBuilder!: TransactionBuilder;
 
@@ -27,6 +29,8 @@ export default class WalletService {
   ) {
     this.appProvider = this.rpcProviderService.jsonProvider;
     this.ensProvider = this.rpcProviderService.getJsonProvider(Network.MAINNET);
+    this.ensContract =
+      this.config.getNetworkConfig(Network.MAINNET).ensBatchContract ?? '';
   }
 
   public setUserProvider(provider: ComputedRef<WalletProvider>) {
@@ -38,9 +42,14 @@ export default class WalletService {
     this.txBuilder = new TransactionBuilder(signer);
   }
 
-  async getEnsName(address: string): Promise<string | null> {
+  async getEnsName(addresses: string[]): Promise<string[] | null> {
     try {
-      return await this.ensProvider.lookupAddress(address);
+      const reverseRecords = new Contract(
+        this.ensContract,
+        ['function getNames(address[] addresses) view returns (string[] r)'],
+        this.ensProvider
+      );
+      return await reverseRecords.getNames(addresses);
     } catch (error) {
       return null;
     }
@@ -55,8 +64,9 @@ export default class WalletService {
   }
 
   async getProfile(address: string): Promise<Web3Profile> {
+    const userEns = await this.getEnsName([address]);
     return {
-      ens: await this.getEnsName(address),
+      ens: userEns ? userEns[0] : '',
       avatar: await this.getEnsAvatar(address),
     };
   }

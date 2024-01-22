@@ -82,6 +82,7 @@ export interface Config {
   shortName: string;
   monorepoName?: string;
   slug: string;
+  ensBatchContract?: string;
   network: string;
   trustWalletNetwork?: string;
   unknown: boolean;

@@ -25,17 +25,17 @@ export default class PoolSwaps {
   }
 
   public async swaprDecoration(swaps: PoolSwap[]): Promise<PoolSwap[]> {
-    const ensData = await Promise.all(
-      swaps.map(async (poolSwap: PoolSwap) => {
-        const ensName = await walletService.getEnsName(poolSwap.userAddress.id);
+    const addressList: string[] = swaps.map(swap => swap.userAddress.id);
+    const ensData = (await walletService.getEnsName(addressList)) ?? [];
+    const compiledData = await Promise.all(
+      ensData.map(async (record: string) => {
         let ensAvatar: null | string = null;
-
-        if (ensName) {
-          ensAvatar = await walletService.getEnsAvatar(ensName);
+        if (record) {
+          ensAvatar = await walletService.getEnsAvatar(record);
         }
 
         return {
-          ensName,
+          ensName: record,
           ensAvatar,
         };
       })
@@ -43,8 +43,8 @@ export default class PoolSwaps {
 
     return swaps.map((swap: PoolSwap, index: number) => ({
       ...swap,
-      ensName: ensData[index].ensName,
-      ensAvatar: ensData[index].ensAvatar,
+      ensName: compiledData[index].ensName,
+      ensAvatar: compiledData[index].ensAvatar,
     }));
   }
 
