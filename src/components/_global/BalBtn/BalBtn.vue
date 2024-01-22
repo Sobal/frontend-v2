@@ -96,7 +96,7 @@ const circleSizeClasses = computed(() => {
     case 'lg':
       return 'w-16 h-16 text-2xl';
     case 'base-noPad':
-      return 'w-7 h-8 text-base xs:ml-2';
+      return 'w-7 h-full text-base xs:ml-2';
     default:
       return 'w-12 h-12 text-base';
   }
