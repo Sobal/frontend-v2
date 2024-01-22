@@ -596,11 +596,16 @@ export async function sendSolanaTransaction(
   transaction: Transaction,
   confirm = false,
   sendTransaction: WalletAdapterProps['sendTransaction'],
-  options?: SendOptions
+  options?: SendOptions,
+  setButtonState?: (state: string) => void
 ): Promise<TransactionSignature> {
   solanaTransactionLog(transaction);
   const signature = await sendTransaction(transaction, connection, options);
   if (confirm) {
+    if (setButtonState)
+      setButtonState(
+        'Solana transaction submitted, please wait while transaction is mined for next step...'
+      );
     const { blockhash, lastValidBlockHeight } =
       await connection.getLatestBlockhash();
     await connection.confirmTransaction({
