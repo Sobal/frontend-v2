@@ -962,6 +962,9 @@
   "poolManager": "Pool Manager",
   "poolManagement": "Pool management",
   "poolDetails": "Pool details",
+  "networkVol": "Volume 24h",
+  "networkFees": "Fees 24h",
+  "networkTvl": "TVL",
   "poolOwner": "Pool Owner",
   "delegateOwner": {
     "title": "Delegate owner",

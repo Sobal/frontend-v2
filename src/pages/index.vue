@@ -13,6 +13,7 @@ import usePools from '@/composables/pools/usePools';
 import { lsGet, lsSet } from '@/lib/utils';
 import LS_KEYS from '@/constants/local-storage.keys';
 import { useIntersectionObserver } from '@vueuse/core';
+import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 
 const featuredProtocolsSentinel = ref<HTMLDivElement | null>(null);
 const isFeaturedVisible = ref(false);
@@ -49,9 +50,31 @@ const { pools, isLoading, poolsIsFetchingNextPage, loadMorePools } = usePools(
 );
 const { upToMediumBreakpoint } = useBreakpoints();
 const { networkSlug, networkConfig } = useNetwork();
+const { fNum } = useNumbers();
 
 const isPaginated = computed(() => pools.value.length > 10);
 
+const totalLiquidity = computed(() => {
+  return pools.value.reduce((total, pool) => {
+    return total + Number(pool.totalLiquidity);
+  }, 0);
+});
+
+const tvl = computed(() => {
+  return fNum(totalLiquidity.value, FNumFormats.fiat);
+});
+
+const volumeSnapshot = computed(() => {
+  return pools.value.reduce((total, pool) => {
+    return total + Number(pool.volumeSnapshot);
+  }, 0);
+});
+
+const feesSnapshot = computed(() => {
+  return pools.value.reduce((total, pool) => {
+    return total + Number(pool.feesSnapshot);
+  }, 0);
+});
 /**
  * METHODS
  */
@@ -73,10 +96,36 @@ function onColumnSort(columnId: string) {
         <span class="font-medium">{{ networkConfig.chainName }}</span>
       </h1>
     </div>
-
     <div class="xl:px-4 pt-10 md:pt-8 xl:mx-auto">
       <BalStack vertical>
         <div class="px-4 xl:px-0">
+          <BalLoadingBlock
+            v-if="isLoading"
+            :class="['min-w-full', 'h-14']"
+            square
+          />
+          <div
+            v-else
+            class="flex items-center place-content-center p-4 mt-4 mb-4 space-x-6 dark:bg-gray-850 rounded-lg border dark:border-0 text-md"
+          >
+            <div class="text-center">
+              {{ $t('networkTvl') }}
+              <span class="font-semibold text-blue-600">{{ tvl }}</span>
+            </div>
+            <div class="text-center">
+              {{ $t('networkVol') }}
+              <span class="font-semibold text-blue-600">{{
+                fNum(volumeSnapshot, FNumFormats.fiat)
+              }}</span>
+            </div>
+            <div class="text-center">
+              {{ $t('networkFees') }}
+
+              <span class="font-semibold text-blue-600">{{
+                fNum(feesSnapshot, FNumFormats.fiat)
+              }}</span>
+            </div>
+          </div>
           <div class="flex flex-col justify-between mb-2">
             <BalBtn
               v-if="upToMediumBreakpoint"
