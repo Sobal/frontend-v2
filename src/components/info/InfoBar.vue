@@ -12,18 +12,16 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="flex py-1 px-4 ml-auto bg-primary-600 rounded-2xl w-fit">
-    <div class="flex flex-row">
+  <div class="flex p-2 ml-auto bg-primary-600 rounded-2xl w-fit">
+    <div class="flex flex-row divide-x-2 divide-primary-400">
       <ValueDetails
         :label="$t('landing.hero.tvl')"
         :value="tvl"
-        addSeparator
         currencyFormatter="usd_m"
       />
       <ValueDetails
         :label="$t('landing.hero.fees')"
         :value="fees"
-        addSeparator
         currencyFormatter="usd_lg"
       />
       <ValueDetails
