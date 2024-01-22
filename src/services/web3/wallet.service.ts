@@ -1,6 +1,5 @@
 import { Network } from '@/lib/config';
 import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
-import { resolveENSAvatar } from '@tomfrench/ens-avatar-resolver';
 
 import ConfigService, { configService } from '@/services/config/config.service';
 import {
@@ -57,7 +56,7 @@ export default class WalletService {
 
   async getEnsAvatar(address: string): Promise<string | null> {
     try {
-      return await resolveENSAvatar(this.ensProvider, address);
+      return await this.ensProvider.getAvatar(address);
     } catch (error) {
       return null;
     }
