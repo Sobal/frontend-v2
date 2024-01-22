@@ -18,6 +18,7 @@ const config: Config = {
   trustWalletNetwork: 'polygonzkevm',
   unknown: false,
   visibleInUI: false,
+  showLatestArticles: false,
   testNetwork: false,
   rpc: `https://polygonzkevm-mainnet.g.alchemy.com/v2/${keys.alchemy}`,
   ws: ``,

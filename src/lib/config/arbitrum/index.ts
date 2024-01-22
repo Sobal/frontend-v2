@@ -21,6 +21,7 @@ const config: Config = {
   unknown: false,
   visibleInUI: false,
   testNetwork: false,
+  showLatestArticles: false,
   rpc: `https://arbitrum-mainnet.infura.io/v3/${keys.infura}`,
   ws: `wss://arb-mainnet.g.alchemy.com/v2/${keys.alchemy}`,
   publicRpc: 'https://arb1.arbitrum.io/rpc',
