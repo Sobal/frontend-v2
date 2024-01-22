@@ -13,7 +13,10 @@
     "documentation": "Documentation",
     "readDocs": "Read the Docs",
     "hero": {
-      "title": "Discover Powerful DeFi Opportunities."
+      "title": "Discover Powerful DeFi Opportunities.",
+      "vol": "Vol(24h)",
+      "fees": "Fees(24h)",
+      "tvl": "TVL"
     },
     "info": {
       "improvingEco": {

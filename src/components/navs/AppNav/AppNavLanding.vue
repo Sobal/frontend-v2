@@ -16,6 +16,18 @@ const protocolData = reactive({
   fees: 0,
 });
 
+interface tvldata {
+  currentChainTvls: { [chain: string]: number };
+}
+
+interface volumefeedata {
+  total24h: number;
+  totalAllTime: number;
+  total48hto24h: number;
+  total14dto7d: number;
+  change_1d: number;
+}
+
 const getProtocolFees = async () => {
   const feesApi = 'https://api.llama.fi/summary/fees/sobal?dataType=dailyFees';
   const tvlApi = 'https://api.llama.fi/protocol/sobal';
@@ -27,18 +39,18 @@ const getProtocolFees = async () => {
   const responseVolume = await fetch(volumeApi);
 
   if (responseFees.status === 200) {
-    const data = await responseFees.json();
+    const data: volumefeedata = await responseFees.json();
     protocolData.fees = data.total24h;
   }
 
   if (responseTvl.status === 200) {
-    const data = await responseTvl.json();
+    const data: tvldata = await responseTvl.json();
     const tvl = Object.values(data.currentChainTvls).reduce((a, b) => a + b, 0);
     protocolData.tvl = tvl;
   }
 
   if (responseVolume.status === 200) {
-    const data = await responseVolume.json();
+    const data: volumefeedata = await responseVolume.json();
     protocolData.vol = data.total24h;
   }
 
