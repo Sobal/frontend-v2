@@ -104,7 +104,7 @@ export async function bridgeToken(
         id: signature,
         type: 'tx',
         action: `bridgeTokens`,
-        summary: `Transfer ${amount} ${token.symbol} to ${configService.network.chainName}`,
+        summary: `Transfer ${amount} ${token.symbol} from Solana to ${configService.network.chainName}`,
       });
 
       addNotificationForSolanaTransaction(signature, 'tx');
@@ -161,7 +161,7 @@ export async function bridgeToken(
         id: signature,
         type: 'tx',
         action: `bridgeTokens`,
-        summary: `Transfer ${amount} ${token.symbol} to ${configService.network.chainName}`,
+        summary: `Transfer ${amount} ${token.symbol} from Solana to ${configService.network.chainName}`,
       });
 
       addNotificationForSolanaTransaction(signature, 'tx');
@@ -212,7 +212,7 @@ export async function bridgeToken(
         id: signature,
         type: 'tx',
         action: `bridgeTokens`,
-        summary: `Transfer ${amount} ${token.symbol} to ${configService.network.chainName}`,
+        summary: `Transfer ${amount} ${token.symbol} from Solana to ${configService.network.chainName}`,
       });
 
       addNotificationForSolanaTransaction(signature, 'tx');
@@ -235,7 +235,7 @@ export async function bridgeToken(
         id: unwrapTx.hash,
         type: 'tx',
         action: `bridgeTokens`,
-        summary: `Unwrap ${amount} ${token.symbol}`,
+        summary: `Unwrap ${amount} ${token.symbol} on ${configService.network.chainName}`,
       });
 
       setButtonState(
