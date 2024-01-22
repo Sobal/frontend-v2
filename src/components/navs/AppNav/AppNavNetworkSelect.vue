@@ -3,7 +3,6 @@ import { computed, ref, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useI18n } from 'vue-i18n';
-import useBreakpoints from '@/composables/useBreakpoints';
 import useNetwork from '@/composables/useNetwork';
 import useNotifications from '@/composables/useNotifications';
 import useWeb3 from '@/services/web3/useWeb3';
@@ -26,6 +25,7 @@ type Props = {
   alignMenu?: string;
   noBg?: boolean;
   noPadding?: boolean;
+  size?: number;
 };
 
 withDefaults(defineProps<Props>(), {
@@ -33,10 +33,10 @@ withDefaults(defineProps<Props>(), {
   hideLabel: false,
   noBg: false,
   noPadding: false,
+  size: 22,
 });
 
 // COMPOSABLES
-const { upToLargeBreakpoint } = useBreakpoints();
 const { networkId, networkConfig } = useNetwork();
 const { chainId } = useWeb3();
 const router = useRouter();
@@ -138,27 +138,25 @@ function isActive(network: NetworkOption): boolean {
 <template>
   <BalPopover noPad :align="alignMenu">
     <template #activator>
-      <BalBtn
-        :color="noBg ? 'transparent' : 'white'"
-        :size="noPadding ? 'base-noPad' : upToLargeBreakpoint ? 'md' : 'sm'"
-      >
-        <template v-if="activeNetwork">
-          <img
-            :src="buildNetworkIconURL(activeNetwork.id)"
-            :alt="activeNetwork.name"
-            class="rounded-full h-[22px] w-[22px]"
-          />
-          <span v-if="!hideLabel" class="ml-2">
-            {{ activeNetwork.name }}
-          </span>
-          <BalIcon
-            name="chevron-down"
-            size="sm"
-            :class="{ 'ml-2': !hideLabel, 'ml-0': hideLabel }"
-            :color="noBg ? 'white' : ''"
-          />
-        </template>
-      </BalBtn>
+      <div class="flex flex-row place-items-center">
+        <BalBtn
+          :color="noBg ? 'transparent' : 'white'"
+          :size="noPadding ? 'base-noPad' : 'md'"
+          circle
+        >
+          <template v-if="activeNetwork">
+            <img
+              :src="buildNetworkIconURL(activeNetwork.id)"
+              :alt="activeNetwork.name"
+              :class="`rounded-full h-[${size}px] w-[${size}px]`"
+            />
+          </template>
+        </BalBtn>
+        <BalIcon name="chevron-down" size="sm" :color="noBg ? 'white' : ''" />
+        <span v-if="!hideLabel && activeNetwork" class="hidden lg:block ml-1">
+          {{ activeNetwork.name }}
+        </span>
+      </div>
     </template>
     <div role="menu" class="flex overflow-hidden flex-col w-52 rounded-lg">
       <div
