@@ -76,7 +76,7 @@ const hideNetworkSelect = computed(() => connector.value?.id === 'gnosis');
       class="grid grid-cols-10 grid-flow-col justify-between items-center h-full text-white"
     >
       <div
-        class="flex flex-col xs:flex-row col-span-1 xs:col-span-3 lg:col-span-3 2xl:col-span-4"
+        class="flex flex-col xs:flex-row col-span-1 xs:col-span-3 lg:col-span-3 2xl:col-span-4 place-items-center"
       >
         <router-link
           :to="{ name: 'landing' }"
@@ -88,7 +88,6 @@ const hideNetworkSelect = computed(() => connector.value?.id === 'gnosis');
         <AppNavNetworkSelect
           v-if="!hideNetworkSelect"
           hideLabel
-          class="w-fit"
           alignMenu="left"
           noPadding
           noBg
