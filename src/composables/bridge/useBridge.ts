@@ -22,7 +22,6 @@ import { Signer } from '@ethersproject/abstract-signer';
 import { WalletAdapterProps } from '@solana/wallet-adapter-base';
 import { NeonProgramStatus } from './interfaces/api';
 import { NewTransaction, TransactionType } from '../useTransactions';
-import { sleep } from '@/lib/utils';
 
 export async function bridgeToken(
   walletType: WalletType,
@@ -96,7 +95,7 @@ export async function bridgeToken(
       const signature = await sendSolanaTransaction(
         connection,
         transaction,
-        true,
+        false,
         sendTransaction,
         { skipPreflight: false }
       );
@@ -107,8 +106,6 @@ export async function bridgeToken(
         action: `bridgeTokens`,
         summary: `Transfer ${amount} ${token.symbol} to ${configService.network.chainName}`,
       });
-
-      await sleep(1000);
 
       addNotificationForSolanaTransaction(signature, 'tx');
 
@@ -150,12 +147,12 @@ export async function bridgeToken(
       );
       console.log('Solana Simulated Transaction', simulatedTx);
 
-      setButtonState('Please confirm transfer a transaction on your wallet...');
+      setButtonState('Please confirm transfer transaction on your wallet...');
 
       const signature = await sendSolanaTransaction(
         connection,
         transaction,
-        true,
+        false,
         sendTransaction,
         { skipPreflight: false }
       );
@@ -166,8 +163,6 @@ export async function bridgeToken(
         action: `bridgeTokens`,
         summary: `Transfer ${amount} ${token.symbol} to ${configService.network.chainName}`,
       });
-
-      await sleep(1000);
 
       addNotificationForSolanaTransaction(signature, 'tx');
 
@@ -208,7 +203,7 @@ export async function bridgeToken(
       const signature = await sendSolanaTransaction(
         connection,
         transaction,
-        true,
+        false,
         sendTransaction,
         { skipPreflight: false }
       );
@@ -219,8 +214,6 @@ export async function bridgeToken(
         action: `bridgeTokens`,
         summary: `Transfer ${amount} ${token.symbol} to ${configService.network.chainName}`,
       });
-
-      await sleep(1000);
 
       addNotificationForSolanaTransaction(signature, 'tx');
 
@@ -327,7 +320,8 @@ export async function bridgeToken(
         solanaTransaction,
         true,
         sendTransaction,
-        { skipPreflight: false }
+        { skipPreflight: false },
+        setButtonState
       );
 
       addTransaction({
@@ -336,12 +330,6 @@ export async function bridgeToken(
         action: `bridgeTokens`,
         summary: `Prepare to receive ${amount} ${token.symbol} on Solana`,
       });
-
-      setButtonState(
-        'Solana transaction submitted, please wait while transaction is mined for next step...'
-      );
-
-      await sleep(1000);
 
       addNotificationForSolanaTransaction(signedSolanaTransaction, 'tx');
 
@@ -414,7 +402,7 @@ export async function bridgeToken(
         const signature = await sendSolanaTransaction(
           connection,
           unwrapTransaction,
-          true,
+          false,
           sendTransaction,
           { skipPreflight: false }
         );
