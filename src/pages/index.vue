@@ -99,31 +99,46 @@ function onColumnSort(columnId: string) {
     <div class="xl:px-4 pt-10 md:pt-8 xl:mx-auto">
       <BalStack vertical>
         <div class="px-4 xl:px-0">
-          <BalLoadingBlock
-            v-if="isLoading"
-            :class="['min-w-full', 'h-14']"
-            square
-          />
           <div
-            v-else
-            class="flex items-center place-content-center p-4 mt-4 mb-4 space-x-6 dark:bg-gray-850 rounded-lg border dark:border-0 text-md"
+            class="flex place-self-center py-4 mx-auto mt-4 mb-4 dark:bg-gray-850 rounded-lg border border-gray-800 divide-x-2 divide-gray-800 text-md w-fit"
           >
-            <div class="text-center">
+            <div class="px-4 text-center">
               {{ $t('networkTvl') }}
-              <span class="font-semibold text-blue-600">{{ tvl }}</span>
+              <span class="font-semibold text-blue-600"
+                ><BalIcon
+                  v-if="isLoading"
+                  name="refresh-cw"
+                  size="xs"
+                  :animate="isLoading"
+                /><span v-else>{{ tvl }}</span></span
+              >
             </div>
-            <div class="text-center">
+            <div class="px-4 text-center">
               {{ $t('networkVol') }}
-              <span class="font-semibold text-blue-600">{{
-                fNum(volumeSnapshot, FNumFormats.fiat)
-              }}</span>
+              <span class="font-semibold text-blue-600"
+                ><BalIcon
+                  v-if="isLoading"
+                  name="refresh-cw"
+                  size="xs"
+                  :animate="isLoading"
+                /><span v-else>{{
+                  fNum(volumeSnapshot, FNumFormats.fiat)
+                }}</span></span
+              >
             </div>
-            <div class="text-center">
+            <div class="px-4 text-center">
               {{ $t('networkFees') }}
 
-              <span class="font-semibold text-blue-600">{{
-                fNum(feesSnapshot, FNumFormats.fiat)
-              }}</span>
+              <span class="font-semibold text-blue-600"
+                ><BalIcon
+                  v-if="isLoading"
+                  name="refresh-cw"
+                  size="xs"
+                  :animate="isLoading"
+                /><span v-else>{{
+                  fNum(feesSnapshot, FNumFormats.fiat)
+                }}</span></span
+              >
             </div>
           </div>
           <div class="flex flex-col justify-between mb-2">
