@@ -40,7 +40,7 @@ watch(router.currentRoute, () => {
       <SidebarContent />
     </div>
     <div class="app-body-wrapper" :style="backgroundImageUrl">
-      <div class="m-2 lg:mx-5 app-body">
+      <div class="my-2 ml-2 app-body">
         <AppNav />
         <div class="pb-16 m-auto">
           <slot />
