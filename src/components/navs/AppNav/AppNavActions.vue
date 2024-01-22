@@ -33,25 +33,31 @@ function connectWalletHandler() {
 </script>
 
 <template>
-  <div class="grid grid-rows-1 grid-flow-col gap-2">
+  <div
+    class="grid grid-rows-1 grid-flow-col gap-2 p-1 py-1 pr-3 lg:pr-5 space-x-1 font-medium bg-gray-850 rounded-l-full border border-r-0 border-gray-800"
+  >
     <!-- <DarkModeToggle v-if="isDesktop" /> -->
     <AppNavActivityBtn v-if="account" />
     <AppNavAccountBtn v-if="account" />
-    <BalBtn
+    <div
       v-else
-      color="white"
-      :size="isMobile ? 'md' : 'sm'"
+      class="flex flex-row place-items-center cursor-pointer"
       @click="connectWalletHandler"
     >
-      <WalletIcon class="mr-2" />
-      <span class="hidden lg:inline-block" v-text="$t('connectWallet')" />
-      <span class="lg:hidden" v-text="$t('connect')" />
-    </BalBtn>
-    <AppNavNetworkSelect v-if="!hideNetworkSelect" />
+      <BalBtn color="white" size="md" circle>
+        <BalIcon name="sun" class="text-blue-500" />
+      </BalBtn>
+      <div class="pl-2">
+        <span class="hidden lg:inline-block" v-text="$t('connectWallet')" />
+        <span class="lg:hidden" v-text="$t('connect')" />
+      </div>
+    </div>
+    <AppNavNetworkSelect v-if="!hideNetworkSelect" :size="40" />
     <BalBtn
       v-if="isMobile"
       color="white"
       flat
+      size="base-noPad"
       circle
       @click="setSidebarOpen(true)"
     >
