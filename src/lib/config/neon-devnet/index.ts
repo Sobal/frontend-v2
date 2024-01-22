@@ -6,8 +6,6 @@ import tokenlists from './tokenlists';
 import tokens from './tokens';
 import rateProviders from './rateProviders';
 
-//TODO: Main Subgraph, Gauge Subgraph, Balancer API, Element Pools, Gauge Type & Weight
-
 const config: Config = {
   key: '245022926',
   chainId: 245022926,
