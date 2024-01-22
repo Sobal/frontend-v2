@@ -198,7 +198,7 @@ watchEffect(() => {
             ><BalIcon
               name="refresh-cw"
               size="xs"
-              :animate="isLoadingBalances.value"
+              :spin="isLoadingBalances.value"
             />
             {{ isLoadingBalances.value ? t('refreshing') : t('refresh') }}</span
           >

@@ -109,7 +109,7 @@ function onColumnSort(columnId: string) {
                   v-if="isLoading"
                   name="refresh-cw"
                   size="xs"
-                  :animate="isLoading"
+                  :spin="isLoading"
                 /><span v-else>{{ tvl }}</span></span
               >
             </div>
@@ -120,7 +120,7 @@ function onColumnSort(columnId: string) {
                   v-if="isLoading"
                   name="refresh-cw"
                   size="xs"
-                  :animate="isLoading"
+                  :spin="isLoading"
                 /><span v-else>{{
                   fNum(volumeSnapshot, FNumFormats.fiat)
                 }}</span></span
@@ -134,7 +134,7 @@ function onColumnSort(columnId: string) {
                   v-if="isLoading"
                   name="refresh-cw"
                   size="xs"
-                  :animate="isLoading"
+                  :spin="isLoading"
                 /><span v-else>{{
                   fNum(feesSnapshot, FNumFormats.fiat)
                 }}</span></span
