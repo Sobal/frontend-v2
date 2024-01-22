@@ -331,7 +331,7 @@ watch(_address, async (newAddress, oldAddress) => {
               ><BalIcon
                 name="refresh-cw"
                 size="xs"
-                :animate="dynamicDataLoading"
+                :spin="dynamicDataLoading"
               />
               {{ dynamicDataLoading ? t('refreshing') : t('refresh') }}</span
             >
