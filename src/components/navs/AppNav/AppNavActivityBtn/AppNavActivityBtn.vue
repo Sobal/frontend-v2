@@ -14,7 +14,7 @@ import ActivityRows from './ActivityRows.vue';
 /**
  * COMPOSABLES
  */
-const { upToLargeBreakpoint, isMobile } = useBreakpoints();
+const { isMobile } = useBreakpoints();
 const { account, getSigner } = useWeb3();
 const { t } = useI18n();
 
@@ -67,14 +67,17 @@ async function cancelOrder(orderId: string) {
 <template>
   <BalPopover noPad :align="isMobile ? 'left' : undefined">
     <template #activator>
-      <BalBtn
-        color="white"
-        :size="upToLargeBreakpoint ? 'md' : 'sm'"
-        class="relative p-1"
-        :circle="upToLargeBreakpoint"
-      >
-        <ActivityIcon v-if="pendingTransactions.length === 0" />
-        <ActivityCounter v-else :count="pendingTransactions.length" />
+      <BalBtn color="white" size="md" class="relative p-1" circle>
+        <ActivityCounter
+          v-if="pendingTransactions.length > 0"
+          :count="pendingTransactions.length"
+        />
+        <BalIcon
+          v-else-if="transactions.length > 0"
+          name="cloud-lightning"
+          class="text-blue-500"
+        />
+        <BalIcon v-else name="cloud" />
       </BalBtn>
     </template>
     <BalCard class="w-72" noPad noBorder>
