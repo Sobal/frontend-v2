@@ -5,12 +5,15 @@ type Props = {
   trigger?: PopoverTrigger;
   align?: string;
   detached?: boolean;
+  fullscreen?: boolean;
+  noPad?: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
   trigger: 'click',
   align: 'right',
   detached: false,
+  noPad: false,
 });
 
 const emit = defineEmits<{
@@ -32,6 +35,7 @@ const popoverWrapperClasses = computed(() => ({
   [`${props.align}-0`]: !props.detached,
   'align-center-transform': props.detached && props.align === 'center',
   'align-right-transform': props.detached && props.align === 'right',
+  'full-screen-transform': props.fullscreen,
 }));
 
 const popoverActivatorWrapperClasses = computed(() => ({
@@ -82,6 +86,7 @@ watch(popoverOpened, () => {
     v-click-outside="handleClickOutside"
     :class="[popoverActivatorWrapperClasses]"
   >
+    {{ popoverOpened }}
     <div
       ref="activatorWrapper"
       class="group flex flex-col h-full bal-popover-activator"
@@ -92,7 +97,27 @@ watch(popoverOpened, () => {
       <slot name="activator" />
     </div>
     <div :class="['bal-popover-wrapper', popoverWrapperClasses]">
-      <BalCard shadow="lg" v-bind="$attrs" darkBgColor="800">
+      <BalCard
+        shadow="lg"
+        v-bind="$attrs"
+        :noPad="props.noPad"
+        :class="[{ 'm-2': props.fullscreen }]"
+        darkBgColor="800"
+      >
+        <div
+          v-if="fullscreen"
+          class="flex flex-row justify-center items-center place-items-center text-gray-300"
+          @click="hidePopover"
+        >
+          <BalBtn
+            color="gray"
+            class="w-full"
+            :class="[{ 'm-3': props.noPad }]"
+            outline
+            size="sm"
+            >{{ $t('closeWindow') }}</BalBtn
+          >
+        </div>
         <slot :close="hidePopover" />
       </BalCard>
     </div>
@@ -110,7 +135,7 @@ watch(popoverOpened, () => {
   @apply visible opacity-100;
 }
 
-.bal-popover-wrapper:hover {
+.bal-popover-wrapper-visible:hover {
   @apply visible opacity-100;
 }
 
@@ -122,5 +147,13 @@ watch(popoverOpened, () => {
 .align-right-transform {
   transform: translateX(-webkit-calc(-100% + v-bind(activatorWidthPx)));
   transform: translateX(calc(-100% + v-bind(activatorWidthPx)));
+}
+
+.full-screen-transform {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 </style>
