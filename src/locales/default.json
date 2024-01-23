@@ -270,6 +270,7 @@
   "clearForms": "Clear forms",
   "clearTransactions": "Clear transactions",
   "close": "Close",
+  "closeWindow": "Close Window",
   "coingeckoPricingTooltip": "The data for this graph is pulled from our pricing provider, CoinGecko.",
   "communitySwapFeeLabel": "Delegated swap fees; currently fixed: <span class='font-semibold'>{0}</span>",
   "composition": "Composition",
