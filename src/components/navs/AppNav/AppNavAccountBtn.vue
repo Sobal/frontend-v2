@@ -6,16 +6,12 @@ import { shorten } from '@/lib/utils';
 
 import AppNavSettings from './AppNavSettings.vue';
 
-const { isMobile } = useBreakpoints();
+const { isNarrowMobile } = useBreakpoints();
 const { isLoadingProfile, profile, account } = useWeb3();
 </script>
 
 <template>
-  <BalPopover
-    noPad
-    :align="isMobile ? 'center' : undefined"
-    :detached="isMobile ? true : undefined"
-  >
+  <BalPopover :noPad="!isNarrowMobile" :fullscreen="isNarrowMobile">
     <template #activator>
       <div class="flex flex-row place-items-center cursor-pointer">
         <BalBtn

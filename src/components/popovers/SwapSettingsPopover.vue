@@ -13,6 +13,7 @@ import useFathom from '@/composables/useFathom';
 import { ethereumTxTypeOptions } from '@/constants/options';
 import { useUserSettings } from '@/providers/user-settings.provider';
 import { isEIP1559SupportedNetwork } from '@/composables/useNetwork';
+import useBreakpoints from '@/composables/useBreakpoints';
 
 type Props = {
   context: SwapSettingsContext;
@@ -32,6 +33,7 @@ const { transactionDeadline, setTransactionDeadline } = useApp();
 const { trackGoal, Goals } = useFathom();
 const { ethereumTxType, setEthereumTxType } = useEthereumTxType();
 const { supportSignatures, setSupportSignatures } = useUserSettings();
+const { isNarrowMobile } = useBreakpoints();
 
 // METHODS
 function onActivatorClick(): void {
@@ -44,7 +46,7 @@ function onActivatorClick(): void {
 </script>
 
 <template>
-  <BalPopover>
+  <BalPopover :fullscreen="isNarrowMobile">
     <template #activator>
       <BalBtn
         circle
@@ -57,7 +59,7 @@ function onActivatorClick(): void {
       </BalBtn>
     </template>
 
-    <div>
+    <div :class="[{ 'pt-3': isNarrowMobile }]">
       <div class="flex items-baseline">
         <span class="mb-2 font-medium" v-text="$t('slippageTolerance')" />
         <BalTooltip>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import useBreakpoints from '@/composables/useBreakpoints';
 import configs, { Network } from '@/lib/config';
 
 /**
@@ -15,6 +16,11 @@ const emit = defineEmits<{
   (e: 'update:showExpiredGauges', value: boolean): void;
   (e: 'update:activeNetworkFilters', value: number[]): void;
 }>();
+
+/**
+ * COMPOSABLES
+ */
+const { isNarrowMobile } = useBreakpoints();
 
 /**
  * PROPS
@@ -63,7 +69,7 @@ function updateNetwork(network: number) {
 </script>
 
 <template>
-  <BalPopover noPad class="flex-0">
+  <BalPopover noPad :fullscreen="isNarrowMobile" class="flex-0">
     <template #activator>
       <BalBtn class="flex-1 h-full" color="white" size="sm">
         <BalIcon

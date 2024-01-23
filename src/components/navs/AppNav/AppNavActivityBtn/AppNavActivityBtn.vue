@@ -14,7 +14,7 @@ import ActivityRows from './ActivityRows.vue';
 /**
  * COMPOSABLES
  */
-const { isMobile } = useBreakpoints();
+const { isNarrowMobile } = useBreakpoints();
 const { account, getSigner } = useWeb3();
 const { t } = useI18n();
 
@@ -65,7 +65,7 @@ async function cancelOrder(orderId: string) {
 </script>
 
 <template>
-  <BalPopover noPad :align="isMobile ? 'left' : undefined">
+  <BalPopover noPad :fullscreen="isNarrowMobile">
     <template #activator>
       <BalBtn color="white" size="md" class="relative p-1" circle>
         <ActivityCounter
@@ -80,7 +80,7 @@ async function cancelOrder(orderId: string) {
         <BalIcon v-else name="cloud" />
       </BalBtn>
     </template>
-    <BalCard class="w-72" noPad noBorder>
+    <BalCard :class="[{ 'w-72': !isNarrowMobile }]" noPad noBorder>
       <template #header>
         <div
           class="flex justify-between items-center p-3 w-full border-b dark:border-gray-900"

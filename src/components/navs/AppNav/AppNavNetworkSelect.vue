@@ -11,6 +11,7 @@ import config from '@/lib/config';
 import { Config } from '@/lib/config/types';
 import { buildNetworkIconURL } from '@/lib/utils/urls';
 import { hardRedirectTo } from '@/plugins/router/nav-guards';
+import useBreakpoints from '@/composables/useBreakpoints';
 
 export interface NetworkOption {
   id: string;
@@ -42,6 +43,7 @@ const { chainId } = useWeb3();
 const router = useRouter();
 const { addNotification } = useNotifications();
 const { t } = useI18n();
+const { isNarrowMobile } = useBreakpoints();
 
 function convertConfigToNetworkOption(config: Config): NetworkOption {
   return {
@@ -136,7 +138,11 @@ function isActive(network: NetworkOption): boolean {
 </script>
 
 <template>
-  <BalPopover noPad :align="alignMenu">
+  <BalPopover
+    :noPad="!isNarrowMobile"
+    :fullscreen="isNarrowMobile"
+    :align="alignMenu"
+  >
     <template #activator>
       <div class="flex flex-row place-items-center">
         <BalBtn
@@ -158,7 +164,11 @@ function isActive(network: NetworkOption): boolean {
         </span>
       </div>
     </template>
-    <div role="menu" class="flex overflow-hidden flex-col w-52 rounded-lg">
+    <div
+      role="menu"
+      class="flex overflow-hidden flex-col rounded-lg"
+      :class="[{ 'w-52': !isNarrowMobile }]"
+    >
       <div
         class="py-2 px-3 text-sm font-medium text-gray-500 whitespace-nowrap bg-gray-50 dark:bg-gray-800 border-b dark:border-gray-900"
       >
