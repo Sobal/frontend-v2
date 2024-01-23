@@ -28,6 +28,8 @@ export default function useBreakpoints() {
     ['xs', 'sm', 'md'].includes(bp.value)
   );
 
+  const isNarrowMobile = computed(() => ['xs', 'sm'].includes(bp.value));
+
   const isMobile = computed(() => ['xs', 'sm', 'md', 'lg'].includes(bp.value));
   const isDesktop = computed(() =>
     ['xl', '2xl', '3xl', '4xl'].includes(bp.value)
@@ -39,6 +41,7 @@ export default function useBreakpoints() {
     width,
     bp,
     isMobile,
+    isNarrowMobile,
     isDesktop,
     upToLargeBreakpoint,
     upToMediumBreakpoint,
