@@ -293,10 +293,10 @@ const infoCards: Info[] = [
         />
       </div>
       <div
-        class="flex relative flex-col py-14 px-12 mt-10 lg:mt-28 bg-black rounded-2xl"
+        class="flex relative flex-col py-14 px-12 mt-10 lg:mt-20 bg-black rounded-2xl"
       >
         <h2 class="text-white">{{ $t('landing.info.builders.title') }}</h2>
-        <p class="mt-2 max-w-2xl text-lg text-gray-300">
+        <p class="mt-2 max-w-xl xl:max-w-2xl text-lg text-gray-300">
           {{ $t('landing.info.builders.description') }}
         </p>
         <BalLink
@@ -313,12 +313,12 @@ const infoCards: Info[] = [
             outline
           />
         </BalLink>
-        <div class="hidden lg:flex absolute right-20 bottom-0 flex-row">
+        <div class="flex absolute right-6 lg:right-20 bottom-0 flex-row">
           <div class="flex flex-row self-end mt-2 mb-5">
             <p class="mr-2 text-primary-50">powered by</p>
             <img :src="balancerLogo" />
           </div>
-          <img :src="buildings3d" />
+          <img :src="buildings3d" class="hidden lg:block" />
         </div>
       </div>
     </div>
