@@ -548,21 +548,9 @@
   "latestArticles": "Latest Articles",
   "featuredProtocols": {
     "title": "Featured ecosystem protocols",
-    "Copper": {
-      "description": "Fjord (formerly, “Copper Launch”) is a community platform that connects inspired projects with passionate supporters via the power of Liquidity Bootstrapping Pools (LBPs). Also check out their new fair launch NFT drop platform.",
-      "linkText": "Fjord Foundry website"
-    },
-    "Beets": {
-      "description": "Powered by Balancer technology, Beethoven X provides a composable liquidity base layer on Fantom and Optimism. From Boosted Pools to Maturity Adjusted fNFTs, the DEX offers a suite of powerful financial primitives.",
-      "linkText": "Beethoven X website"
-    },
-    "Xave": {
-      "description": "Xave Finance enables real time remittance transfers and high yield consumer savings for Fintechs, with capital efficient liquid FX markets (via custom FXPools) integrated with the Balancer Vault.",
-      "linkText": "Xave website"
-    },
-    "Gyroscope": {
-      "description": "Gyroscope is a new stablecoin that, like a physical gyroscope, aims to remain stable as the surrounding environment changes. Gyroscope AMMs—Concentrated Liquidity Pools (CLPs)—leverage Balancer's customizable AMM logic.",
-      "linkText": "Gyroscope website"
+    "Simpool": {
+      "description": "Simpool is a token launch platform that utilises Liquidity Bootstrapping Pools (LBPs), providing a fair entry for participation.",
+      "linkText": "Simpool website"
     }
   },
   "fees": "fees",

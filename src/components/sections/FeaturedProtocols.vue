@@ -7,33 +7,11 @@ const { t } = useI18n();
 
 const featuredProtocols = [
   {
-    title: 'Xave',
-    description: t('featuredProtocols.Xave.description'),
-    linkText: t('featuredProtocols.Xave.linkText'),
-    imgSrc: '/images/banners/xave.jpg',
-    link: EXTERNAL_LINKS.Xave.Home,
-  },
-  {
-    title: 'Fjord Foundry',
-    description: t('featuredProtocols.Copper.description'),
-    linkText: t('featuredProtocols.Copper.linkText'),
-    imgSrc: '/images/banners/fjord.png',
-    link: EXTERNAL_LINKS.Copper.Home,
-  },
-  {
-    title: 'Gyroscope',
-    description: t('featuredProtocols.Gyroscope.description'),
-    linkText: t('featuredProtocols.Gyroscope.linkText'),
-    imgSrc: '/images/banners/gyroscope.jpg',
-    link: EXTERNAL_LINKS.Gyroscope.Home,
-  },
-
-  {
-    title: 'Beethoven X',
-    description: t('featuredProtocols.Beets.description'),
-    linkText: t('featuredProtocols.Beets.linkText'),
-    imgSrc: '/images/banners/beets.jpg',
-    link: EXTERNAL_LINKS.Beets.Home,
+    title: 'Simpool',
+    description: t('featuredProtocols.Simpool.description'),
+    linkText: t('featuredProtocols.Simpool.linkText'),
+    imgSrc: '/images/banners/simpool.png',
+    link: EXTERNAL_LINKS.Simpool.Home,
   },
 ];
 </script>
