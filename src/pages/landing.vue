@@ -4,7 +4,6 @@ import { useRouter } from 'vue-router';
 
 import LandingPageHero from '@/components/heros/LandingPageHero.vue';
 import LandingInfoCard from '@/components/cards/LandingInfoCard/LandingInfoCard.vue';
-import ThreeCoins from '@/components/images/ThreeCoins.vue';
 import PairPriceGraph from '@/components/cards/PairPriceGraph/PairPriceGraph.vue';
 
 import { useSwapState } from '@/composables/swap/useSwapState';
@@ -119,7 +118,9 @@ const infoCards: Info[] = [
           />
         </div>
       </div>
-      <div class="hidden lg:flex relative mt-20 bg-blue-600 rounded-2xl">
+      <div
+        class="hidden lg:flex overflow-hidden relative mt-10 bg-blue-600 rounded-2xl"
+      >
         <BalImage
           class="z-50 mt-6 ml-7"
           width="760"
@@ -128,37 +129,18 @@ const infoCards: Info[] = [
         <img class="absolute top-0 right-0" :src="sobalDiagonal" />
       </div>
     </div>
-    <div class="py-10 px-5 lg:px-0 mt-36 bg-black">
-      <div class="container flex flex-col lg:flex-row content-padded">
-        <div class="flex-grow">
-          <img :src="gitbookLogo" class="mb-2 w-[80px] md:w-[100px]" />
-          <h2 class="text-4xl text-white">
-            {{ $t('landing.infoCard.learnMore.title') }}
-          </h2>
-          <p class="mt-4 mb-6 lg:mb-0 lg:max-w-2xl text-lg">
-            {{ $t('landing.infoCard.learnMore.description') }}
-          </p>
-        </div>
-        <BalLink
-          external
-          :href="EXTERNAL_LINKS.Sobal.Docs"
-          class="self-center h-min"
-          noStyle
-        >
-          <BalBtn
-            :label="$t('landing.readDocs')"
-            class="!p-6 !border-pink-700 !border-2 !text-white"
-            rounded
-            size="sm"
-            outline
-          />
-        </BalLink>
-      </div>
-    </div>
+
     <div class="container content-padded">
+      <div
+        class="flex flex-col col-span-1 lg:col-span-3 items-center lg:items-start mt-20 lg:mt-32"
+      >
+        <h1 class="text-center text-white">
+          {{ $t('landing.info.discoverEco.title') }}
+        </h1>
+      </div>
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-x-10 gap-y-8">
         <div
-          class="relative col-span-1 lg:col-span-3 p-12 mt-36 bg-primary-600 rounded-2xl"
+          class="relative col-span-1 lg:col-span-3 p-12 mt-12 bg-primary-600 rounded-2xl"
         >
           <img
             width="250"
@@ -258,32 +240,36 @@ const infoCards: Info[] = [
           <PairPriceGraph chain="neon" landing height="100" hideTooltip />
         </BalCard>
       </div>
-
-      <div class="flex flex-col items-center my-14">
-        <h1 class="text-center text-white">
-          {{ $t('landing.info.improvingEco.title') }}
-        </h1>
-        <p class="my-2 max-w-lg text-lg text-center text-gray-300">
-          {{ $t('landing.info.improvingEco.description') }}
-        </p>
-        <ThreeCoins />
-      </div>
-
-      <div class="flex relative flex-col py-14 px-12 bg-black rounded-2xl">
-        <h2 class="text-white">{{ $t('landing.info.builders.title') }}</h2>
-        <p class="mt-2 max-w-2xl text-lg text-gray-300">
-          {{ $t('landing.info.builders.description') }}
-        </p>
-        <div class="hidden lg:flex absolute right-20 bottom-0 flex-row">
-          <div class="flex flex-row self-end mt-2 mb-5">
-            <p class="mr-2 text-primary-50">powered by</p>
-            <img :src="balancerLogo" />
-          </div>
-          <img :src="buildings3d" />
+    </div>
+    <div class="py-10 px-5 lg:px-0 mt-12 bg-black">
+      <div class="container flex flex-col lg:flex-row content-padded">
+        <div class="flex-grow">
+          <img :src="gitbookLogo" class="mb-2 w-[80px] md:w-[100px]" />
+          <h2 class="text-4xl text-white">
+            {{ $t('landing.infoCard.learnMore.title') }}
+          </h2>
+          <p class="mt-4 mb-6 lg:mb-0 lg:max-w-2xl text-lg">
+            {{ $t('landing.infoCard.learnMore.description') }}
+          </p>
         </div>
+        <BalLink
+          external
+          :href="EXTERNAL_LINKS.Sobal.Docs"
+          class="self-center h-min"
+          noStyle
+        >
+          <BalBtn
+            :label="$t('landing.readDocs')"
+            class="!p-6 !border-pink-700 !border-2 !text-white"
+            rounded
+            size="sm"
+            outline
+          />
+        </BalLink>
       </div>
-
-      <div class="relative p-9 mt-20 xl:mt-48 bg-blue-600 rounded-2xl">
+    </div>
+    <div class="container content-padded">
+      <div class="relative p-9 mt-20 xl:mt-56 bg-blue-600 rounded-2xl">
         <div class="flex flex-col my-4">
           <h2 class="text-center text-black">
             {{ $t('landing.infoCard.launchToken.title') }}
@@ -305,6 +291,35 @@ const infoCards: Info[] = [
           class="hidden sm:block absolute bottom-0 left-0 w-full"
           :src="launch3d"
         />
+      </div>
+      <div
+        class="flex relative flex-col py-14 px-12 mt-10 lg:mt-28 bg-black rounded-2xl"
+      >
+        <h2 class="text-white">{{ $t('landing.info.builders.title') }}</h2>
+        <p class="mt-2 max-w-2xl text-lg text-gray-300">
+          {{ $t('landing.info.builders.description') }}
+        </p>
+        <BalLink
+          external
+          :href="EXTERNAL_LINKS.Sobal.DevDocs"
+          class="pt-5 w-fit"
+          noStyle
+        >
+          <BalBtn
+            :label="$t('landing.readDevDocs')"
+            class="!p-6 !border-blue-700 !border-2 !text-white"
+            rounded
+            size="sm"
+            outline
+          />
+        </BalLink>
+        <div class="hidden lg:flex absolute right-20 bottom-0 flex-row">
+          <div class="flex flex-row self-end mt-2 mb-5">
+            <p class="mr-2 text-primary-50">powered by</p>
+            <img :src="balancerLogo" />
+          </div>
+          <img :src="buildings3d" />
+        </div>
       </div>
     </div>
   </div>

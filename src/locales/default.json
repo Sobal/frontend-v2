@@ -12,6 +12,7 @@
     "enterAppShort": "Enter",
     "documentation": "Documentation",
     "readDocs": "Read the Docs",
+    "readDevDocs": "Docs for Developers",
     "hero": {
       "title": "Discover Powerful DeFi Opportunities.",
       "vol": "Vol(24h)",
@@ -19,9 +20,8 @@
       "tvl": "TVL"
     },
     "info": {
-      "improvingEco": {
-        "title": "Improving the ecosystem",
-        "description": "Discover the power of scalable, autonomous digital asset management and take back control of your financial journey."
+      "discoverEco": {
+        "title": "Discover the Sobal ecosystem"
       },
       "join": {
         "title": "Join the community",
