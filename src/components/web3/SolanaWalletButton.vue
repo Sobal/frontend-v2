@@ -27,9 +27,7 @@ const handleClick = async () => {
 };
 
 const isNotInstalled = computed(
-  () =>
-    props.walletState !== WalletReadyState.Installed &&
-    props.walletState !== WalletReadyState.Loadable
+  () => props.walletState !== WalletReadyState.Installed
 );
 
 watch(chosenWallet, async () => {
