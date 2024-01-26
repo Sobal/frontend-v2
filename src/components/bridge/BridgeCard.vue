@@ -10,6 +10,7 @@ import { useBridgeTokens } from '@/providers/bridge-tokens.provider';
 import { useTokens } from '@/providers/tokens.provider';
 import { NeonProxyRpcApi } from '@/composables/bridge/classes/api';
 import { configService } from '@/services/config/config.service';
+import { WalletReadyState } from '@solana/wallet-adapter-base';
 
 /**
  * STATE
@@ -67,9 +68,16 @@ const {
 const { bridgeBalanceFor, getToken } = useBridgeTokens();
 const { balanceFor } = useTokens();
 
-const showConnectWalletModal = () => {
-  if (chosenWallet.value) connect();
-  else if (!isConnected.value) toggleSolanaWalletSelectModal(true);
+const showConnectWalletModal = async () => {
+  if (
+    chosenWallet.value &&
+    chosenWallet.value.readyState === WalletReadyState.Installed
+  )
+    connect();
+  else if (!isConnected.value) {
+    await disconnect();
+    toggleSolanaWalletSelectModal(true);
+  }
 };
 
 const handleConnectWallet = (walletType: WalletType) => {
