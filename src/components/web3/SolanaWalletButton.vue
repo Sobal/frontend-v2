@@ -18,6 +18,7 @@ const {
   select,
   chosenWallet,
   isConnected,
+  disconnect,
   toggleSolanaWalletSelectModal,
 } = useWeb3Solana();
 
@@ -27,12 +28,17 @@ const handleClick = async () => {
 };
 
 const isNotInstalled = computed(
-  () => props.walletState !== WalletReadyState.Installed
+  () => props.walletState === WalletReadyState.NotDetected
+);
+
+const unSupported = computed(
+  () => props.walletState === WalletReadyState.Unsupported
 );
 
 watch(chosenWallet, async () => {
   if (chosenWallet.value && isConnected) {
-    await connect().catch(() => {
+    await connect().catch(async () => {
+      await disconnect();
       console.log('Failed to connect');
     });
     toggleSolanaWalletSelectModal(false);
@@ -41,18 +47,18 @@ watch(chosenWallet, async () => {
 </script>
 
 <template>
-  <button
-    class="wallet-connect-btn-solana"
-    :disabled="isNotInstalled"
-    @click="handleClick"
-  >
+  <button class="wallet-connect-btn-solana" @click="handleClick">
     <div class="flex items-center w-full">
       <img :src="`${wallet.icon}`" class="mr-4 w-10 h-10" />
       <h5
         class="flex justify-between w-full text-base text-gray-700 dark:text-white"
       >
         <span class="capitalize">{{ wallet.name }}</span>
-        <span v-if="isNotInstalled" class="text-gray-400">not installed</span>
+        <span
+          v-if="isNotInstalled || unSupported"
+          class="p-1 text-xs bg-gray-800 rounded"
+          >{{ isNotInstalled ? $t('notInstalled') : $t('unsupported') }}</span
+        >
       </h5>
     </div>
   </button>
@@ -61,7 +67,7 @@ watch(chosenWallet, async () => {
 
 <style scoped>
 .wallet-connect-btn-solana {
-  @apply transition-all;
+  @apply transition-all duration-200;
   @apply bg-white dark:bg-gray-850 hover:bg-gray-50 dark:hover:bg-gray-800;
   @apply border dark:border-gray-900;
   @apply p-4 flex justify-start items-center w-full h-14 rounded-md mb-3 shadow-lg;
