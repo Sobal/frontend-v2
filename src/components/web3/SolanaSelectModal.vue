@@ -25,6 +25,7 @@ const { allowedWallets } = useWeb3Solana();
       v-for="wallet in allowedWallets"
       :key="wallet.adapter.name"
       :wallet="wallet.adapter"
+      :walletState="wallet.readyState"
     />
   </BalModal>
 </template>

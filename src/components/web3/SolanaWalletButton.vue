@@ -1,10 +1,14 @@
 <script lang="ts" setup>
-import { WalletAdapterProps } from '@solana/wallet-adapter-base';
+import {
+  WalletAdapterProps,
+  WalletReadyState,
+} from '@solana/wallet-adapter-base';
 import useWeb3Solana from '@/services/web3/useWeb3Solana';
 import { watch } from 'vue';
 
 interface Props {
   wallet: WalletAdapterProps;
+  walletState: WalletReadyState;
 }
 
 const props = defineProps<Props>();
@@ -19,7 +23,14 @@ const {
 
 const handleClick = async () => {
   select(props.wallet.name);
+  toggleSolanaWalletSelectModal();
 };
+
+const isNotInstalled = computed(
+  () =>
+    props.walletState !== WalletReadyState.Installed &&
+    props.walletState !== WalletReadyState.Loadable
+);
 
 watch(chosenWallet, async () => {
   if (chosenWallet.value && isConnected) {
@@ -32,11 +43,18 @@ watch(chosenWallet, async () => {
 </script>
 
 <template>
-  <button class="wallet-connect-btn-solana" @click="handleClick">
-    <div class="flex items-center" style="width: 70%">
+  <button
+    class="wallet-connect-btn-solana"
+    :disabled="isNotInstalled"
+    @click="handleClick"
+  >
+    <div class="flex items-center w-full">
       <img :src="`${wallet.icon}`" class="mr-4 w-10 h-10" />
-      <h5 class="text-base text-gray-700 dark:text-white">
+      <h5
+        class="flex justify-between w-full text-base text-gray-700 dark:text-white"
+      >
         <span class="capitalize">{{ wallet.name }}</span>
+        <span v-if="isNotInstalled" class="text-gray-400">not installed</span>
       </h5>
     </div>
   </button>
