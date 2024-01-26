@@ -49,7 +49,10 @@ export class PriceService {
 
       const now = Math.floor(Date.now() / 1000);
       const end =
-        aggregateBy === 'hour' ? now : now - (now % twentyFourHoursInSecs);
+        aggregateBy === 'hour'
+          ? // get timestamp at end of day / midnight to allow for request caching
+            now + 1 * twentyFourHoursInSecs - (now % twentyFourHoursInSecs)
+          : now - (now % twentyFourHoursInSecs);
       const start = end - days * twentyFourHoursInSecs;
 
       addresses = addresses

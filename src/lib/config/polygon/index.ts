@@ -20,6 +20,7 @@ const config: Config = {
   trustWalletNetwork: 'polygon',
   unknown: false,
   visibleInUI: false,
+  showLatestArticles: false,
   testNetwork: false,
   rpc: `https://polygon-mainnet.infura.io/v3/${keys.infura}`,
   ws: `wss://polygon-mainnet.g.alchemy.com/v2/${keys.alchemy}`,
@@ -27,6 +28,7 @@ const config: Config = {
   explorer: 'https://polygonscan.com',
   explorerName: 'Polygonscan',
   analyticsUrl: '',
+  solanaRpc: '',
   subgraph:
     'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-polygon-prune-v2',
   balancerApi: 'https://api.sobal.fi',

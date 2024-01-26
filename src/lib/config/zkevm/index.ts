@@ -18,6 +18,7 @@ const config: Config = {
   trustWalletNetwork: 'polygonzkevm',
   unknown: false,
   visibleInUI: false,
+  showLatestArticles: false,
   testNetwork: false,
   rpc: `https://polygonzkevm-mainnet.g.alchemy.com/v2/${keys.alchemy}`,
   ws: ``,
@@ -29,6 +30,7 @@ const config: Config = {
     'https://api.studio.thegraph.com/query/24660/balancer-polygon-zk-v2/version/latest',
   balancerApi: 'https://api.sobal.fi',
   poolsUrlV2: '',
+  solanaRpc: '',
   subgraphs: {
     main: [
       'https://api.studio.thegraph.com/query/24660/balancer-polygon-zk-v2/version/latest',

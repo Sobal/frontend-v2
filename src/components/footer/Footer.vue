@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import IconDiscord from '@/components/icons/IconDiscord.vue';
 import IconGithub from '@/components/icons/IconGithub.vue';
-// import IconLinkedin from '@/components/icons/IconLinkedin.vue';
 import IconMail from '@/components/icons/IconMail.vue';
-// import IconMedium from '@/components/icons/IconMedium.vue';
+import IconMedium from '@/components/icons/IconMedium.vue';
 import IconTwitter from '@/components/icons/IconTwitter.vue';
+// import IconLinkedin from '@/components/icons/IconLinkedin.vue';
 // import IconYoutube from '@/components/icons/IconYoutube.vue';
 import { EXTERNAL_LINKS } from '@/constants/links';
 import { configService } from '@/services/config/config.service';
@@ -59,14 +59,6 @@ const bridgeUrl = computed((): string => {
                 {{ $t('swap') }}
               </router-link>
             </p>
-            <!-- <p>
-              <router-link
-                class="text-lg font-medium link"
-                :to="{ name: 'claim', params: { networkSlug } }"
-              >
-                {{ $t('claim') }}
-              </router-link>
-            </p> -->
             <p>
               <router-link
                 class="text-lg font-medium link"
@@ -98,6 +90,14 @@ const bridgeUrl = computed((): string => {
             <!-- <p>
               <router-link
                 class="text-lg font-medium link"
+                :to="{ name: 'claim', params: { networkSlug } }"
+              >
+                {{ $t('claim') }}
+              </router-link>
+            </p> -->
+            <!-- <p>
+              <router-link
+                class="text-lg font-medium link"
                 :to="{ name: 'vebal', params: { networkSlug } }"
               >
                 {{ $t('vebal') }}
@@ -107,17 +107,17 @@ const bridgeUrl = computed((): string => {
 
           <div class="flex flex-wrap md:order-3 gap-3 md:gap-4">
             <BalLink
-              :href="EXTERNAL_LINKS.Balancer.Home"
+              :href="EXTERNAL_LINKS.Sobal.Home"
               external
               noStyle
               class="group link link--external"
             >
-              {{ $t('about') }}
+              {{ $t('home') }}
               <BalIcon name="arrow-up-right" size="sm" class="arrow" />
             </BalLink>
 
             <BalLink
-              :href="EXTERNAL_LINKS.Balancer.Docs"
+              :href="EXTERNAL_LINKS.Sobal.Docs"
               external
               noStyle
               class="group link link--external"
@@ -126,18 +126,8 @@ const bridgeUrl = computed((): string => {
               <BalIcon name="arrow-up-right" size="sm" class="arrow" />
             </BalLink>
 
-            <!-- <BalLink
-              :href="EXTERNAL_LINKS.Balancer.Forum"
-              external
-              noStyle
-              class="group link link--external"
-            >
-              {{ $t('forum') }}
-              <BalIcon name="arrow-up-right" size="sm" class="arrow" />
-            </BalLink> -->
-
             <BalLink
-              :href="EXTERNAL_LINKS.Balancer.Vote"
+              :href="EXTERNAL_LINKS.Sobal.Vote"
               external
               noStyle
               class="group link link--external"
@@ -147,7 +137,17 @@ const bridgeUrl = computed((): string => {
             </BalLink>
 
             <!-- <BalLink
-              :href="EXTERNAL_LINKS.Balancer.Grants"
+              :href="EXTERNAL_LINKS.Sobal.Forum"
+              external
+              noStyle
+              class="group link link--external"
+            >
+              {{ $t('forum') }}
+              <BalIcon name="arrow-up-right" size="sm" class="arrow" />
+            </BalLink> -->
+
+            <!-- <BalLink
+              :href="EXTERNAL_LINKS.Sobal.Grants"
               external
               noStyle
               class="group link link--external"
@@ -157,7 +157,7 @@ const bridgeUrl = computed((): string => {
             </BalLink> -->
 
             <!-- <BalLink
-              :href="EXTERNAL_LINKS.Balancer.BugBounty"
+              :href="EXTERNAL_LINKS.Sobal.BugBounty"
               external
               noStyle
               class="group link link--external"
@@ -167,7 +167,7 @@ const bridgeUrl = computed((): string => {
             </BalLink> -->
 
             <!-- <BalLink
-              :href="EXTERNAL_LINKS.Balancer.Analytics"
+              :href="EXTERNAL_LINKS.Sobal.Analytics"
               external
               noStyle
               class="group link link--external"
@@ -182,54 +182,54 @@ const bridgeUrl = computed((): string => {
             <div class="flex lg:flex-col md:justify-end">
               <div class="flex gap-3 md:justify-end">
                 <BalLink
-                  :href="EXTERNAL_LINKS.Balancer.Social.Twitter"
+                  :href="EXTERNAL_LINKS.Sobal.Social.Twitter"
                   external
                   noStyle
                 >
                   <IconTwitter />
                 </BalLink>
                 <BalLink
-                  :href="EXTERNAL_LINKS.Balancer.Social.Discord"
+                  :href="EXTERNAL_LINKS.Sobal.Social.Discord"
                   external
                   noStyle
                 >
                   <IconDiscord />
                 </BalLink>
-                <!-- <BalLink
-                  :href="EXTERNAL_LINKS.Balancer.Social.Medium"
+                <BalLink
+                  :href="EXTERNAL_LINKS.Sobal.Social.Medium"
                   external
                   noStyle
                 >
                   <IconMedium />
-                </BalLink> -->
-                <!-- <BalLink
-                  :href="EXTERNAL_LINKS.Balancer.Social.Youtube"
-                  external
-                  noStyle
-                >
-                  <IconYoutube />
-                </BalLink> -->
+                </BalLink>
                 <BalLink
-                  :href="EXTERNAL_LINKS.Balancer.Social.Github"
+                  :href="EXTERNAL_LINKS.Sobal.Social.Github"
                   external
                   noStyle
                 >
                   <IconGithub />
                 </BalLink>
-                <!-- <BalLink
-                  :href="EXTERNAL_LINKS.Balancer.Social.Linkedin"
-                  external
-                  noStyle
-                >
-                  <IconLinkedin />
-                </BalLink> -->
                 <BalLink
-                  :href="EXTERNAL_LINKS.Balancer.Social.Mail"
+                  :href="EXTERNAL_LINKS.Sobal.Social.Mail"
                   external
                   noStyle
                 >
                   <IconMail />
                 </BalLink>
+                <!-- <BalLink
+                  :href="EXTERNAL_LINKS.Sobal.Social.Linkedin"
+                  external
+                  noStyle
+                >
+                  <IconLinkedin />
+                </BalLink> -->
+                <!-- <BalLink
+                  :href="EXTERNAL_LINKS.Sobal.Social.Youtube"
+                  external
+                  noStyle
+                >
+                  <IconYoutube />
+                </BalLink> -->
               </div>
             </div>
           </div>

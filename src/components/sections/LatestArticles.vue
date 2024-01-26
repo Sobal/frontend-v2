@@ -17,7 +17,7 @@ const featuredLatestArticles = [
     description:
       "You might be new to Sobal, so we've made a step by step guide to adding liquidity on Base, it's super simple!",
     linkText: 'Learn how in a few short steps',
-    imgSrc: '/images/banners/articles/adding-liquidity.svg',
+    imgSrc: '/images/banners/articles/adding-liquidity.png',
     link: 'https://blog.sobal.fi/guide-adding-liquidity-to-sobal-on-base-642590717ec1',
     forNetwork: 'base',
   },
@@ -26,7 +26,7 @@ const featuredLatestArticles = [
     description:
       "We're celebrating the launch of Sobal on Base by setting aside $10,000 in USDC to airdrop to users who use our platform during the month of August!",
     linkText: 'More about how to be eligible',
-    imgSrc: '/images/banners/articles/base.svg',
+    imgSrc: '/images/banners/articles/base.png',
     link: 'https://blog.sobal.fi/sobal-is-now-on-base-a2b4da61cbe0',
     forNetwork: 'base',
   },
@@ -35,7 +35,7 @@ const featuredLatestArticles = [
     description:
       "We wanted to make it easier for our new users, so we've put together a comprehensive guide to adding Liquidity to Sobal including bridging tokens from Solana and adding the Neon RPC to your wallet.",
     linkText: "Let's get started",
-    imgSrc: '/images/banners/articles/adding-liquidity.svg',
+    imgSrc: '/images/banners/articles/adding-liquidity.png',
     link: 'https://blog.sobal.fi/guide-adding-liquidity-to-sobal-d0a0e5b35d7d',
     forNetwork: 'neon-mainnet',
   },
@@ -44,7 +44,7 @@ const featuredLatestArticles = [
     description:
       "In order to celebrate the launch of Sobal on Neon EVM, we've allocated 400,000 NEON tokens to incentivize our NEON/USDC and NEON/SOL pools!",
     linkText: 'Read more about the program',
-    imgSrc: '/images/banners/articles/neon.svg',
+    imgSrc: '/images/banners/articles/neon.png',
     link: 'https://blog.sobal.fi/celebrating-the-launch-of-sobal-on-neon-evm-14f3be2b668',
     forNetwork: 'neon-mainnet',
   },

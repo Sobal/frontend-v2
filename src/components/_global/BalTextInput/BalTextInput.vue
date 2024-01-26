@@ -171,7 +171,7 @@ onMounted(() => {
 }
 
 .input {
-  @apply grow bg-transparent overflow-hidden w-full;
+  @apply grow bg-transparent overflow-hidden w-full font-robotic;
 }
 
 .label {

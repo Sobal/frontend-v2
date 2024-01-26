@@ -8,12 +8,14 @@ export default function useBreakpoints() {
   onUnmounted(() => window.removeEventListener('resize', onWidthChange));
 
   const bp = computed(() => {
+    // TODO - Variable Breakpoints for Safari and Chrome which are different PX
     if (windowWidth.value < 440) return 'xs';
     if (windowWidth.value < 640) return 'sm';
     if (windowWidth.value < 748) return 'md';
     if (windowWidth.value < 1024) return 'lg';
     if (windowWidth.value < 1280) return 'xl';
-    return '2xl';
+    if (windowWidth.value < 2048) return '2xl';
+    return '3xl';
   });
 
   const width = computed(() => windowWidth.value);
@@ -26,8 +28,12 @@ export default function useBreakpoints() {
     ['xs', 'sm', 'md'].includes(bp.value)
   );
 
+  const isNarrowMobile = computed(() => ['xs', 'sm'].includes(bp.value));
+
   const isMobile = computed(() => ['xs', 'sm', 'md', 'lg'].includes(bp.value));
-  const isDesktop = computed(() => ['xl', '2xl'].includes(bp.value));
+  const isDesktop = computed(() =>
+    ['xl', '2xl', '3xl', '4xl'].includes(bp.value)
+  );
 
   const upToSmallBreakpoint = computed(() => ['xs', 'sm'].includes(bp.value));
 
@@ -35,6 +41,7 @@ export default function useBreakpoints() {
     width,
     bp,
     isMobile,
+    isNarrowMobile,
     isDesktop,
     upToLargeBreakpoint,
     upToMediumBreakpoint,

@@ -31,7 +31,7 @@ export const FNumFormats: Record<string, FNumOptions> = {
   },
 };
 
-enum PresetFormats {
+export enum PresetFormats {
   default = '(0.[0]a)',
   default_lg = '(0.[0]a)',
   token = '0,0.[0000]',

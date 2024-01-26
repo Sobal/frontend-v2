@@ -1,4 +1,92 @@
 {
+  "solana": "Solana",
+  "landingNavBar": {
+    "invest": "Invest",
+    "trade": "Swap",
+    "portfolio": "Portfolio",
+    "bridge": "Bridge",
+    "joinCommunity": "Join the community"
+  },
+  "landing": {
+    "enterApp": "Enter App",
+    "enterAppShort": "Enter",
+    "documentation": "Documentation",
+    "readDocs": "Read the Docs",
+    "readDevDocs": "Docs for Developers",
+    "hero": {
+      "title": "Discover Powerful DeFi Opportunities.",
+      "vol": "Vol(24h)",
+      "fees": "Fees(24h)",
+      "tvl": "TVL"
+    },
+    "info": {
+      "discoverEco": {
+        "title": "Discover the Sobal ecosystem"
+      },
+      "join": {
+        "title": "Join the community",
+        "description": "Join our thriving discord community and get involved with our ever expanding projects."
+      },
+      "builders": {
+        "title": "Built for builders",
+        "description": "Sobal isn’t just a platform for users, it’s a comprehensive foundation for projects and teams to build upon, censorship free.",
+        "poweredBy": "powered by"
+      }
+    },
+    "pageCard": {
+      "swap": {
+        "title": "Swap",
+        "description": "Enjoy the best prices possible with the Sobal Smart Order Router which draws liquidity from crowdsourced pools.",
+        "button": "Swap Now"
+      },
+      "invest": {
+        "title": "Invest",
+        "description": "Reduce the risk of impermanent loss with weighted liquidity poools. Single sided deposits are avaliable in all pools.",
+        "button": "Invest now"
+      },
+      "bridge": {
+        "title": "Bridge",
+        "description": "Bridge your funds directly to Neon and experience all the benefits our ecosystem have to offer in tandem.",
+        "button": "Bridge now"
+      }
+    },
+    "infoCard": {
+      "stake": {
+        "title": "Stake",
+        "description": "Stake your Sobal for veSobal to enjoy increased rewards and be eligible to participate in Sobal governance.",
+        "button": "Stake now"
+      },
+      "bridging": {
+        "title": "Bridging",
+        "description": "Seamless bridging by utilising functionality directly implemented into the chains virtual machine.",
+        "button": "Bridge now"
+      },
+      "swapping": {
+        "title": "Swapping",
+        "description": "Enjoy a flexible and versatile AMM with custom token weights and swapping fees, liquidity pools that can operate on any price curve.",
+        "button": "Swap Tokens"
+      },
+      "launchToken": {
+        "title": "Launch a token",
+        "description": "Help combat the epidemic of unfair launches of projects though permissionless LBPs that puts the power back into the hands of the investors.",
+        "button": "Coming Soon"
+      },
+      "pools": {
+        "title": "Pools",
+        "description": "Discover the next generation of weighted liquidity pools, with up to 20 tokens in one vault whilst still allowing single sided deposits.",
+        "viewButton": "View pools",
+        "createButton": "+ Create pool"
+      },
+      "featured": {
+        "title": "Featured Pool",
+        "subtitle": "NEON/USDC"
+      },
+      "learnMore": {
+        "title": "Learn more about our products",
+        "description": "None of this is making sense? Read through our documentation for more information or jump into our socials and ask us directly."
+      }
+    }
+  },
   "about": "About",
   "accept": "Accept",
   "account": "Account",
@@ -24,6 +112,7 @@
   "alerts": {
     "allowances-fetch-error": "Failed to fetch token allowances.",
     "balances-fetch-error": "Failed to fetch token balances.",
+    "solana-balances-fetch-error": "Failed to fetch Solana token balances.",
     "pool-fetch-error": "Failed to fetch pool.",
     "pools-fetch-error": "Failed to fetch pools.",
     "price-fetch-error": "Our pricing provider is currently down.",
@@ -110,7 +199,17 @@
   "browserWallet": "Browser Wallet",
   "bugBounty": "Bug bounty",
   "bridge": "Bridge",
-  "builtOnBalancer": "Available on the Sobal Protocol",
+  "bridgeOn": "Bridge tokens on",
+  "bridgeCard": {
+    "title": "Bridge to",
+    "neonpass": "Seamless bridging in collaboration with",
+    "poweredBy": "Bridging powered directly by Neon EVM and Solana VM",
+    "warnings": {
+      "notSupported": "We do not support this network for bridging, please use the external service provider below.",
+      "noService": "This network does not have a bridge service."
+    }
+  },
+  "builtOnSobal": "Available on the Sobal Protocol",
   "boosted": "Boosted",
   "incentivized": "Incentivized",
   "boostedTooltip": "This pool has a Boosted Pool component. In addition to accumulating swap fees, Boosted pools also generate yield for LPs by lending excess liquidity to other yield generating DeFi protocols.",
@@ -171,6 +270,7 @@
   "clearForms": "Clear forms",
   "clearTransactions": "Clear transactions",
   "close": "Close",
+  "closeWindow": "Close Window",
   "coingeckoPricingTooltip": "The data for this graph is pulled from our pricing provider, CoinGecko.",
   "communitySwapFeeLabel": "Delegated swap fees; currently fixed: <span class='font-semibold'>{0}</span>",
   "composition": "Composition",
@@ -185,6 +285,8 @@
   "connecting": "Connecting...",
   "connectWallet": "Connect wallet",
   "connectYourWallet": "Connect your wallet",
+  "connectWalletSolana": "Connect to a Solana wallet",
+  "walletDisconnected": "Wallet disconnected",
   "copied": "Copied!",
   "copperLaunchPromo": {
     "buttonLabel": "View this auction on Copper",
@@ -415,6 +517,7 @@
   "date": "Date",
   "day": "day",
   "defiLiquidityPools": "Liquidity pools",
+  "liquidityPoolsOn": "Liquidity pools on",
   "delegateFeesTooltip": "Liquidity providers in this pool earn fixed swap fees on every swap utilizing the liquidity in this pool. Control has been delegated to the community, so fees could change in the future if this pool becomes actively managed.",
   "depositing": "depositing",
   "details": "Details",
@@ -423,6 +526,7 @@
   "docs": "Docs",
   "earnings": "Earnings",
   "earnBAL": "Earn $BAL when swapping eligible tokens",
+  "ecosystem": "Ecosystem",
   "effectivePrice": "Effective price:",
   "enterAmount": "Enter amount",
   "enterAPrice": "Enter a price",
@@ -445,21 +549,9 @@
   "latestArticles": "Latest Articles",
   "featuredProtocols": {
     "title": "Featured ecosystem protocols",
-    "Copper": {
-      "description": "Fjord (formerly, “Copper Launch”) is a community platform that connects inspired projects with passionate supporters via the power of Liquidity Bootstrapping Pools (LBPs). Also check out their new fair launch NFT drop platform.",
-      "linkText": "Fjord Foundry website"
-    },
-    "Beets": {
-      "description": "Powered by Balancer technology, Beethoven X provides a composable liquidity base layer on Fantom and Optimism. From Boosted Pools to Maturity Adjusted fNFTs, the DEX offers a suite of powerful financial primitives.",
-      "linkText": "Beethoven X website"
-    },
-    "Xave": {
-      "description": "Xave Finance enables real time remittance transfers and high yield consumer savings for Fintechs, with capital efficient liquid FX markets (via custom FXPools) integrated with the Balancer Vault.",
-      "linkText": "Xave website"
-    },
-    "Gyroscope": {
-      "description": "Gyroscope is a new stablecoin that, like a physical gyroscope, aims to remain stable as the surrounding environment changes. Gyroscope AMMs—Concentrated Liquidity Pools (CLPs)—leverage Balancer's customizable AMM logic.",
-      "linkText": "Gyroscope website"
+    "Simpool": {
+      "description": "Simpool is a token launch platform that utilises Liquidity Bootstrapping Pools (LBPs), providing a fair entry for participation.",
+      "linkText": "Simpool website"
     }
   },
   "fees": "fees",
@@ -540,8 +632,8 @@
   "initialWeight": "Initial weight",
   "insufficientBalance": "Not enough funds",
   "insufficientBalanceDetailed": "This swap requires more funds than you have in your wallet.",
-  "insufficientData": "Not enough data.",
-  "insufficientLiquidity": "Not enough liquidity",
+  "insufficientData": "Failed to retrieve sufficient data for chart.",
+  "insufficientLiquidity": "Not enough liquidity for this trade",
   "insufficientLiquidityDetailed": "Try swapping with a smaller amount or check back when liquidity for this pool has increased.",
   "invalidFee": "Invalid fee",
   "invalidFeeExplain": "Please enter a valid fee between 0.0001% and 10%",
@@ -695,7 +787,7 @@
   "mustBeValidAddress": "This is not a valid Ethereum address",
   "myApr": "My APR",
   "myBalance": "My balance",
-  "myBalancerBalance": "My liquidity on Sobal",
+  "mySobalBalance": "Your portfolio on",
   "myBoost": "My boost",
   "myPortfolio": "My portfolio",
   "myShare": "My share",
@@ -706,8 +798,9 @@
   "namePlaceholder": "Name, symbol or contract address",
   "nativeTokens": "Native tokens",
   "network": "Network",
-  "networkMismatch": "Please switch to {0}",
+  "networkMismatch": "Wallet network mismatch. Please switch to {0}",
   "networkSelection": "Network selection",
+  "notInstalled": "not installed",
   "testnets": "Testnets",
   "poolDoesntExist": "Pool doesn't exist on",
   "new": "New",
@@ -730,7 +823,7 @@
   "noStakedInvestments": "You have no staked liquidity on {0}",
   "noNativeCurrency": "You’ll need some {0} for gas fees in order to transact on {1}.",
   "noNativeCurrencyEthereum": "You’ll need some {0} for gas fees in order to do most basic transactions on {1}. However, you may continue to swap any tokens you’ve previously approved for use on Sobal with this wallet, by using the ‘swap gasless’ option.",
-  "noPoolsFound": "No pools found",
+  "noPoolsFound": "Pools failed to load, please refresh page to retry",
   "noPriceImpact": "Best price",
   "noPriceImpactTip": "Adding tokens proportionally gets you the best price.",
   "noPriceInfo": "Price information is missing for this pool, since it contains a token not found by our price provider.",
@@ -860,6 +953,9 @@
   "poolManager": "Pool Manager",
   "poolManagement": "Pool management",
   "poolDetails": "Pool details",
+  "networkVol": "Volume 24h",
+  "networkFees": "Fees 24h",
+  "networkTvl": "TVL",
   "poolOwner": "Pool Owner",
   "delegateOwner": {
     "title": "Delegate owner",
@@ -922,6 +1018,7 @@
     "description": "The swap price has updated by more than {0}",
     "title": "Price updated"
   },
+  "privacy": "Privacy",
   "proceed": "Proceed",
   "profit": "Profit (1{0})",
   "proportionalSuggestion": "Proportional suggestion",
@@ -935,6 +1032,8 @@
   "recoveryMode": "Recovery mode",
   "recoveryModeDescription": "This pool is paused and in recovery mode. It does not pay protocol fees and the only available exit is proportional.",
   "redeem": "Redeem",
+  "refresh": "refresh",
+  "refreshing": "loading...",
   "requiresTransactions": "Requires 1 transaction | Requires {txCount} transactions",
   "restoring": "Restoring...",
   "returnToPool": "Return to pool page",
@@ -948,6 +1047,7 @@
   "seeV1BalancerInvestments": "Want to see your funds on Balancer V1?",
   "select": "Select",
   "selectToken": "Select token",
+  "selectTokenAbove": "Select token above",
   "sell": "Sell",
   "send": "Send",
   "services": {
@@ -997,6 +1097,7 @@
   "submit": "Submit",
   "summary": "Summary",
   "swap": "Swap",
+  "swapOn": "Swap tokens on",
   "swapDetails": "Swap details",
   "swapFee": "Swap fee",
   "swapFees": "Swap fees",
@@ -1004,6 +1105,7 @@
   "swapFeeManager": "Swap fee manager",
   "swapper": "Swapper",
   "swapRoute": "Swap route",
+  "swapRouteOnInput": "Swap route will display once an input has been made",
   "swapException": "Failed to submit ({0}) swap transaction.",
   "switchNetwork": "Switch network",
   "symbol": "Symbol",
@@ -1500,6 +1602,7 @@
     "increaseLock": "Increase lock",
     "unlock": "Unlock",
     "sync": "Sync",
+    "bridgeTokens": "Bridge",
     "userGaugeCheckpoint": "Pool gauge veBAL update"
   },
   "transactionDeadline": "Transaction deadline",
@@ -1570,6 +1673,7 @@
   "unlock": "Unlock",
   "unlocked": "Unlocked",
   "unlocking": "Unlocking",
+  "unsupported": "browser unsupported",
   "unstake": "Unstake",
   "unstaked": "Unstaked",
   "restake": "Restake",
@@ -1632,6 +1736,11 @@
       "SINGLE_ASSET_WITHDRAWAL_MIN_BPT_LIMIT": "You can only withdraw 30% of the pool's value in single asset withdrawals"
     }
   },
+  "bridgeModal": {
+    "title": "Bridging Preview",
+    "transferringDetail": "You are now transferring {0} {1} from {2} to {3}.",
+    "confirmNotice": "Please confirm the amounts and destination before continuing."
+  },
   "youProvide": "You provide",
   "youReceive": "You receive",
   "withdrawal": "Withdrawal",
@@ -1652,6 +1761,7 @@
   "yourBalanceInPool": "Your balance in this pool",
   "chooseAPair": "Please select a valid pair",
   "youCanAdd": "You can add",
+  "inThePast": "in the past",
   "poolChart": {
     "defaultTitle": {
       "tvl": "Current TVL"

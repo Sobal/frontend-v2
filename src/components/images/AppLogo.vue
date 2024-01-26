@@ -7,6 +7,17 @@ import useTailwind from '@/composables/useTailwind';
  */
 type Props = {
   forceDark?: boolean;
+  location?: string;
+};
+
+const width = {
+  sidebar: '190',
+  landing: '100',
+};
+
+const height = {
+  sidebar: '55',
+  landing: '29',
 };
 
 /**
@@ -35,16 +46,22 @@ const fillColor = computed(() => {
 </script>
 
 <template>
-  <div class="flex items-center sm:mr-4 app-logo">
+  <div
+    class="flex items-center app-logo"
+    :class="{
+      'sm:mr-4': location !== 'landing',
+      'sm:mr-2': location === 'landing',
+    }"
+  >
     <svg
       id="logo"
-      width="69"
-      height="20"
       viewBox="0 0 69 20"
       xmlns="http://www.w3.org/2000/svg"
       aria-labelledby="logoTitle logoDesc"
       role="img"
       class="logo-svg"
+      :width="location ? width[location] : '69'"
+      :height="location ? height[location] : '20'"
     >
       <title id="logoTitle">Sobal Home</title>
       <desc id="logoDesc">Sobal Home</desc>

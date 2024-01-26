@@ -133,18 +133,21 @@
           </div>
         </Transition>
       </div>
-      <SwapRoute
-        v-if="alwaysShowRoutes"
-        :addressIn="swapping.tokenIn.value.address"
-        :amountIn="swapping.tokenInAmountInput.value"
-        :addressOut="swapping.tokenOut.value.address"
-        :amountOut="swapping.tokenOutAmountInput.value"
-        :pools="pools"
-        :sorReturn="swapping.sor.sorReturn.value"
-        class="mt-4"
-      />
     </div>
   </BalCard>
+  <SafeTeleport to="#route-card">
+    <SwapRoute
+      v-if="alwaysShowRoutes"
+      :addressIn="swapping.tokenIn.value.address"
+      :amountIn="swapping.tokenInAmountInput.value"
+      :addressOut="swapping.tokenOut.value.address"
+      :amountOut="swapping.tokenOutAmountInput.value"
+      :pools="pools"
+      :sorReturn="swapping.sor.sorReturn.value"
+      class="mt-4"
+      hideContainer
+    />
+  </SafeTeleport>
   <teleport to="#modal">
     <SwapPreviewModal
       v-if="modalSwapPreviewIsOpen"
@@ -215,7 +218,7 @@ export default defineComponent({
     const dismissedErrors = ref({
       highPriceImpact: false,
     });
-    const alwaysShowRoutes = lsGet('alwaysShowRoutes', false);
+    const alwaysShowRoutes = lsGet('alwaysShowRoutes', true);
     const swapCardShadow = computed(() => {
       switch (bp.value) {
         case 'xs':

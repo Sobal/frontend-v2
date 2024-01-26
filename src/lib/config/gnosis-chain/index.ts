@@ -19,6 +19,7 @@ const config: Config = {
   trustWalletNetwork: 'xdai',
   unknown: false,
   visibleInUI: false,
+  showLatestArticles: false,
   testNetwork: false,
   rpc: 'https://rpc.gnosischain.com',
   ws: 'wss://rpc.gnosischain.com/wss',
@@ -30,6 +31,7 @@ const config: Config = {
   subgraph:
     'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-gnosis-chain-v2',
   poolsUrlV2: '',
+  solanaRpc: '',
   subgraphs: {
     main: [
       'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-gnosis-chain-v2',

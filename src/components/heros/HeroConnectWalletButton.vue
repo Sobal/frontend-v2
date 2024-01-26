@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import useDarkMode from '@/composables/useDarkMode';
 import useFathom from '@/composables/useFathom';
 import useWeb3 from '@/services/web3/useWeb3';
 
@@ -8,7 +7,6 @@ import useWeb3 from '@/services/web3/useWeb3';
  */
 const { startConnectWithInjectedProvider } = useWeb3();
 const { trackGoal, Goals } = useFathom();
-const { darkMode } = useDarkMode();
 
 /**
  * METHODS
@@ -20,7 +18,10 @@ function onClickConnect() {
 </script>
 
 <template>
-  <BalBtn :color="darkMode ? 'blue' : 'white'" @click="onClickConnect">
-    {{ $t('connectWallet') }}
-  </BalBtn>
+  <div
+    class="text-3xl font-semibold text-center xl:text-left text-pink-400 cursor-pointer"
+    @click="onClickConnect"
+  >
+    {{ $t('walletDisconnected') }}
+  </div>
 </template>

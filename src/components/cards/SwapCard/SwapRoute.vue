@@ -21,6 +21,7 @@ interface Props {
   amountOut: string;
   pools: SubgraphPoolBase[];
   sorReturn: SorReturn;
+  hideContainer?: boolean;
 }
 
 interface Route {
@@ -227,6 +228,7 @@ function formatShare(share: number): string {
 <template>
   <BalCard v-if="routes.length > 0" shadow="none">
     <div
+      v-if="!hideContainer"
       class="flex items-center cursor-pointer text-secondary"
       @click="toggleVisibility"
     >
@@ -236,7 +238,7 @@ function formatShare(share: number): string {
       <BalIcon v-if="visible" name="chevron-up" size="sm" />
       <BalIcon v-else name="chevron-down" size="sm" />
     </div>
-    <div v-if="visible" class="mt-5">
+    <div v-if="visible || hideContainer" :class="[hideContainer ? '' : 'mt-5']">
       <div
         v-if="routes.length === 0"
         class="mt-5 text-sm text-secondary"

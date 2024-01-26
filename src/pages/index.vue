@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 
-import HomePageHero from '@/components/heros/HomePageHero.vue';
 import TokenSearchInput from '@/components/inputs/TokenSearchInput.vue';
 import FeaturedProtocols from '@/components/sections/FeaturedProtocols.vue';
 import LatestArticles from '@/components/sections/LatestArticles.vue';
@@ -14,6 +13,7 @@ import usePools from '@/composables/pools/usePools';
 import { lsGet, lsSet } from '@/lib/utils';
 import LS_KEYS from '@/constants/local-storage.keys';
 import { useIntersectionObserver } from '@vueuse/core';
+import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 
 const featuredProtocolsSentinel = ref<HTMLDivElement | null>(null);
 const isFeaturedVisible = ref(false);
@@ -50,9 +50,31 @@ const { pools, isLoading, poolsIsFetchingNextPage, loadMorePools } = usePools(
 );
 const { upToMediumBreakpoint } = useBreakpoints();
 const { networkSlug, networkConfig } = useNetwork();
+const { fNum } = useNumbers();
 
-const isPaginated = computed(() => pools.value.length >= 10);
+const isPaginated = computed(() => pools.value.length > 10);
 
+const totalLiquidity = computed(() => {
+  return pools.value.reduce((total, pool) => {
+    return total + Number(pool.totalLiquidity);
+  }, 0);
+});
+
+const tvl = computed(() => {
+  return fNum(totalLiquidity.value, FNumFormats.fiat);
+});
+
+const volumeSnapshot = computed(() => {
+  return pools.value.reduce((total, pool) => {
+    return total + Number(pool.volumeSnapshot);
+  }, 0);
+});
+
+const feesSnapshot = computed(() => {
+  return pools.value.reduce((total, pool) => {
+    return total + Number(pool.feesSnapshot);
+  }, 0);
+});
 /**
  * METHODS
  */
@@ -68,21 +90,65 @@ function onColumnSort(columnId: string) {
 
 <template>
   <div>
-    <HomePageHero />
-    <div class="xl:container xl:px-4 pt-10 md:pt-8 xl:mx-auto">
+    <div class="flex flex-col justify-between">
+      <h1 class="mt-5 xl:mt-0 font-light text-center xl:text-left">
+        {{ $t('liquidityPoolsOn') }}
+        <span class="font-medium">{{ networkConfig.chainName }}</span>
+      </h1>
+    </div>
+    <div class="xl:px-4 pt-10 md:pt-8 xl:mx-auto">
       <BalStack vertical>
         <div class="px-4 xl:px-0">
-          <div class="flex justify-between items-end mb-2">
-            <h3>
-              {{ networkConfig.chainName }}
-              <span class="lowercase">{{ $t('pools') }}</span>
-            </h3>
+          <div
+            class="flex place-self-center py-4 mx-auto mt-4 mb-4 dark:bg-gray-850 rounded-lg border border-gray-800 divide-x-2 divide-gray-800 text-md w-fit"
+          >
+            <div class="px-4 text-center">
+              {{ $t('networkTvl') }}
+              <span class="font-semibold text-blue-600"
+                ><BalIcon
+                  v-if="isLoading"
+                  name="refresh-cw"
+                  size="xs"
+                  :spin="isLoading"
+                /><span v-else>{{ tvl }}</span></span
+              >
+            </div>
+            <div class="px-4 text-center">
+              {{ $t('networkVol') }}
+              <span class="font-semibold text-blue-600"
+                ><BalIcon
+                  v-if="isLoading"
+                  name="refresh-cw"
+                  size="xs"
+                  :spin="isLoading"
+                /><span v-else>{{
+                  fNum(volumeSnapshot, FNumFormats.fiat)
+                }}</span></span
+              >
+            </div>
+            <div class="px-4 text-center">
+              {{ $t('networkFees') }}
+
+              <span class="font-semibold text-blue-600"
+                ><BalIcon
+                  v-if="isLoading"
+                  name="refresh-cw"
+                  size="xs"
+                  :spin="isLoading"
+                /><span v-else>{{
+                  fNum(feesSnapshot, FNumFormats.fiat)
+                }}</span></span
+              >
+            </div>
+          </div>
+          <div class="flex flex-col justify-between mb-2">
             <BalBtn
               v-if="upToMediumBreakpoint"
               color="blue"
               size="sm"
               outline
               :class="{ 'mt-4': upToMediumBreakpoint }"
+              class="w-full"
               @click="navigateToCreatePool"
             >
               {{ $t('createAPool.title') }}

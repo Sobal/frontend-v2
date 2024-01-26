@@ -24,6 +24,10 @@ export type TokenConstants = {
     input: string;
     output: string;
   };
+  FeaturedSwapTokens: {
+    input: string;
+    output: string;
+  };
   PriceChainMap?: Record<string, string>;
   DisableInternalBalanceWithdrawals?: string[];
   DoubleApprovalRequired?: string[];
@@ -78,6 +82,7 @@ export interface Config {
   shortName: string;
   monorepoName?: string;
   slug: string;
+  ensBatchContract?: string;
   network: string;
   trustWalletNetwork?: string;
   unknown: boolean;
@@ -98,14 +103,28 @@ export interface Config {
     blocks: string;
   };
   bridgeUrl: string;
+  bridgeUi?: boolean;
+  bridgeNativeTransferContract?: string;
   supportsEIP1559: boolean;
   supportsElementPools: boolean;
   showLatestArticles: boolean;
   supportsVeBalSync?: boolean;
   blockTime: number;
+  bridgeUnwrapOut?: string[];
   nativeAsset: {
     name: string;
     address: string;
+    address_spl?: string;
+    symbol: string;
+    decimals: number;
+    deeplinkId: string;
+    logoURI: string;
+    minTransactionBuffer: string;
+  };
+  solanaNativeAsset?: {
+    name: string;
+    address: string;
+    address_spl: string;
     symbol: string;
     decimals: number;
     deeplinkId: string;
@@ -125,11 +144,16 @@ export interface Config {
   pools: Pools;
   tokens: TokenConstants;
   keys: Keys;
+  solanaRpc: string;
+  solanaRpcName?: string;
+  solanaExplorer?: string;
+  solanaExplorerSuffix?: string;
+  solanaLegacy?: boolean;
   gauges: {
     type: number;
     weight: number;
   };
   tokenlists: TokenListURLMap;
   rateProviders: Record<string, Record<string, boolean>>;
-  analyticsUrlf: string;
+  analyticsUrl: string;
 }

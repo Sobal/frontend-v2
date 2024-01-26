@@ -202,7 +202,8 @@ export const wallets = () => {
 
       setTag('wallet', wallet);
       if (connector?.chainId.value) {
-        setTag('network', config[connector.chainId.value].network);
+        if (config[connector.chainId.value])
+          setTag('network', config[connector.chainId.value].network);
       }
 
       // listens to wallet/chain changed and disconnect events

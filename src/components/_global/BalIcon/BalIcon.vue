@@ -8,6 +8,9 @@ type Props = {
   name: string;
   size?: IconSize;
   filled?: boolean;
+  color?: string;
+  spin?: boolean;
+  bounce?: boolean;
 };
 
 /**
@@ -40,6 +43,9 @@ const iconSize = computed(() => {
 
 const fill = computed(() => (props.filled ? 'currentColor' : 'none'));
 
+const spinClass = computed(() => (props.spin ? 'animate-spin' : ''));
+const bounceClass = computed(() => (props.bounce ? 'animate-bounce' : ''));
+
 /**
  * LIFECYCLE
  */
@@ -50,7 +56,13 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="inline-block bal-icon">
-    <i :data-feather="name" :width="iconSize" :height="iconSize" :fill="fill" />
+  <div class="inline-block bal-icon" :class="[spinClass, bounceClass]">
+    <i
+      :data-feather="name"
+      :width="iconSize"
+      :height="iconSize"
+      :fill="fill"
+      :color="color"
+    />
   </div>
 </template>

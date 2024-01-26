@@ -3,7 +3,6 @@ import { computed, ref, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useI18n } from 'vue-i18n';
-import useBreakpoints from '@/composables/useBreakpoints';
 import useNetwork from '@/composables/useNetwork';
 import useNotifications from '@/composables/useNotifications';
 import useWeb3 from '@/services/web3/useWeb3';
@@ -12,6 +11,7 @@ import config from '@/lib/config';
 import { Config } from '@/lib/config/types';
 import { buildNetworkIconURL } from '@/lib/utils/urls';
 import { hardRedirectTo } from '@/plugins/router/nav-guards';
+import useBreakpoints from '@/composables/useBreakpoints';
 
 export interface NetworkOption {
   id: string;
@@ -21,13 +21,29 @@ export interface NetworkOption {
   testNetwork: boolean;
 }
 
+type Props = {
+  hideLabel?: boolean;
+  alignMenu?: string;
+  noBg?: boolean;
+  noPadding?: boolean;
+  size?: number;
+};
+
+withDefaults(defineProps<Props>(), {
+  alignMenu: 'right',
+  hideLabel: false,
+  noBg: false,
+  noPadding: false,
+  size: 22,
+});
+
 // COMPOSABLES
-const { upToLargeBreakpoint } = useBreakpoints();
 const { networkId, networkConfig } = useNetwork();
 const { chainId } = useWeb3();
 const router = useRouter();
 const { addNotification } = useNotifications();
 const { t } = useI18n();
+const { isNarrowMobile } = useBreakpoints();
 
 function convertConfigToNetworkOption(config: Config): NetworkOption {
   return {
@@ -73,7 +89,7 @@ onMounted(async () => {
       title: '',
       message: `${t('poolDoesntExist')} ${networkConfig.chainName}`,
     });
-    router.replace({ query: {} });
+    router.replace({ name: 'home', query: {} });
   }
 });
 
@@ -107,6 +123,7 @@ function getNetworkChangeUrl(network: NetworkOption): string {
   }
 
   const currentRoute = router.currentRoute.value;
+
   return router.resolve({
     name: currentRoute.name ?? 'home',
     params: { ...currentRoute.params, networkSlug: network.networkSlug },
@@ -121,23 +138,37 @@ function isActive(network: NetworkOption): boolean {
 </script>
 
 <template>
-  <BalPopover noPad>
+  <BalPopover
+    :noPad="!isNarrowMobile"
+    :fullscreen="isNarrowMobile"
+    :align="alignMenu"
+  >
     <template #activator>
-      <BalBtn color="white" :size="upToLargeBreakpoint ? 'md' : 'sm'">
-        <template v-if="activeNetwork">
-          <img
-            :src="buildNetworkIconURL(activeNetwork.id)"
-            :alt="activeNetwork.name"
-            class="w-6 h-6 rounded-full"
-          />
-          <span class="ml-2">
-            {{ activeNetwork.name }}
-          </span>
-          <BalIcon name="chevron-down" size="sm" class="ml-2" />
-        </template>
-      </BalBtn>
+      <div class="flex flex-row place-items-center">
+        <BalBtn
+          :color="noBg ? 'transparent' : 'white'"
+          :size="noPadding ? 'base-noPad' : 'md'"
+          circle
+        >
+          <template v-if="activeNetwork">
+            <img
+              :src="buildNetworkIconURL(activeNetwork.id)"
+              :alt="activeNetwork.name"
+              :class="`rounded-full h-[${size}px] w-[${size}px]`"
+            />
+          </template>
+        </BalBtn>
+        <BalIcon name="chevron-down" size="sm" :color="noBg ? 'white' : ''" />
+        <span v-if="!hideLabel && activeNetwork" class="hidden lg:block ml-1">
+          {{ activeNetwork.name }}
+        </span>
+      </div>
     </template>
-    <div role="menu" class="flex overflow-hidden flex-col w-52 rounded-lg">
+    <div
+      role="menu"
+      class="flex overflow-hidden flex-col rounded-lg"
+      :class="[{ 'w-52': !isNarrowMobile }]"
+    >
       <div
         class="py-2 px-3 text-sm font-medium text-gray-500 whitespace-nowrap bg-gray-50 dark:bg-gray-800 border-b dark:border-gray-900"
       >

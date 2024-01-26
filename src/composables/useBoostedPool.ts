@@ -72,8 +72,4 @@ export const boostedProtocolIconPaths: Record<BoostedProtocol, string> = {
     '@/assets/images/icons/protocols/0vix.svg',
     import.meta.url
   ).href,
-  [BoostedProtocol.NeonIncentivised]: new URL(
-    '@/assets/images/icons/protocols/neon.svg',
-    import.meta.url
-  ).href,
 };

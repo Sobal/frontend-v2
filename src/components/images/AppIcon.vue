@@ -8,6 +8,7 @@ import useDarkMode from '@/composables/useDarkMode';
  */
 type Props = {
   forceDark?: boolean;
+  landing?: boolean;
 };
 
 /**
@@ -15,6 +16,7 @@ type Props = {
  */
 const props = withDefaults(defineProps<Props>(), {
   forceDark: false,
+  landing: false,
 });
 
 /**
@@ -33,7 +35,7 @@ const useDarkLogo = computed(() => (props.forceDark ? true : darkMode.value));
     v-if="useDarkLogo"
     src="~@/assets/images/logo-dark.svg"
     width="30"
-    class="mr-2"
+    :class="{ 'mr-2': !landing }"
   />
   <img v-else src="~@/assets/images/logo-light.svg" width="30" class="mr-2" />
 </template>
