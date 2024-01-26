@@ -30,7 +30,7 @@ const config: Config = {
   poolsUrlV2: '',
   solanaRpc:
     'https://devnet.helius-rpc.com/?api-key=804a681b-735c-4970-bbcc-b64e84575d24',
-  solanaRpcName: 'devnet',
+  solanaRpcName: 'Devnet',
   bridgeUi: true,
   subgraphs: {
     main: ['https://ch2-graph.neontest.xyz/subgraphs/name/sobal/sobal-pools'],
