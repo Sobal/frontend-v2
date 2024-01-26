@@ -7,7 +7,7 @@ import { buildNetworkIconURL } from '@/lib/utils/urls';
 import { WalletType, WalletTypes } from '@/types/wallet';
 import { useTokens } from '@/providers/tokens.provider';
 import { useBridgeTokens } from '@/providers/bridge-tokens.provider';
-import solanaLogo from '@/assets/images/landing/thirdPartyLogos/solana_wallet_logo.svg';
+import solanaLogo from '@/assets/images/icons/networks/solana.svg';
 import { shorten, sleep } from '@/lib/utils';
 import { bridgeToken } from '@/composables/bridge/useBridge';
 import useWeb3 from '@/services/web3/useWeb3';
