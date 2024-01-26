@@ -29,6 +29,8 @@ const config: Config = {
   balancerApi: 'https://api.sobal.fi',
   poolsUrlV2: '',
   solanaRpc:
+    'https://devnet.helius-rpc.com/?api-key=804a681b-735c-4970-bbcc-b64e84575d24',
+  solanaWss:
     'wss://devnet.helius-rpc.com/?api-key=804a681b-735c-4970-bbcc-b64e84575d24',
   solanaRpcName: 'devnet',
   bridgeUi: true,

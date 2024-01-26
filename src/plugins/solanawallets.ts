@@ -11,11 +11,11 @@ import {
 import { configService } from '@/services/config/config.service';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 
-const solanaRpcUrl = configService.network.solanaRpc;
+const solanaWssUrl = configService.network.solanaWss;
 const solanaRpcName = configService.network.solanaRpcName;
 
 export const SolanaWalletOptions =
-  solanaRpcUrl && solanaRpcName
+  solanaWssUrl && solanaRpcName
     ? {
         wallets: [
           new PhantomWalletAdapter(),
@@ -29,7 +29,7 @@ export const SolanaWalletOptions =
           new WalletConnectWalletAdapter({
             network: WalletAdapterNetwork[solanaRpcName],
             options: {
-              relayUrl: solanaRpcUrl,
+              relayUrl: solanaWssUrl,
               projectId: '96ec07ab805a6abb425fb22135bd41a1',
               metadata: {
                 name: 'Sobal',

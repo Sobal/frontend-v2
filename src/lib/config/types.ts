@@ -145,6 +145,7 @@ export interface Config {
   tokens: TokenConstants;
   keys: Keys;
   solanaRpc: string;
+  solanaWss?: string;
   solanaRpcName?: string;
   solanaExplorer?: string;
   solanaExplorerSuffix?: string;
