@@ -4,7 +4,7 @@ import { shorten } from '@/lib/utils';
 import { configService } from '@/services/config/config.service';
 import { buildNetworkIconURL } from '@/lib/utils/urls';
 
-import solanaLogo from '@/assets/images/landing/thirdPartyLogos/solana_wallet_logo.svg';
+import solanaLogo from '@/assets/images/icons/networks/solana.svg';
 
 const { network } = configService;
 
