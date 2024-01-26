@@ -285,6 +285,7 @@
   "connecting": "Connecting...",
   "connectWallet": "Connect wallet",
   "connectYourWallet": "Connect your wallet",
+  "connectWalletSolana": "Connect to a Solana wallet",
   "walletDisconnected": "Wallet disconnected",
   "copied": "Copied!",
   "copperLaunchPromo": {
@@ -799,6 +800,7 @@
   "network": "Network",
   "networkMismatch": "Wallet network mismatch. Please switch to {0}",
   "networkSelection": "Network selection",
+  "notInstalled": "not installed",
   "testnets": "Testnets",
   "poolDoesntExist": "Pool doesn't exist on",
   "new": "New",
@@ -1671,6 +1673,7 @@
   "unlock": "Unlock",
   "unlocked": "Unlocked",
   "unlocking": "Unlocking",
+  "unsupported": "browser unsupported",
   "unstake": "Unstake",
   "unstaked": "Unstaked",
   "restake": "Restake",
