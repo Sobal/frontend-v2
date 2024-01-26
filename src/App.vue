@@ -116,6 +116,7 @@ watch(route, newRoute => {
     <component :is="Layouts[layout]" />
     <SolanaSelectModal
       :isVisible="isSolanaWalletSelectVisible"
+      :onShowThirdParty="() => handleThirdPartyModalToggle(true)"
       @close="toggleSolanaWalletSelectModal"
     />
     <WalletSelectModal
