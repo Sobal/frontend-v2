@@ -136,7 +136,8 @@ defineExpose({ hide });
 }
 
 /* Overlay animation */
-.overlay-enter-active,
+
+/* .overlay-enter-active, */
 .overlay-leave-active {
   transition: all 0.2s ease-in-out;
 }
@@ -147,8 +148,8 @@ defineExpose({ hide });
 }
 
 /* Modal animation */
-.modal-enter-active,
-.modal-leave-active {
+.modal-enter-active
+/* .modal-leave-active */ {
   transition: all 0.2s ease-out;
 }
 
