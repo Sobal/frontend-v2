@@ -1,6 +1,10 @@
 import {
   PhantomWalletAdapter,
   SolflareWalletAdapter,
+  LedgerWalletAdapter,
+  CoinbaseWalletAdapter,
+  TrustWalletAdapter,
+  TorusWalletAdapter,
   // WalletConnectWalletAdapter,
 } from '@solana/wallet-adapter-wallets';
 
@@ -15,6 +19,10 @@ export const SolanaWalletOptions =
     ? {
         wallets: [
           new PhantomWalletAdapter(),
+          new LedgerWalletAdapter(),
+          new CoinbaseWalletAdapter(),
+          new TrustWalletAdapter(),
+          new TorusWalletAdapter(),
           new SolflareWalletAdapter({
             network: WalletAdapterNetwork[solanaRpcName],
           }),
@@ -36,7 +44,6 @@ export const SolanaWalletOptions =
           //   },
           // }),
         ],
-
-        autoConnect: true,
+        autoConnect: false,
       }
     : {};
