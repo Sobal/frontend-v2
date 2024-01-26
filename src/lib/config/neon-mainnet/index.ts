@@ -37,8 +37,6 @@ const config: Config = {
   bridgeUrl: 'https://neonpass.live',
   solanaRpc:
     'https://mainnet.helius-rpc.com/?api-key=804a681b-735c-4970-bbcc-b64e84575d24',
-  solanaWss:
-    'wss://mainnet.helius-rpc.com/?api-key=804a681b-735c-4970-bbcc-b64e84575d24',
   solanaRpcName: 'mainnet-beta',
   solanaExplorer: 'https://solscan.io',
   solanaExplorerSuffix: '',
