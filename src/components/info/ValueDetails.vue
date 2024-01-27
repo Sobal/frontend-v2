@@ -15,7 +15,10 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="flex flex-col xl:flex-row place-items-center px-2">
+  <div
+    v-if="value > 10"
+    class="flex flex-col xl:flex-row place-items-center px-2"
+  >
     <span class="pr-1 font-semibold text-white h-fit">{{ label }}</span>
     <span class="font-semibold text-blue-700 text-md h-fit">{{
       numeral(fNum(value)).format(PresetFormats[currencyFormatter])
