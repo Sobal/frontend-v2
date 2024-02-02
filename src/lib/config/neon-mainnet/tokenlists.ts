@@ -8,6 +8,7 @@ const tokenlists: TokenListURLMap = {
   External: [],
   Bridge: [
     'https://raw.githubusercontent.com/neonlabsorg/token-list/main/tokenlist.json',
+    'https://raw.githubusercontent.com/Sobal/tokenlists/main/manual/sobal-bridge.tokenlist.json',
   ],
 };
 
