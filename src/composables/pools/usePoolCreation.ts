@@ -522,7 +522,9 @@ export default function usePoolCreation() {
     for (const key of Object.keys(poolCreationState)) {
       if (key === 'activeStep') continue;
       if (key === 'seedTokens') {
-        const seedTokens = state['seedTokens'].filter(token => !!token.address);
+        const seedTokens = state['seedTokens'].filter(
+          token => !!token.tokenAddress
+        );
         poolCreationState['seedTokens'] = seedTokens;
         continue;
       }
