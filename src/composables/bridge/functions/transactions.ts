@@ -730,7 +730,11 @@ export async function simulateTransaction(
     console.log(res);
     throw new Error(
       `Transaction simulation failed: ${
-        res.error ? res.error.message : Object.keys(res.result.value.err)
+        res.error
+          ? res.error.message
+          : typeof res.result.value.err === 'string'
+          ? res.result.value.err
+          : Object.keys(res.result.value.err)
       }. Please try again later.`
     );
   }
