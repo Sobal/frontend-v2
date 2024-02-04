@@ -631,6 +631,7 @@
   "initialBPT": "Initial BPT",
   "initialWeight": "Initial weight",
   "insufficientBalance": "Not enough funds",
+  "insufficientBalanceSolana": "Solana account balance is too low.",
   "insufficientBalanceDetailed": "This swap requires more funds than you have in your wallet.",
   "insufficientData": "Failed to retrieve sufficient data for chart.",
   "insufficientLiquidity": "Not enough liquidity for this trade",
