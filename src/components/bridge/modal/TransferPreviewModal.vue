@@ -126,7 +126,8 @@ async function handleSubmit(state: TransactionActionState) {
       bridgeApiData.value,
       addTransaction,
       addNotificationForSolanaTransaction,
-      setButtonState
+      setButtonState,
+      t
     );
 
     state.init = false;

@@ -22,7 +22,6 @@ import { Signer } from '@ethersproject/abstract-signer';
 import { WalletAdapterProps } from '@solana/wallet-adapter-base';
 import { NeonProgramStatus } from './interfaces/api';
 import { NewTransaction, TransactionType } from '../useTransactions';
-import { useI18n } from 'vue-i18n';
 
 export async function bridgeToken(
   walletType: WalletType,
@@ -42,10 +41,10 @@ export async function bridgeToken(
     id: string,
     type: TransactionType
   ) => void,
-  setButtonState: (state: string) => void
+  setButtonState: (state: string) => void,
+  // TODO: Fix type of t
+  t: any
 ) {
-  const { t } = useI18n();
-
   if (!neonProxyStatus || !neonProxyApi) throw 'API not available';
 
   const solanaWallet = new PublicKey(publicKeyTrimmed);
