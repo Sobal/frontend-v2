@@ -285,6 +285,9 @@ export async function bridgeToken(
       // TX Type: EVM
       return signedNeonTransaction;
     } else {
+      const accountBalance = await connection.getBalance(solanaWallet);
+      if (accountBalance === 0) throw 'Solana account balance is too low';
+
       const associatedToken = getAssociatedTokenAddressSync(
         mintPubkey,
         solanaWallet
