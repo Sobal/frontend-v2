@@ -241,7 +241,11 @@ async function getApiData() {
       />
     </div>
     <teleport to="#modal">
-      <TransferPreviewModal v-if="showPreview" @close="showPreview = false" />
+      <TransferPreviewModal
+        v-if="showPreview"
+        :walletConnected="isWalletReady && isConnected"
+        @close="showPreview = false"
+      />
     </teleport>
   </div>
 </template>

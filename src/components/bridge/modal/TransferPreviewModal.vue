@@ -20,6 +20,12 @@ import useTransactions, {
 } from '@/composables/useTransactions';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 
+type Props = {
+  walletConnected: boolean;
+};
+
+defineProps<Props>();
+
 const {
   tokenInAddress,
   tokenInAmount,
@@ -270,7 +276,7 @@ const networkIcon = (walletType: WalletType): string => {
         currentActionState.confirming ||
         bridgeApiLoading
       "
-      :disabled="currentActionState.confirmed"
+      :disabled="currentActionState.confirmed || !walletConnected"
       :loadingLabel="
         bridgeApiLoading
           ? 'Loading API...'
@@ -280,7 +286,11 @@ const networkIcon = (walletType: WalletType): string => {
       "
       @click="handleSubmit(currentActionState)"
       >{{
-        currentActionState.confirmed ? 'Bridging completed' : 'Bridge Tokens'
+        !walletConnected
+          ? t('walletDisconnected')
+          : currentActionState.confirmed
+          ? 'Bridging completed'
+          : 'Bridge Tokens'
       }}</BalBtn
     >
   </BalModal>
