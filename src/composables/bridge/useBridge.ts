@@ -22,6 +22,7 @@ import { Signer } from '@ethersproject/abstract-signer';
 import { WalletAdapterProps } from '@solana/wallet-adapter-base';
 import { NeonProgramStatus } from './interfaces/api';
 import { NewTransaction, TransactionType } from '../useTransactions';
+import { useI18n } from 'vue-i18n';
 
 export async function bridgeToken(
   walletType: WalletType,
@@ -43,6 +44,8 @@ export async function bridgeToken(
   ) => void,
   setButtonState: (state: string) => void
 ) {
+  const { t } = useI18n();
+
   if (!neonProxyStatus || !neonProxyApi) throw 'API not available';
 
   const solanaWallet = new PublicKey(publicKeyTrimmed);
@@ -286,7 +289,7 @@ export async function bridgeToken(
       return signedNeonTransaction;
     } else {
       const accountBalance = await connection.getBalance(solanaWallet);
-      if (accountBalance === 0) throw 'Solana account balance is too low';
+      if (accountBalance === 0) throw t('insufficientBalanceSolana');
 
       const associatedToken = getAssociatedTokenAddressSync(
         mintPubkey,
