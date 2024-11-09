@@ -53,7 +53,7 @@ export class PriceService {
           ? // get timestamp at end of day / midnight to allow for request caching
             now + 1 * twentyFourHoursInSecs - (now % twentyFourHoursInSecs)
           : now - (now % twentyFourHoursInSecs);
-      const start = end - days * twentyFourHoursInSecs;
+      const start = end - (days <= 364 ? days : 364) * twentyFourHoursInSecs;
 
       addresses = addresses
         .map(getAddressFromPoolId)
