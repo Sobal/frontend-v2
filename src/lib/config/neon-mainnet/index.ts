@@ -23,16 +23,19 @@ const config: Config = {
   ws: ``,
   explorer: 'https://neonscan.org',
   explorerName: 'Neonscan',
-  subgraph: 'https://thegraph.neonevm.org/subgraphs/name/sobal/sobal-pools',
+  subgraph:
+    'https://thegraph-secured.neonevm.org/subgraphs/name/sobal/sobal-pools',
   balancerApi: 'https://api.sobal.fi',
   analyticsUrl: 'https://www.geckoterminal.com/neon-evm/sobal/pools',
   poolsUrlV2: '',
   subgraphs: {
-    main: ['https://thegraph.neonevm.org/subgraphs/name/sobal/sobal-pools'],
+    main: [
+      'https://thegraph-secured.neonevm.org/subgraphs/name/sobal/sobal-pools',
+    ],
     aave: '',
     gauge: '',
     blocks:
-      'https://thegraph.neonevm.org/subgraphs/name/sobal/sobal-neon-blocks',
+      'https://thegraph-secured.neonevm.org/subgraphs/name/sobal/sobal-neon-blocks',
   },
   blockTime: 4,
   bridgeUrl: 'https://neonpass.live',
